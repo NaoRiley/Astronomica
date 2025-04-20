@@ -13,7 +13,7 @@ Warlock - Gains 0.5 Score per hand played, Loses 0.5 Score per card discarded
 
 Facsimile - Copies ability of Joker to the left
 
-Centurio - Grants ability tp go infinitely into debt
+Centurio - Grants ability to go infinitely into debt
 
 Factoria - At end of round, Joker's XMult becomes XMult! (Factorial)
 
