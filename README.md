@@ -25,3 +25,6 @@ This mod currently only adds 7 Jokers, but in time, it will have MUCH more conte
 
 If you have any suggestions, complaints, fixes, etc. PLEASE come to me! i promise i'm approachable!
 You can contact me at the Cryptid Discord (https://discord.gg/cryptid) Or directly DMing me on discord (@naoriley)
+
+Special Thanks:
+superb_thing: ideas, art, sounds
