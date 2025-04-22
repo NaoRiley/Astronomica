@@ -4,9 +4,6 @@
 --- MOD_AUTHOR: [naoriley]
 --- MOD_DESCRIPTION: Extremely unbalanced Cryptid add-on which has no direct aim in mind, just trying to make silly stuff!
 --- PREFIX: ast
-----------------------------------------------
-------------MOD CODE -------------------------
-
 
 --Welcome to the source code for this mod! A few things:
 --Firstly, I do not know what i am doing. Modding is hard.
@@ -94,6 +91,17 @@ SMODS.Atlas{
 --     px = 71,
 --     py = 95
 -- }
+
+-----------------------------------------------------------------------MISC ATLASES-----------------------------------------------------------------------
+
+SMODS.Atlas{
+	key = 'blinds', --Boss Blinds
+	path = 'blinds.png',
+	atlas_table = 'ANIMATION_ATLAS',
+	frames = 21,
+	px = 34,
+	py = 34
+}
 
 -----------------------------------------------------------------------FUNCTIONS-----------------------------------------------------------------------
 
@@ -816,5 +824,33 @@ SMODS.Joker {
 --     pos = {x = 0, y = 0},
 -- }
 
-----------------------------------------------
-------------MOD CODE END----------------------
+-----------------------------------------------------------------------BLINDS-----------------------------------------------------------------------
+
+SMODS.Blind{
+    key = 'shard',
+    loc_txt = {
+        name = 'The Shard',
+        text = {
+            'Divides Score by',
+			'1.5 per hand played',
+        }
+    },
+    atlas = 'blinds',
+    pos = {x = 0, y = 0},
+	dollars = 5,
+	mult = 2,
+	boss = {min = 1},
+	boss_colour = HEX('FFA500'),
+	calculate = function(self, card, context)
+		if context.after and not G.GAME.blind.disabled then
+			G.E_MANAGER:add_event(Event({
+				func = function() 
+					G.GAME.chips = (to_big(G.GAME.chips))/(to_big(1.5))
+					G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+					play_sound('slice1')
+					return true
+				end,
+			}))
+		end
+	end
+}
