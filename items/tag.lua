@@ -1,0 +1,23 @@
+-- SMODS.Tag{ --yeah idek why this isnt working and idc either
+-- 	key =  'cliptag',
+-- 	loc_txt = {
+-- 		name = 'Clip Tag',
+-- 		text = {
+-- 			'Disables effect of {C:attention}Boss Blind'
+-- 		}
+-- 	},
+-- 	apply = function (self, tag, context)
+-- 		if context.setting_blind and G.GAME.blind.boss and not context.blind.disabled then
+-- 			tag:yep(
+-- 				localize('ph_boss_disabled'),
+-- 				G.C.GREEN,
+-- 				function ()
+-- 					G.GAME.blind:disable()
+-- 					play_sound('timpani')
+-- 					return true
+-- 				end
+-- 			)
+-- 			tag.triggered = true
+-- 		end
+-- 	end
+-- }
