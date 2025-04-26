@@ -7,7 +7,7 @@ Additions:
 
 ![image](https://github.com/user-attachments/assets/575701de-e9b5-4bf1-8964-51c98e9f2ffb)
 
-This mod currently only adds 7 Jokers, but in time, it will have MUCH more content, including consumables, blinds, decks, You name it!
+This mod currently only adds just a bit of content, but in time, it will have MUCH more content, including consumables, blinds, decks, You name it!
 
 If you have any suggestions, complaints, fixes, etc. PLEASE come to me! i promise i'm approachable!
 You can contact me at the Cryptid Discord (https://discord.gg/cryptid) Or directly DMing me on discord (@naoriley)
