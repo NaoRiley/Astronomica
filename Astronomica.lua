@@ -19,6 +19,7 @@
 local files = {
 "items/lib",
 "items/atlas",
+"items/sound",
 "items/rarity",
 "items/tag",
 "items/joker",

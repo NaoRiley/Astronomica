@@ -82,8 +82,7 @@ SMODS.Joker{
 				func = function() 
 					G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
 					G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-					play_sound('multhit1')
-					play_sound('chips1')
+					play_sound('gong')
 					return true
 				end,
 			}))
@@ -200,8 +199,7 @@ SMODS.Joker{
 -- 				func = function() 
 -- 					G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score)),
 -- 					G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
--- 					play_sound('multhit1')
--- 					play_sound('chips1')
+-- 					play_sound('gong')
 -- 					card.ability.extra.score = (to_big(0))
 -- 					return true
 -- 				end,
@@ -258,8 +256,7 @@ SMODS.Joker{
 				func = function() 
 					G.GAME.chips = (to_big(G.GAME.chips))*(to_big(card.ability.extra.score))
 					G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-					play_sound('multhit1')
-					play_sound('chips1')
+					play_sound('gong')
 					return true
 				end,
 			}))
@@ -485,15 +482,33 @@ SMODS.Joker{
 		-- or context.modify_hand
 		-- or context.cry_press
  		and not (context.repetition or context.blueprint) then
-			-- for i, _ in pairs(context) do --print debugging
-			-- 	if i ~= "main_eval" then
-			-- 		AST.context_counts[i] = (AST.context_counts[i] or 0) + 1
-			-- 		break
-			-- 	end
-			-- end
-			  
-			--   print(AST.context_counts)
 			card.ability.extra.score = (to_big(card.ability.extra.score))+(to_big(card.ability.extra.score_mod))
+		end
+		if context.before
+		or context.main_scoring
+		or context.pre_joker
+		or context.joker_main
+		or context.other_joker
+		or context.post_joker
+		or context.debuffed_hand
+		or context.setting_blind
+		or context.pre_discard
+		or context.open_booster
+		or context.skipping_booster
+		or context.selling_card
+		or context.reroll_shop
+		or context.ending_shop
+		or context.first_hand_drawn
+		or context.hand_drawn
+		or context.using_consumeable
+		or context.skip_blind
+		or context.playing_card_added
+		or context.card_added
+		or context.ending_booster
+		or context.blind_disabled
+		or context.blind_defeated
+		or context.press_play
+ 		and not (context.repetition or context.blueprint) then
 			return {
 				message = 'Upgrade!',
 			colour = G.C.DARK_EDITION,
@@ -505,8 +520,7 @@ SMODS.Joker{
 				func = function() 
 					G.GAME.chips = (to_big(G.GAME.chips)):arrow(2, card.ability.extra.score)
 					G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-					play_sound('multhit1')
-					play_sound('chips1')
+					play_sound('gong')
 					return true
 				end,
 			}))
@@ -691,7 +705,7 @@ SMODS.Joker {
 -- 		if context.after then
 -- 			G.E_MANAGER:add_event(Event({
 -- 				func = function() 
--- 					G.GAME.chips = (to_big(AST_pi * 2)*to_big(G.GAME.chips^(G.GAME.chips-1))):pow(0.5)*(to_big(G.GAME.chips^(G.GAME.chips-1))/to_big(AST.euler))^to_big(G.GAME.chips^(G.GAME.chips-1))
+-- 					G.GAME.chips = (to_big(AST.pi * 2)*to_big(G.GAME.chips^(G.GAME.chips-1))):pow(0.5)*(to_big(G.GAME.chips^(G.GAME.chips-1))/to_big(AST.euler))^to_big(G.GAME.chips^(G.GAME.chips-1))
 -- 					play_sound('multhit2')
 -- 					return true
 -- 				end,

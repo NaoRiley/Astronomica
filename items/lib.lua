@@ -40,11 +40,11 @@ function UTIL_TABLE.additive_factorial(n) --additive factorial
 end
 
 function UTIL_TABLE.factorial(n) --multiplicative factorial
-    return (to_big(pi * 2)*to_big(n)):pow(0.5)*(to_big(n)/to_big(euler))^to_big(n)
+    return (to_big(AST.pi * 2)*to_big(n)):pow(0.5)*(to_big(n)/to_big(AST.euler))^to_big(n)
 end
 
 function UTIL_TABLE.efactorial(n) --exponential factorial (that's infaccurate!)
-    return (to_big(pi * 2)*to_big(n^(n-1))):pow(0.5)*(to_big(n^(n-1))/to_big(euler))^to_big(n^(n-1))
+    return (to_big(AST.pi * 2)*to_big(n^(n-1))):pow(0.5)*(to_big(n^(n-1))/to_big(AST.euler))^to_big(n^(n-1))
 end
 
 -- if (key == 'p_score' or key == 'pscore' or key == 'pscore_mod') and amount ~= 1 then --i dont fucking know how to do this
