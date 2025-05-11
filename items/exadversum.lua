@@ -77,6 +77,10 @@ SMODS.Joker{
                 G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iplant"])
             elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_arm" then
                 G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iarm"])
+            -- elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_flint" then --worry about that some other time
+            --     G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iflint"])
+            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_tooth" then
+                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_itooth"])
             elseif G.GAME.blind.in_blind and G.GAME.blind.boss
             and G.GAME.blind.config.blind.key ~= "bl_ast_iboss"
             and G.GAME.blind.config.blind.key ~= "bl_entr_endless_entropy_phase_one"
@@ -402,6 +406,60 @@ SMODS.Blind{
             if not check then
             SMODS.calculate_effect({level_up = true})
             end
+        end
+    end
+}
+
+-- SMODS.Blind{
+--     key = 'iflint', --The Flint Inverted
+--     loc_txt = {
+--         name = 'The Flint',
+--         text = {
+--             'Base Chips and',
+--             'Mult are doubled',
+--         }
+--     },
+--     atlas = 'vanilla',
+--     in_pool = function () end,
+--     no_collection = true,
+--     pos = {x = 0, y = 24},
+-- 	dollars = 5,
+-- 	mult = 2,
+-- 	boss = {min = 0},
+-- 	boss_colour = HEX('1a95d0'), --e56a2f original
+--     modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
+-- 		if to_big(mult) ~= to_big(0) then
+-- 			G.GAME.blind.triggered = true
+-- 			return to_big(hand_chips*2), hand_chips, true
+-- 		end
+--         if to_big(hand_chips) ~= to_big(0) then
+-- 			G.GAME.blind.triggered = true
+-- 			return mult, to_big(mult*2), true
+-- 		end
+-- 		return mult, to_big(mult*2), false, to_big(hand_chips*2), hand_chips, false
+-- 	end,
+-- }
+
+SMODS.Blind{
+    key = 'itooth', --The Tooth Inverted
+    loc_txt = {
+        name = 'The Tooth',
+        text = {
+            'Gain $1 per',
+            'card played',
+        }
+    },
+    atlas = 'vanilla',
+    in_pool = function () end,
+    no_collection = true,
+    pos = {x = 0, y = 22},
+	dollars = 5,
+	mult = 2,
+	boss = {min = 0},
+	boss_colour = HEX('4ad2d2'), --b52d2d original
+    calculate = function(self, blind, context)
+        if context.individual and context.cardarea == G.play then
+            ease_dollars(1)
         end
     end
 }
