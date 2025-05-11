@@ -72,3 +72,17 @@ SMODS.Atlas{
 	px = 34,
 	py = 34
 }
+
+SMODS.Atlas{
+	key = 'sptarot', --Anomalous Tarots
+	path = 'sptarot.png',
+	px = 71,
+	py = 95
+}
+
+SMODS.Atlas{
+	key = 'spectral', --Spectrals
+	path = 'spectral.png',
+	px = 71,
+	py = 95
+}

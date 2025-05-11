@@ -15,7 +15,7 @@ multi_gradient = SMODS.Gradient{
 }
 
 SMODS.Rarity{
-	key = 'ascendant',
-	loc_txt = {name = 'Ascendant'},
+	key = 'worldbending',
+	loc_txt = {name = 'Worldbending'},
 	badge_colour = multi_gradient, --calls the variable
 }

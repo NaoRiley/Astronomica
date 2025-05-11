@@ -43,7 +43,7 @@ function UTIL_TABLE.factorial(n) --multiplicative factorial
     return (to_big(AST.pi * 2)*to_big(n)):pow(0.5)*(to_big(n)/to_big(AST.euler))^to_big(n)
 end
 
-function UTIL_TABLE.efactorial(n) --exponential factorial (that's infaccurate!)
+function UTIL_TABLE.efactorial(n) --exponential factorial
     return (to_big(AST.pi * 2)*to_big(n^(n-1))):pow(0.5)*(to_big(n^(n-1))/to_big(AST.euler))^to_big(n^(n-1))
 end
 
@@ -58,3 +58,19 @@ end
 -- 		end,
 -- 	}))
 -- end
+
+local null_mult = mod_mult
+mod_mult = function(mult)
+	if G.GAME.blind.config.blind.key == "bl_ast_torrent" then
+		return 1
+	end
+  return null_mult(mult)
+end
+
+local null_chips = mod_chips
+mod_chips = function(chips)
+	if G.GAME.blind.config.blind.key == "bl_ast_inferno" then
+		return 1
+	end
+  return null_chips(chips)
+end

@@ -1,19 +1,24 @@
+
+--[[
+
+
+
+Let's ensure all the green coded jokers stay confidential, shall we?
+
+
+It's mostly testing material, or perhaps things that could make their way into a future update.
+
+
+It's our secret, Keep it between us!
+
+
+
+]]
+
 -- SMODS.Joker{
 --     key = 'testjoker',
 --     loc_txt = {
 --         name = 'Test Joker',
---         text = {
---             'For Testing.',
---         }
---     },
---     atlas = 'j_placeholder',
---     pos = {x = 0, y = 0},
--- }
-
--- SMODS.Joker{
---     key = 'testjoker2',
---     loc_txt = {
---         name = 'Test Joker 2',
 --         text = {
 --             'For Testing.',
 --         }
@@ -130,6 +135,45 @@ SMODS.Joker{
 -- 	end
 -- }
 
+SMODS.Joker {
+	key = 'exoticjoker',
+	loc_txt = {
+		name = 'Exotic Joker',
+		text = {
+			'{X:dark_edition,C:white}^#1# {} Mult',
+		}
+	},
+	pos = { x = 4, y = 0 },
+	soul_pos = { x = 6, y = 0, extra = { x = 5, y = 0 } },
+	config = {
+		extra = {
+			Emult_mod = 1.04
+		} 
+	},
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.Emult_mod } }
+	end,
+	cost = 1, 
+	rarity = 1,
+	unlocked = true,
+	discovered = true,
+	no_doe = false,
+	immutable = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+	atlas = 'jokers',
+	calculate = function(self, card, context)
+		if context.joker_main then
+			return {
+				Emult_mod = (to_big(card.ability.extra.Emult_mod)),
+				message = "^" .. tostring(card.ability.extra.Emult_mod),
+				colour = G.C.DARK_EDITION
+			}
+		end
+	end
+}
+
 SMODS.Joker{
     key = 'stopwatch',
     loc_txt = {
@@ -170,52 +214,53 @@ SMODS.Joker{
 	end
 }
 
--- SMODS.Joker{
---     key = 'carrytest',
---     loc_txt = {
---         name = 'Carry Test',
---         text = {
---             'Bring extra {C:attention}Score {C:black}you win to the Next Blind',
--- 			'{C:inactive}(Currently {C:purple}+#1# {C:inactive}Score)',
---         }
---     },
---     atlas = 'j_placeholder',
---     pos = {x = 0, y = 0},
--- 	blueprint_compat = false,
--- 	config = {
--- 		extra = {
--- 			score = 0,
--- 		}
--- 	},
--- 	loc_vars = function(self, info_queue, card)
--- 		return {
--- 			vars = {
--- 				card.ability.extra.score}
--- 		}
--- 	end,
--- 	calculate = function(self, card, context)
--- 		if context.after then
--- 			G.E_MANAGER:add_event(Event({
--- 				func = function() 
--- 					G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score)),
--- 					G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
--- 					play_sound('gong')
--- 					card.ability.extra.score = (to_big(0))
--- 					return true
--- 				end,
--- 			}))
--- 		end
--- 		if context.blind_defeated and not context.repetition or context.blueprint then
--- 			card.ability.extra.score = (to_big(G.GAME.chips))-(to_big(G.GAME.blind.chips))
--- 		end
--- 		if context.after then
--- 			return {
--- 				message = "+" .. tostring(card.ability.extra.score),
--- 				colour = G.C.PURPLE
--- 			}
--- 		end
--- 	end
--- }
+SMODS.Joker{
+    key = 'blackleg',
+    loc_txt = {
+        name = 'Blackleg',
+        text = {
+            'Bring extra {C:attention}Score {C:black}you win to the next blind',
+			'{C:inactive}(Currently {C:purple}+#1# {C:inactive}Score)',
+        }
+    },
+    atlas = 'jokers',
+    pos = {x = 7, y = 0},
+	blueprint_compat = false,
+	rarity = 'cry_epic',
+	config = {
+		extra = {
+			score = 0,
+		}
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.score}
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.after then
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score)),
+					G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+					play_sound('gong')
+					card.ability.extra.score = (to_big(0))
+					return true
+				end,
+			}))
+		end
+		if context.blind_defeated and not context.repetition or context.blueprint then
+			card.ability.extra.score = (to_big(G.GAME.chips))-(to_big(G.GAME.blind.chips))
+		end
+		if context.after then
+			return {
+				message = "+" .. tostring(card.ability.extra.score),
+				colour = G.C.PURPLE
+			}
+		end
+	end
+}
 
 SMODS.Joker{
     key = 'warlock',
@@ -229,9 +274,10 @@ SMODS.Joker{
         }
     },
 	blueprint_compat = true,
+	demicoloncompat = true,
     atlas = 'jokers',
     pos = {x = 3, y = 0},
-	rarity = 3,
+	rarity = 'cry_epic',
 	config = {
 		extra = {
 			score = 1,
@@ -245,7 +291,7 @@ SMODS.Joker{
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.before then
+		if context.before or context.forcetrigger then
 			card.ability.extra.score = (to_big(card.ability.extra.score))+(to_big(card.ability.extra.score_mod))
 		end
 		if context.discard then
@@ -386,32 +432,32 @@ SMODS.Joker {
 	},
 }
 
-SMODS.Joker {
-	key = 'centurio',
-	loc_txt = {
-		name = 'Centurio',
-		text = {
-			'Go up to {X:dark_edition,C:white,s:2}-$Infinity {C:black} in debt',
-		}
-	},
-	pos = { x = 3, y = 0 },
-	soul_pos = { x = 4, y = 0, extra = { x = 5, y = 0 } },
-	cost = 75, --higher than normal exotics on purpose
-	rarity = 'cry_exotic',
-	unlocked = true,
-	discovered = true,
-	no_doe = false,
-	immutable = true,
-	blueprint_compat = false,
-	eternal_compat = true,
-	perishable_compat = true,
-	atlas = 'exotic',
-	add_to_deck = function(self, card, from_debuff)
+-- SMODS.Joker {
+-- 	key = 'centurio', --i hate this joker
+-- 	loc_txt = {
+-- 		name = 'Centurio',
+-- 		text = {
+-- 			'Go up to {X:dark_edition,C:white,s:2}-$Infinity {C:black} in debt',
+-- 		}
+-- 	},
+-- 	pos = { x = 3, y = 0 },
+-- 	soul_pos = { x = 4, y = 0, extra = { x = 5, y = 0 } },
+-- 	cost = 75, --higher than normal exotics on purpose
+-- 	rarity = 'cry_exotic',
+-- 	unlocked = true,
+-- 	discovered = true,
+-- 	no_doe = false,
+-- 	immutable = true,
+-- 	blueprint_compat = false,
+-- 	eternal_compat = true,
+-- 	perishable_compat = true,
+-- 	atlas = 'exotic',
+-- 	add_to_deck = function(self, card, from_debuff)
         
-        G.GAME.bankrupt_at = -math.huge --makes it so your money can go to negative infinity i think? i have no way of checking how low you can actually go
+--         G.GAME.bankrupt_at = -math.huge --makes it so your money can go to -naneinf
 
-    end,
-}
+--     end,
+-- }
 
 SMODS.Joker{
     key = 'tetratia',
@@ -427,7 +473,8 @@ SMODS.Joker{
     pos = {x = 0, y = 1},
 	soul_pos = { x = 2, y = 1, extra = { x = 1, y = 1 } },
 	blueprint_compat = true,
-	price = 50,
+	demicoloncompat = true,
+	cost = 50,
 	rarity = 'cry_exotic',
 	config = {
 		extra = {
@@ -484,6 +531,9 @@ SMODS.Joker{
  		and not (context.repetition or context.blueprint) then
 			card.ability.extra.score = (to_big(card.ability.extra.score))+(to_big(card.ability.extra.score_mod))
 		end
+		if context.forcetrigger then
+			card.ability.extra.score = (to_big(card.ability.extra.score))+(to_big(card.ability.extra.score_mod*(to_big(25)))) --demicolon upgrades it once for EVERY available context (currently 25 times)
+		end
 		if context.before
 		or context.main_scoring
 		or context.pre_joker
@@ -534,6 +584,49 @@ SMODS.Joker{
 	end
 }
 
+-- SMODS.Joker{
+--     key = 'monalisa',
+--     loc_txt = {
+--         name = 'Mona Lisa',
+--         text = {
+-- 			'Retrigger {C:attention}face {C:black}cards 6 times',
+-- 			'Retrigger {C:attention}non face {C:black}cards 3 times',
+-- 			'{X:mult,C:white}X#1# {C:black} mult per {C:attention}face {C:black}card played',
+-- 			'{X:mult,C:white}X#2# {C:black} mult per {C:attention}non face {C:black}card',
+-- 			'{C:inactive,s:0.8}looks inside, photochad'
+--         }
+--     },
+--     atlas = 'j_placeholder',
+--     pos = {x = 0, y = 0},
+-- 	blueprint_compat = true,
+-- 	rarity = 'cry_exotic',
+-- 	config = {
+-- 		extra = {
+-- 			xmult = 6,
+-- 			xmult2 = 3,
+-- 		}
+-- 	},
+-- 	loc_vars = function(self, info_queue, card)
+-- 		return {
+-- 			vars = {card.ability.extra.xmult, card.ability.extra.xmult2}
+-- 		}
+-- 	end,
+-- 	calculate = function(self, card, context)
+-- 		if context.individual and context.cardarea == G.play and context.other_card:is_face() then
+-- 			return{xmult = card.ability.extra.xmult}
+-- 		end
+-- 		if context.individual and context.cardarea == G.play and not context.other_card:is_face() then
+-- 			return{xmult = card.ability.extra.xmult2}
+-- 		end
+-- 		if context.repetition and context.cardarea == G.play and context.other_card:is_face() then
+-- 			return{repetitions = 6}
+-- 		end
+-- 		if context.repetition and context.cardarea == G.play and not context.other_card:is_face() then
+-- 			return{repetitions = 3}
+-- 		end
+-- 	end
+-- }
+
 SMODS.Joker {
 	key = "factoria", 
 	loc_txt = {
@@ -546,10 +639,11 @@ SMODS.Joker {
 	pos = { x = 0, y = 0 },
 	soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
 	cost = 100,
-	rarity = 'ast_ascendant',
+	rarity = 'ast_worldbending',
 	unlocked = true,
 	discovered = true,
 	blueprint_compat = true,
+	demicoloncompat = true,
 	eternal_compat = true,
 	perishable_compat = true,
 	immutable = false,
@@ -579,6 +673,16 @@ SMODS.Joker {
 				card.ability.extra.n = UTIL_TABLE.small_factorial(card.ability.extra.n)
 			end
 		end
+		if context.forcetrigger then
+			--print('round end')
+			card.ability.extra.c = true
+			if to_big(card.ability.extra.n):gt(to_big(150)) then
+				card.ability.extra.n = UTIL_TABLE.factorial(card.ability.extra.n)
+			else
+				card.ability.extra.n = UTIL_TABLE.small_factorial(card.ability.extra.n)
+			end
+			card.ability.extra.c = false
+		end
 		if context.joker_main then
 			return {Xmult_mod = card.ability.extra.n, message = "X" .. tostring(card.ability.extra.n)}
 		end
@@ -590,6 +694,7 @@ SMODS.Joker {
 			}
 		end
 	end
+	
 }
 
 -- SMODS.Joker{
@@ -607,6 +712,7 @@ SMODS.Joker {
 -- 	calculate = function(self, card, context)
 -- 		if context.joker_main then
 -- 			G.GAME.blind.chips = (to_big(G.GAME.blind.chips))/(to_big(1.33333))
+-- 			G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
 -- 			play_sound('slice1')
 -- 			G.hand_text_area.blind_chips:juice_up(0.3, 0.3)
 -- 		end
@@ -618,15 +724,29 @@ SMODS.Joker {
 --     loc_txt = {
 --         name = 'Req Test 2',
 --         text = {
---             'Sets Blind Requirement to {X:dark_edition,C:white}0',
+--             'Reduces blind requirement by {X:dark_edition,C:white}100%',
 --         }
 --     },
 --     atlas = 'j_placeholder',
 --     pos = {x = 0, y = 0},
+-- 	ignore_debuff = true,
+-- 	no_doe = true,
+-- 	no_collection = true,
+-- 	cost = 10^300,
+-- 	unlocked = false,
+-- 	discovered = false,
 -- 	calculate = function(self, card, context)
 -- 		if context.hand_drawn then
--- 			G.GAME.blind.chips = (to_big(0))
--- 			play_sound('slice1')
+-- 			G.E_MANAGER:add_event(Event({trigger = 'after',delay = 1,func = function()
+-- 				G.GAME.blind.chips = (to_big(0))
+-- 				G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+-- 				play_sound('slice1')
+-- 				G.hand_text_area.blind_chips:juice_up(0.3, 0.3)
+-- 				G.GAME.chips = G.GAME.blind.chips
+-- 				G.STATE = G.STATES.HAND_PLAYED
+-- 				G.STATE_COMPLETE = true
+-- 				end_round()
+-- 			return true end }))
 -- 		end
 -- 	end
 -- }
@@ -721,23 +841,6 @@ SMODS.Joker {
 -- }
 
 -- SMODS.Joker{
---     key = 'postscoretest', --ok some things to note: context.final_scoring step is for effects that modify the score after all cards have been scored, the round score itself is G.GAME.chips, additive factoral:x(x+1)/2
---     loc_txt = {
---         name = 'Post Score Test',
---         text = {
---             '{X:dark_edition,C:white,s:2}Score?',
---         }
---     },
---     atlas = 'j_placeholder',
---     pos = {x = 0, y = 0},
--- 	calculate = function(self, card, context)
--- 		if context.final_scoring_step then
--- 			G.GAME.chips = (to_big(G.GAME.chips)*(to_big(G.GAME.chips)+1)/2)
--- 		end
--- 	end
--- }
-
--- SMODS.Joker{
 --     key = 'shoptest',
 --     loc_txt = {
 --         name = 'Shop Test',
@@ -747,16 +850,4 @@ SMODS.Joker {
 --     },
 --     atlas = 'j_placeholder',
 --     pos = {x = 0, y = 0}
--- }
-
--- SMODS.Joker{
---     key = 'normalfactorial',
---     loc_txt = {
---         name = 'Normal Factorial Test',
---         text = {
---             'placeholder',
---         }
---     },
---     atlas = 'j_placeholder',
---     pos = {x = 0, y = 0},
 -- }

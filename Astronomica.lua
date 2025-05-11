@@ -1,9 +1,10 @@
 --- STEAMODDED HEADER
 --- MOD_NAME: Astronomica
---- MOD_ID: ASTRONOMICA
+--- MOD_ID: Astronomica
 --- MOD_AUTHOR: [naoriley]
 --- MOD_DESCRIPTION: Extremely unbalanced Cryptid add-on which has no direct aim in mind, just trying to make silly stuff!
 --- PREFIX: ast
+--- PRIORITY: 0
 
 --Welcome to the source code for this mod! A few things:
 --Firstly, I do not know what i am doing. Modding is hard.
@@ -18,15 +19,24 @@
 
 local files = {
 "items/lib",
+"Cryptid",
 "items/atlas",
 "items/sound",
 "items/rarity",
+"items/edition",
 "items/tag",
+"items/voucher",
 "items/joker",
-"items/blind"
+"items/spectral",
+"items/tarot",
+"items/blind",
+"items/opjokers/3",
 }
 for i, v in ipairs(files) do
   local result, err = SMODS.load_file(v..".lua")
   if result then result() else error("error in file: "..v..": "..err) end
 end
 
+SMODS.current_mod.optional_features = {
+  retrigger_joker = true,
+}
