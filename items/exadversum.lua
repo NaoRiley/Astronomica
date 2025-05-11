@@ -75,6 +75,8 @@ SMODS.Joker{
                 G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iwindow"])
             elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_plant" then
                 G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iplant"])
+            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_arm" then
+                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iarm"])
             elseif G.GAME.blind.in_blind and G.GAME.blind.boss
             and G.GAME.blind.config.blind.key ~= "bl_ast_iboss"
             and G.GAME.blind.config.blind.key ~= "bl_entr_endless_entropy_phase_one"
@@ -373,6 +375,33 @@ SMODS.Blind{
     calculate = function(self, blind, context)
         if context.repetition and context.cardarea == G.play and context.other_card:is_face() then
             return{repetitions = 1}
+        end
+    end
+}
+
+SMODS.Blind{
+    key = 'iarm', --The Arm Inverted
+    loc_txt = {
+        name = 'The Arm',
+        text = {
+            'Increase level of',
+            'played poker hand',
+        }
+    },
+    atlas = 'vanilla',
+    in_pool = function () end,
+    no_collection = true,
+    pos = {x = 0, y = 11},
+	dollars = 5,
+	mult = 2,
+	boss = {min = 0},
+	boss_colour = HEX('979a0c'), --6865f3 original
+    debuff_hand = function(self, cards, hand, handname, check)
+        if true then
+            self.triggered = true
+            if not check then
+            SMODS.calculate_effect({level_up = true})
+            end
         end
     end
 }
