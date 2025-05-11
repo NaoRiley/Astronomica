@@ -446,7 +446,7 @@ SMODS.Blind{
         name = 'The Tooth',
         text = {
             'Gain $1 per',
-            'card played',
+            'card scored',
         }
     },
     atlas = 'vanilla',
