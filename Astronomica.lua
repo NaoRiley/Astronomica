@@ -30,7 +30,7 @@ local files = {
 "items/spectral",
 "items/tarot",
 "items/blind",
-"items/opjokers/3",
+"items/exadversum",
 }
 for i, v in ipairs(files) do
   local result, err = SMODS.load_file(v..".lua")
