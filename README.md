@@ -5,7 +5,7 @@ Requirements: Cryptid (https://github.com/MathIsFun0/Cryptid/), Steamodded (http
 
 Additions:
 
-![image](https://github.com/user-attachments/assets/575701de-e9b5-4bf1-8964-51c98e9f2ffb)
+![image](https://github.com/user-attachments/assets/08439e79-e752-4bc4-b6c3-df2cdb78730a)
 
 This mod currently only adds just a bit of content, but in time, it will have MUCH more content, including consumables, blinds, decks, You name it!
 
