@@ -239,7 +239,7 @@ SMODS.Joker{
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.after then
+		if context.after and not context.repetiiton or context.blueprint then
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score)),

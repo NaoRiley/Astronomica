@@ -486,3 +486,25 @@ SMODS.Blind{
         end
     end
 }
+
+-- SMODS.Blind{
+--     key = 'ipsychic', --The Psychic Inverted
+--     loc_txt = {
+--         name = 'The Psychic',
+--         text = {
+--             'n? to all played cards if', --formula: (to_big(n)*(to_big(n)+1)/2), might change to ^2 instead depending on balancing
+--             'played hand contains 5 cards',
+--         }
+--     },
+--     atlas = 'vanilla',
+--     in_pool = function () end,
+--     no_collection = true,
+--     pos = {x = 0, y = 12},
+-- 	dollars = 5,
+-- 	mult = 2,
+-- 	boss = {min = 0},
+-- 	boss_colour = HEX('103fc3'), --efc03c original
+--     calculate = funtion(self, blind, context)
+--         if context.full_hand[5] then
+
+-- }
