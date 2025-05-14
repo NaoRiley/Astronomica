@@ -69,8 +69,9 @@ SMODS.Joker{
     },
 	blueprint_compat = true,
     atlas = 'jokers',
-    pos = {x = 2, y = 0},
+    pos = {x = 0, y = 1},
 	rarity = 1,
+	order = 1,
 	config = {
 		extra = {
 			score = 400
@@ -91,8 +92,6 @@ SMODS.Joker{
 					return true
 				end,
 			}))
-		end
-		if context.after then
 			return {
 				message = "+" .. tostring(card.ability.extra.score),
 				colour = G.C.PURPLE

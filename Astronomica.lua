@@ -27,6 +27,7 @@ local files = {
 "items/tag",
 "items/voucher",
 "items/joker",
+"items/type",
 "items/spectral",
 "items/tarot",
 "items/blind",
