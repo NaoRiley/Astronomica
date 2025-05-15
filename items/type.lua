@@ -333,3 +333,498 @@ SMODS.Joker{
         end
 	end
 }
+
+SMODS.Joker{
+	key = "snobby",
+    loc_txt = {
+        name = 'Snobby Joker',
+        text = {
+            '{C:purple}+#1# {}Score if played',
+            'hand contains',
+            'a {C:attention}#2#'
+        }
+    },
+	config = {
+		extra = {
+			score = 5250,
+			type = "Four of a Kind",
+            active = false,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				number_format(card.ability.extra.score),
+				localize(card.ability.extra.type, "poker_hands"),
+			},
+		}
+	end,
+	atlas = "jokers",
+    pos = { x = 7, y = 1 },
+	rarity = 1,
+    order = 8,
+	cost = 4,
+    effect = "Cry Type Score",
+	blueprint_compat = true,
+	demicoloncompat = true,
+	calculate = function(self, card, context)
+		if (context.before and context.poker_hands and next(context.poker_hands["Four of a Kind"])) or context.forcetrigger then
+            card.ability.extra.active = true
+            end
+            if context.after and card.ability.extra.active == true then  
+                G.E_MANAGER:add_event(Event({
+                func = function() 
+                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
+                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+                    play_sound('gong')
+                    card.ability.extra.active = false
+                    return true
+                end,
+            }))
+            return {
+                message = "+" .. tostring(card.ability.extra.score),
+                colour = G.C.PURPLE
+            }
+        end
+	end
+}
+
+SMODS.Joker{
+	key = "berserk",
+    loc_txt = {
+        name = 'Berserk Joker',
+        text = {
+            '{C:purple}+#1# {}Score if played',
+            'hand contains',
+            'a {C:attention}#2#'
+        }
+    },
+	config = {
+		extra = {
+			score = 8100,
+			type = "Straight Flush",
+            active = false,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				number_format(card.ability.extra.score),
+				localize(card.ability.extra.type, "poker_hands"),
+			},
+		}
+	end,
+	atlas = "jokers",
+    pos = { x = 8, y = 1 },
+	rarity = 1,
+    order = 9,
+	cost = 4,
+    effect = "Cry Type Score",
+	blueprint_compat = true,
+	demicoloncompat = true,
+	calculate = function(self, card, context)
+		if (context.before and context.poker_hands and next(context.poker_hands["Straight Flush"])) or context.forcetrigger then
+            card.ability.extra.active = true
+            end
+            if context.after and card.ability.extra.active == true then  
+                G.E_MANAGER:add_event(Event({
+                func = function() 
+                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
+                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+                    play_sound('gong')
+                    card.ability.extra.active = false
+                    return true
+                end,
+            }))
+            return {
+                message = "+" .. tostring(card.ability.extra.score),
+                colour = G.C.PURPLE
+            }
+        end
+	end
+}
+
+SMODS.Joker{
+	key = "ludicrous",
+    loc_txt = {
+        name = 'Ludicrous Joker',
+        text = {
+            '{C:purple}+#1# {}Score if played',
+            'hand contains',
+            'a {C:attention}#2#'
+        }
+    },
+	config = {
+		extra = {
+			score = 3400,
+			type = "Full House",
+            active = false,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				number_format(card.ability.extra.score),
+				localize(card.ability.extra.type, "poker_hands"),
+			},
+		}
+	end,
+	atlas = "jokers",
+    pos = { x = 9, y = 1 },
+	rarity = 1,
+    order = 10,
+	cost = 4,
+    effect = "Cry Type Score",
+	blueprint_compat = true,
+	demicoloncompat = true,
+	calculate = function(self, card, context)
+		if (context.before and context.poker_hands and next(context.poker_hands["Full House"])) or context.forcetrigger then
+            card.ability.extra.active = true
+            end
+            if context.after and card.ability.extra.active == true then  
+                G.E_MANAGER:add_event(Event({
+                func = function() 
+                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
+                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+                    play_sound('gong')
+                    card.ability.extra.active = false
+                    return true
+                end,
+            }))
+            return {
+                message = "+" .. tostring(card.ability.extra.score),
+                colour = G.C.PURPLE
+            }
+        end
+	end
+}
+
+SMODS.Joker{
+	key = "wistful",
+    loc_txt = {
+        name = 'Wistful Joker',
+        text = {
+            '{C:purple}+#1# {}Score if played',
+            'hand contains',
+            'a {C:attention}#2#'
+        }
+    },
+	config = {
+		extra = {
+			score = 9860,
+			type = "Five of a Kind",
+            active = false,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				number_format(card.ability.extra.score),
+				localize(card.ability.extra.type, "poker_hands"),
+			},
+		}
+	end,
+	atlas = "jokers",
+    pos = { x = 0, y = 2 },
+	rarity = 1,
+    order = 11,
+	cost = 4,
+    effect = "Cry Type Score",
+	blueprint_compat = true,
+	demicoloncompat = true,
+	calculate = function(self, card, context)
+		if (context.before and context.poker_hands and next(context.poker_hands["Five of a Kind"])) or context.forcetrigger then
+            card.ability.extra.active = true
+            end
+            if context.after and card.ability.extra.active == true then  
+                G.E_MANAGER:add_event(Event({
+                func = function() 
+                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
+                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+                    play_sound('gong')
+                    card.ability.extra.active = false
+                    return true
+                end,
+            }))
+            return {
+                message = "+" .. tostring(card.ability.extra.score),
+                colour = G.C.PURPLE
+            }
+        end
+	end
+}
+
+SMODS.Joker{
+	key = "envious",
+    loc_txt = {
+        name = 'Envious Joker',
+        text = {
+            '{C:purple}+#1# {}Score if played',
+            'hand contains',
+            'a {C:attention}#2#'
+        }
+    },
+	config = {
+		extra = {
+			score = 16720,
+			type = "Flush House",
+            active = false,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				number_format(card.ability.extra.score),
+				localize(card.ability.extra.type, "poker_hands"),
+			},
+		}
+	end,
+	atlas = "jokers",
+    pos = { x = 1, y = 2 },
+	rarity = 1,
+    order = 12,
+	cost = 4,
+    effect = "Cry Type Score",
+	blueprint_compat = true,
+	demicoloncompat = true,
+	calculate = function(self, card, context)
+		if (context.before and context.poker_hands and next(context.poker_hands["Flush House"])) or context.forcetrigger then
+            card.ability.extra.active = true
+            end
+            if context.after and card.ability.extra.active == true then  
+                G.E_MANAGER:add_event(Event({
+                func = function() 
+                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
+                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+                    play_sound('gong')
+                    card.ability.extra.active = false
+                    return true
+                end,
+            }))
+            return {
+                message = "+" .. tostring(card.ability.extra.score),
+                colour = G.C.PURPLE
+            }
+        end
+	end
+}
+
+SMODS.Joker{
+	key = "ardent",
+    loc_txt = {
+        name = 'Ardent Joker',
+        text = {
+            '{C:purple}+#1# {}Score if played',
+            'hand contains',
+            'a {C:attention}#2#'
+        }
+    },
+	config = {
+		extra = {
+			score = 18400,
+			type = "Flush Five",
+            active = false,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				number_format(card.ability.extra.score),
+				localize(card.ability.extra.type, "poker_hands"),
+			},
+		}
+	end,
+	atlas = "jokers",
+    pos = { x = 2, y = 2 },
+	rarity = 1,
+    order = 13,
+	cost = 4,
+    effect = "Cry Type Score",
+	blueprint_compat = true,
+	demicoloncompat = true,
+	calculate = function(self, card, context)
+		if (context.before and context.poker_hands and next(context.poker_hands["Flush Five"])) or context.forcetrigger then
+            card.ability.extra.active = true
+            end
+            if context.after and card.ability.extra.active == true then  
+                G.E_MANAGER:add_event(Event({
+                func = function() 
+                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
+                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+                    play_sound('gong')
+                    card.ability.extra.active = false
+                    return true
+                end,
+            }))
+            return {
+                message = "+" .. tostring(card.ability.extra.score),
+                colour = G.C.PURPLE
+            }
+        end
+	end
+}
+
+SMODS.Joker{
+	key = "deviant",
+    loc_txt = {
+        name = 'Deviant Joker',
+        text = {
+            '{C:purple}+#1# {}Score if played',
+            'hand contains',
+            'a {C:attention}#2#'
+        }
+    },
+	config = {
+		extra = {
+			score = 26320,
+			type = "cry_Clusterfuck",
+            active = false,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				number_format(card.ability.extra.score),
+				localize(card.ability.extra.type, "poker_hands"),
+			},
+		}
+	end,
+	atlas = "jokers",
+    pos = { x = 3, y = 2 },
+	rarity = 1,
+    order = 14,
+	cost = 4,
+    effect = "Cry Type Score",
+	blueprint_compat = true,
+	demicoloncompat = true,
+	calculate = function(self, card, context)
+		if (context.before and context.poker_hands and next(context.poker_hands["cry_Clusterfuck"])) or context.forcetrigger then
+            card.ability.extra.active = true
+            end
+            if context.after and card.ability.extra.active == true then  
+                G.E_MANAGER:add_event(Event({
+                func = function() 
+                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
+                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+                    play_sound('gong')
+                    card.ability.extra.active = false
+                    return true
+                end,
+            }))
+            return {
+                message = "+" .. tostring(card.ability.extra.score),
+                colour = G.C.PURPLE
+            }
+        end
+	end
+}
+
+SMODS.Joker{
+	key = "avaricious",
+    loc_txt = {
+        name = 'Avaricious Joker',
+        text = {
+            '{C:purple}+#1# {}Score if played',
+            'hand contains',
+            'a {C:attention}#2#'
+        }
+    },
+	config = {
+		extra = {
+			score = 33280,
+			type = "cry_UltPair",
+            active = false,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				number_format(card.ability.extra.score),
+				localize(card.ability.extra.type, "poker_hands"),
+			},
+		}
+	end,
+	atlas = "jokers",
+    pos = { x = 4, y = 2 },
+	rarity = 1,
+    order = 15,
+	cost = 4,
+    effect = "Cry Type Score",
+	blueprint_compat = true,
+	demicoloncompat = true,
+	calculate = function(self, card, context)
+		if (context.before and context.poker_hands and next(context.poker_hands["cry_UltPair"])) or context.forcetrigger then
+            card.ability.extra.active = true
+            end
+            if context.after and card.ability.extra.active == true then  
+                G.E_MANAGER:add_event(Event({
+                func = function() 
+                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
+                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+                    play_sound('gong')
+                    card.ability.extra.active = false
+                    return true
+                end,
+            }))
+            return {
+                message = "+" .. tostring(card.ability.extra.score),
+                colour = G.C.PURPLE
+            }
+        end
+	end
+}
+
+SMODS.Joker{
+	key = "lamentable",
+    loc_txt = {
+        name = 'Lamentable Joker',
+        text = {
+            '{C:purple}+#1# {}Score if played',
+            'hand contains',
+            'a {C:attention}#2#'
+        }
+    },
+	config = {
+		extra = {
+			score = 8100,
+			type = "cry_Bulwark",
+            active = false,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				number_format(card.ability.extra.score),
+				localize(card.ability.extra.type, "poker_hands"),
+			},
+		}
+	end,
+	atlas = "jokers",
+    pos = { x = 5, y = 2 },
+	rarity = 1,
+    order = 16,
+	cost = 4,
+    effect = "Cry Type Score",
+	blueprint_compat = true,
+	demicoloncompat = true,
+	calculate = function(self, card, context)
+		if (context.before and context.poker_hands and next(context.poker_hands["cry_Bulwark"])) or context.forcetrigger then
+            card.ability.extra.active = true
+            end
+            if context.after and card.ability.extra.active == true then  
+                G.E_MANAGER:add_event(Event({
+                func = function() 
+                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
+                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+                    play_sound('gong')
+                    card.ability.extra.active = false
+                    return true
+                end,
+            }))
+            return {
+                message = "+" .. tostring(card.ability.extra.score),
+                colour = G.C.PURPLE
+            }
+        end
+	end
+}

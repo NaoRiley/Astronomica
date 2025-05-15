@@ -1,0 +1,29 @@
+[manifest]
+version = "0.1.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS Cryptid "items/misc_joker.lua"]'''
+pattern = '''or G.P_CENTERS[v].effect == "Cry Type Chips"'''
+position = 'after'
+match_indent = true
+payload = '''
+or G.P_CENTERS[v].effect == "Cry Type Score"
+'''
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS Cryptid "localization/en-us.lua"]'''
+pattern = '''					"Earn {C:money}$#1#{} at end of round",
+					"per unique {C:attention}Type Mult{} or",
+					"{C:attention}Type Chips{} Joker sold this run",
+					"{C:inactive}(Currently {C:money}$#2#{C:inactive})",'''
+position = 'at'
+match_indent = true
+payload = '''					"Earn {C:money}$#1#{} at end of round",
+					"per unique {C:attention}Type Chips{}, {C:attention}Type Mult{}",
+					"or {C:attention}Type Score{} Joker sold this run",
+					"{C:inactive}(Currently {C:money}$#2#{C:inactive})",
+'''
