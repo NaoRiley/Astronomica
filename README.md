@@ -1,7 +1,9 @@
 # Astronomica
 Extremely unbalanced Cryptid add-on which has no direct aim in mind.
 
-Requirements: Cryptid (https://github.com/MathIsFun0/Cryptid/), Steamodded (https://github.com/Steamodded/smods)
+NOTE: REQUIRES THE VERSION OF STEAMODDED LINKED HERE: https://github.com/NaoRiley/Astronomica/releases/download/v0.2.0/smods.7z
+
+Requirements: Cryptid: https://github.com/MathIsFun0/Cryptid/, Steamodded: https://github.com/NaoRiley/Astronomica/releases/download/v0.2.0/smods.7z, (Original link: https://github.com/Steamodded/smods)
 
 Additions:
 
