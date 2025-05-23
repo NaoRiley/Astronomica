@@ -86,3 +86,11 @@ SMODS.Atlas{
 	px = 71,
 	py = 95
 }
+
+SMODS.Atlas{
+	key = 'deck', --Decks
+	path = 'deck.png',
+	px = 71,
+	py = 95
+}
+

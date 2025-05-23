@@ -2,7 +2,7 @@ SMODS.Back{
 	key = "runic",
 	config = { cry_negative_rate = 40, joker_slot = -3 },
 	pos = { x = 0, y = 0 },
-	atlas = "exotic",
+	atlas = "deck",
     loc_txt = {
         name = "Runic Deck",
         text ={
