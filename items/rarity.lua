@@ -3,10 +3,10 @@
 multi_gradient = SMODS.Gradient{
 	key = 'multicolor',
 	colours = {
-		HEX('FF0000'), --red
-		HEX('FFA500'), --orange
-		HEX('FFFF00'), --yellow
-		HEX('00FF00'), --lime
+		-- HEX('FF0000'), --red
+		-- HEX('FFA500'), --orange
+		-- HEX('FFFF00'), --yellow
+		-- HEX('00FF00'), --lime
 		HEX('00FFFF'), --aqua
 		HEX('FF00FF'), --purple
 	},
@@ -15,7 +15,7 @@ multi_gradient = SMODS.Gradient{
 }
 
 SMODS.Rarity{
-	key = 'worldbending',
-	loc_txt = {name = 'Worldbending'},
+	key = 'empyrean',
+	loc_txt = {name = 'Empyrean'},
 	badge_colour = multi_gradient, --calls the variable
 }

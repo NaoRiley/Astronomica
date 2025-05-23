@@ -6,7 +6,7 @@ SMODS.Consumable:take_ownership('judgement',
         if card.edition and card.edition.ast_nil then
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                 play_sound('timpani')
-                local card = create_card('Joker', G.jokers, nil, 'ast_worldbending', nil, nil, nil, 'jud')
+                local card = create_card('Joker', G.jokers, nil, 'ast_empyrean', nil, nil, nil, 'jud')
                 card:add_to_deck()
                 G.jokers:emplace(card)
                 return true end }))

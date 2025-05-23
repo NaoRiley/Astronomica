@@ -1,14 +1,16 @@
-AST = {} --global variables
+ast = {} --global variables
 
-AST.euler = 2.718281828459045 --this is for the factorial function
+ast.euler = 2.718281828459045 --this is for the factorial function
 
-AST.pi = 3.14159265358979 --this is also for the factorial functuion
+ast.pi = 3.14159265358979 --this is also for the factorial functuion
 
 --print('before')
-AST.start = love.timer.getTime() --gives some time
+ast.start = love.timer.getTime() --gives some time
 --print('after', start)
 
-AST.context_counts={}
+ast.idle = love.timer.getTime() --idle anticheat
+
+ast.context_counts={}
 
 -- UTIL_TABLE = {} 
 -- function UTIL_TABLE.factorial(n) --for factorial bullshit
@@ -40,11 +42,11 @@ function UTIL_TABLE.additive_factorial(n) --additive factorial
 end
 
 function UTIL_TABLE.factorial(n) --multiplicative factorial
-    return (to_big(AST.pi * 2)*to_big(n)):pow(0.5)*(to_big(n)/to_big(AST.euler))^to_big(n)
+    return (to_big(ast.pi * 2)*to_big(n)):pow(0.5)*(to_big(n)/to_big(ast.euler))^to_big(n)
 end
 
 function UTIL_TABLE.efactorial(n) --exponential factorial
-    return (to_big(AST.pi * 2)*to_big(n^(n-1))):pow(0.5)*(to_big(n^(n-1))/to_big(AST.euler))^to_big(n^(n-1))
+    return (to_big(ast.pi * 2)*to_big(n^(n-1))):pow(0.5)*(to_big(n^(n-1))/to_big(ast.euler))^to_big(n^(n-1))
 end
 
 -- if (key == 'p_score' or key == 'pscore' or key == 'pscore_mod') and amount ~= 1 then --i dont fucking know how to do this
@@ -73,4 +75,54 @@ mod_chips = function(chips)
 		return 1
 	end
   return null_chips(chips)
+end
+
+--uncomment when smods adds it
+
+SMODS.Font{
+    key = "futhark",
+    path = "Futhark.ttf",
+    render_scale = 7,
+    TEXT_HEIGHT_SCALE = 0.65, 
+    TEXT_OFFSET = {x=0,y=0}, 
+    FONTSCALE = 0.12,
+    squish = 1, 
+    DESCSCALE = 1
+}
+
+SMODS.Font{
+    key = "futhark2",
+    path = "Futhark2.ttf",
+    render_scale = 7,
+    TEXT_HEIGHT_SCALE = 0.65, 
+    TEXT_OFFSET = {x=0,y=0}, 
+    FONTSCALE = 0.12,
+    squish = 1, 
+    DESCSCALE = 1
+}
+
+function ast.FormatArrowMult(arrows, chips) --
+    chips = number_format(chips)
+    if to_big(arrows) < to_big(-1) then 
+        return "="..chips 
+    elseif to_big(arrows) < to_big(0) then 
+        return "+"..chips 
+    elseif to_big(arrows) < to_big(6) then 
+        if to_big(arrows) < to_big(1) then
+            return "X"..chips
+        end
+        local arr = ""
+        for i = 1, to_big(arrows):to_number() do
+            arr = arr.."^"
+        end
+        return arr..chips
+    else
+        return "{"..arrows.."}"..chips
+    end
+end
+
+local wg = win_game --makes anomaly FUCKING WORK since hidden cards IGNORE POOLS FOR SOME FUCKING REASON grahhhhhhhhhhhhhhh
+win_game = function()
+  wg()
+  G.P_CENTERS['c_ast_anomaly'].soul_rate = 0.2
 end

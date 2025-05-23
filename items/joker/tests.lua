@@ -1,0 +1,302 @@
+-- SMODS.Joker{
+--     key = 'testjoker',
+--     loc_txt = {
+--         name = 'Test Joker',
+--         text = {
+--             'For Testing.',
+--         }
+--     },
+--     atlas = 'j_placeholder',
+--     pos = {x = 0, y = 0},
+-- }
+
+-- SMODS.Joker {
+-- 	key = 'optest',
+-- 	loc_txt = {
+-- 		name = 'Operator Test',
+-- 		text = {
+-- 			'{X:dark_edition,C:white,s:2}^^^2{C:black} Chips & Mult',
+-- 		}
+-- 	},
+-- 	pos = { x = 0, y = 0 },
+-- 	cost = 100,
+-- 	rarity = 'cry_exotic',
+-- 	unlocked = true,
+-- 	discovered = true,
+-- 	no_doe = false,
+-- 	immutable = true,
+-- 	blueprint_compat = true,
+-- 	eternal_compat = true,
+-- 	perishable_compat = false,
+-- 	atlas = 'j_placeholder',
+-- 	calculate = function(self, card, context)
+-- 		if context.joker_main then
+-- 			return {
+-- 				message = '^^^2',
+-- 				EEEmult_mod = 2,
+--                 EEEchip_mod = 2,
+-- 				colour = G.C.PURPLE,
+-- 				card = card
+-- 			}, true
+-- 		end
+-- 	end
+-- }
+
+-- SMODS.Joker{
+--     key = 'trickster', --attempt to migrate to function
+--     loc_txt = {
+--         name = 'Trickster',
+--         text = {
+--             '{C:purple}+#1# {C:black}Score',
+--         }
+--     },
+-- 	blueprint_compat = true,
+--     atlas = 'jokers',
+--     pos = {x = 2, y = 0},
+-- 	rarity = 1,
+-- 	config = {
+-- 		extra = {
+-- 			pscore = 400
+-- 		}
+-- 	},
+-- 	loc_vars = function(self, info_queue, card)
+-- 		return {
+-- 			vars = {card.ability.extra.pscore}
+-- 		}
+-- 	end,
+-- 	calculate = function(self, card, context)
+-- 		if context.after then
+-- 			return {
+-- 				message = "+" .. tostring(card.ability.extra.pscore),
+-- 				pscore = 400,
+-- 				colour = G.C.PURPLE,
+-- 				card = card
+-- 			}, true
+-- 		end
+-- 	end
+-- }
+
+-- SMODS.Joker {
+-- 	key = 'centurio', --i hate this joker
+-- 	loc_txt = {
+-- 		name = 'Centurio',
+-- 		text = {
+-- 			'Go up to {X:dark_edition,C:white,s:2}-$Infinity {C:black} in debt',
+-- 		}
+-- 	},
+-- 	pos = { x = 3, y = 0 },
+-- 	soul_pos = { x = 4, y = 0, extra = { x = 5, y = 0 } },
+-- 	cost = 75, --higher than normal exotics on purpose
+-- 	rarity = 'cry_exotic',
+-- 	unlocked = true,
+-- 	discovered = true,
+-- 	no_doe = false,
+-- 	immutable = true,
+-- 	blueprint_compat = false,
+-- 	eternal_compat = true,
+-- 	perishable_compat = true,
+-- 	atlas = 'exotic',
+-- 	add_to_deck = function(self, card, from_debuff)
+        
+--         G.GAME.bankrupt_at = -math.huge --makes it so your money can go to -naneinf
+
+--     end,
+-- }
+
+-- SMODS.Joker{
+--     key = 'monalisa',
+--     loc_txt = {
+--         name = 'Mona Lisa',
+--         text = {
+-- 			'Retrigger {C:attention}face {C:black}cards 6 times',
+-- 			'Retrigger {C:attention}non face {C:black}cards 3 times',
+-- 			'{X:mult,C:white}X#1# {C:black} mult per {C:attention}face {C:black}card played',
+-- 			'{X:mult,C:white}X#2# {C:black} mult per {C:attention}non face {C:black}card',
+-- 			'{C:inactive,s:0.8}looks inside, photochad'
+--         }
+--     },
+--     atlas = 'j_placeholder',
+--     pos = {x = 0, y = 0},
+-- 	blueprint_compat = true,
+-- 	rarity = 'cry_exotic',
+-- 	config = {
+-- 		extra = {
+-- 			xmult = 6,
+-- 			xmult2 = 3,
+-- 		}
+-- 	},
+-- 	loc_vars = function(self, info_queue, card)
+-- 		return {
+-- 			vars = {card.ability.extra.xmult, card.ability.extra.xmult2}
+-- 		}
+-- 	end,
+-- 	calculate = function(self, card, context)
+-- 		if context.individual and context.cardarea == G.play and context.other_card:is_face() then
+-- 			return{xmult = card.ability.extra.xmult}
+-- 		end
+-- 		if context.individual and context.cardarea == G.play and not context.other_card:is_face() then
+-- 			return{xmult = card.ability.extra.xmult2}
+-- 		end
+-- 		if context.repetition and context.cardarea == G.play and context.other_card:is_face() then
+-- 			return{repetitions = 6}
+-- 		end
+-- 		if context.repetition and context.cardarea == G.play and not context.other_card:is_face() then
+-- 			return{repetitions = 3}
+-- 		end
+-- 	end
+-- }
+
+-- SMODS.Joker{
+--     key = 'reqtest',
+--     loc_txt = {
+--         name = 'Req Test',
+--         text = {
+--             'Reduces Blind Requirement by {X:attention,C:white}25%',
+-- 			'{C:black}per {C:attention}hand {C:black}played'
+--         }
+--     },
+--     atlas = 'j_placeholder',
+--     pos = {x = 0, y = 0},
+-- 	blueprint_compat = true,
+-- 	calculate = function(self, card, context)
+-- 		if context.joker_main then
+-- 			G.GAME.blind.chips = (to_big(G.GAME.blind.chips))/(to_big(1.33333))
+-- 			G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+-- 			play_sound('slice1')
+-- 			G.hand_text_area.blind_chips:juice_up(0.3, 0.3)
+-- 		end
+-- 	end
+-- }
+
+-- SMODS.Joker{
+--     key = 'reqtest2',
+--     loc_txt = {
+--         name = 'Req Test 2',
+--         text = {
+--             'Reduces blind requirement by {X:dark_edition,C:white}100%',
+--         }
+--     },
+--     atlas = 'j_placeholder',
+--     pos = {x = 0, y = 0},
+-- 	ignore_debuff = true,
+-- 	no_doe = true,
+-- 	no_collection = true,
+-- 	cost = 10^300,
+-- 	unlocked = false,
+-- 	discovered = false,
+-- 	calculate = function(self, card, context)
+-- 		if context.hand_drawn then
+-- 			G.E_MANAGER:add_event(Event({trigger = 'after',delay = 1,func = function()
+-- 				G.GAME.blind.chips = (to_big(0))
+-- 				G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+-- 				play_sound('slice1')
+-- 				G.hand_text_area.blind_chips:juice_up(0.3, 0.3)
+-- 				G.GAME.chips = G.GAME.blind.chips
+-- 				G.STATE = G.STATES.HAND_PLAYED
+-- 				G.STATE_COMPLETE = true
+-- 				end_round()
+-- 			return true end }))
+-- 		end
+-- 	end
+-- }
+
+-- SMODS.Joker{
+--     key = 'scorepf',
+--     loc_txt = {
+--         name = 'additive test',
+--         text = {
+--             '{X:dark_edition,C:white,s:2}Score?',
+--         }
+--     },
+-- 	blueprint_compat = true,
+--     atlas = 'j_placeholder',
+--     pos = {x = 0, y = 0},
+-- 	calculate = function(self, card, context)
+-- 		if context.after then
+-- 			G.E_MANAGER:add_event(Event({
+-- 				func = function() 
+-- 					G.GAME.chips = (to_big(G.GAME.chips)*(to_big(G.GAME.chips)+1)/2)
+-- 					play_sound('multhit2')
+-- 					play_sound('chips1')
+-- 					return true
+-- 				end,
+-- 			}))
+-- 		end
+-- 		if context.after then
+-- 			return {
+-- 				message = 'Score?',
+-- 				colour = G.C.PURPLE
+-- 			}
+-- 		end
+-- 	end
+-- }
+
+-- SMODS.Joker{
+--     key = 'scorexf',
+--     loc_txt = {
+--         name = 'multiplicative test',
+--         text = {
+--             '{X:dark_edition,C:white,s:2}Score!',
+--         }
+--     },
+--     atlas = 'j_placeholder',
+--     pos = {x = 0, y = 0},
+-- 	calculate = function(self, card, context)
+-- 		if context.after then
+-- 			G.E_MANAGER:add_event(Event({
+-- 				func = function() 
+-- 					G.GAME.chips = (to_big(ast.pi * 2)*to_big(G.GAME.chips)):pow(0.5)*(to_big(G.GAME.chips)/to_big(ast.euler))^to_big(G.GAME.chips)
+-- 					play_sound('multhit2')
+-- 					return true
+-- 				end,
+-- 			}))
+-- 		end
+-- 		if context.after then
+-- 			return {
+-- 				message = 'Score!',
+-- 				colour = G.C.PURPLE
+-- 			}
+-- 		end
+-- 	end
+-- }
+
+-- SMODS.Joker{
+--     key = 'scoreef',
+--     loc_txt = {
+--         name = 'exponential test',
+--         text = {
+--             '{X:dark_edition,C:white,s:2}Score^!',
+--         }
+--     },
+--     atlas = 'j_placeholder',
+--     pos = {x = 0, y = 0},
+-- 	calculate = function(self, card, context)
+-- 		if context.after then
+-- 			G.E_MANAGER:add_event(Event({
+-- 				func = function() 
+-- 					G.GAME.chips = (to_big(ast.pi * 2)*to_big(G.GAME.chips^(G.GAME.chips-1))):pow(0.5)*(to_big(G.GAME.chips^(G.GAME.chips-1))/to_big(ast.euler))^to_big(G.GAME.chips^(G.GAME.chips-1))
+-- 					play_sound('multhit2')
+-- 					return true
+-- 				end,
+-- 			}))
+-- 		end
+-- 		if context.after then
+-- 			return {
+-- 				message = 'Score^!',
+-- 				colour = G.C.PURPLE
+-- 			}
+-- 		end
+-- 	end
+-- }
+
+-- SMODS.Joker{
+--     key = 'shoptest',
+--     loc_txt = {
+--         name = 'Shop Test',
+--         text = {
+--             'placeholder',
+--         }
+--     },
+--     atlas = 'j_placeholder',
+--     pos = {x = 0, y = 0}
+-- }

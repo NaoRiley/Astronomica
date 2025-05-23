@@ -29,6 +29,9 @@ SMODS.Joker{
 			},
 		}
 	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["High Card"].played or 0) > 0
+    end,
 	atlas = "jokers",
     pos = { x = 1, y = 1 },
 	rarity = 1,
@@ -84,6 +87,9 @@ SMODS.Joker{
 			},
 		}
 	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["Pair"].played or 0) > 0
+    end,
 	atlas = "jokers",
     pos = { x = 2, y = 1 },
 	rarity = 1,
@@ -139,6 +145,9 @@ SMODS.Joker{
 			},
 		}
 	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["Three of a Kind"].played or 0) > 0
+    end,
 	atlas = "jokers",
     pos = { x = 3, y = 1 },
 	rarity = 1,
@@ -194,6 +203,9 @@ SMODS.Joker{
 			},
 		}
 	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["Two Pair"].played or 0) > 0
+    end,
 	atlas = "jokers",
     pos = { x = 4, y = 1 },
 	rarity = 1,
@@ -249,6 +261,9 @@ SMODS.Joker{
 			},
 		}
 	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["Straight"].played or 0) > 0
+    end,
 	atlas = "jokers",
     pos = { x = 5, y = 1 },
 	rarity = 1,
@@ -304,6 +319,9 @@ SMODS.Joker{
 			},
 		}
 	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["Flush"].played or 0) > 0
+    end,
 	atlas = "jokers",
     pos = { x = 6, y = 1 },
 	rarity = 1,
@@ -359,6 +377,9 @@ SMODS.Joker{
 			},
 		}
 	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["Four of a Kind"].played or 0) > 0
+    end,
 	atlas = "jokers",
     pos = { x = 7, y = 1 },
 	rarity = 1,
@@ -414,6 +435,9 @@ SMODS.Joker{
 			},
 		}
 	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["Straight Flush"].played or 0) > 0
+    end,
 	atlas = "jokers",
     pos = { x = 8, y = 1 },
 	rarity = 1,
@@ -469,6 +493,9 @@ SMODS.Joker{
 			},
 		}
 	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["Full House"].played or 0) > 0
+    end,
 	atlas = "jokers",
     pos = { x = 9, y = 1 },
 	rarity = 1,
@@ -524,6 +551,9 @@ SMODS.Joker{
 			},
 		}
 	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["Five of a Kind"].played or 0) > 0
+    end,
 	atlas = "jokers",
     pos = { x = 0, y = 2 },
 	rarity = 1,
@@ -579,6 +609,9 @@ SMODS.Joker{
 			},
 		}
 	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["Flush House"].played or 0) > 0
+    end,
 	atlas = "jokers",
     pos = { x = 1, y = 2 },
 	rarity = 1,
@@ -634,6 +667,9 @@ SMODS.Joker{
 			},
 		}
 	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["Flush Five"].played or 0) > 0
+    end,
 	atlas = "jokers",
     pos = { x = 2, y = 2 },
 	rarity = 1,
@@ -689,6 +725,9 @@ SMODS.Joker{
 			},
 		}
 	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["cry_Clusterfuck"].played or 0) > 0
+    end,
 	atlas = "jokers",
     pos = { x = 3, y = 2 },
 	rarity = 1,
@@ -744,6 +783,9 @@ SMODS.Joker{
 			},
 		}
 	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["cry_UltPair"].played or 0) > 0
+    end,
 	atlas = "jokers",
     pos = { x = 4, y = 2 },
 	rarity = 1,
@@ -799,6 +841,9 @@ SMODS.Joker{
 			},
 		}
 	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["cry_Bulwark"].played or 0) > 0
+    end,
 	atlas = "jokers",
     pos = { x = 5, y = 2 },
 	rarity = 1,
