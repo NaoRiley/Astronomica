@@ -1,4 +1,5 @@
 ast = {} --global variables
+AST = {} --just dont think too hard about this one
 
 ast.euler = 2.718281828459045 --this is for the factorial function
 
@@ -77,9 +78,44 @@ mod_chips = function(chips)
   return null_chips(chips)
 end
 
---uncomment when smods adds it
+--horrible:
+---@meta
 
-SMODS.Font{
+---@class AST.Font: AST.GameObject
+---@field obj_table? table<string, AST.Font|table> Table of objects registered to this class. 
+---@field super? AST.GameObject|table Parent class. 
+---@field path? string Name of the font file, including the extension. 
+---@field render_scale? number Determine the font size the text is being rendered after multiplying by `G.TILESIZE`. This is usually set to a high number for better font readability. The default font's value is `10`.
+---@field TEXT_HEIGHT_SCALE? number Determines line spacing. The default font's value is `0.83`.
+---@field TEXT_OFFSET? table|{x: number, y: number} Determines the offset that the font is rendered. You might need to adjust this if the font render in unexpected places. This one depends on how far the font is from expected place and is entirely up to the font itself so it is necessary to test which value works best.
+---@field FONTSCALE? number Determines how big the font actually is rendered after scaling with `render_scale`. This is usually set to a lower number in inverse proportion to `render_scale` so that it renders at a proper size. The default font's value is `0.1`.
+---@field squish? number Determines horizontal scaling factor of the font. Value less than 1 will result in fonts being squished together. All fonts in the base game has this value set to `1` by default.
+---@field DESCSCALE? number Determines how big the description text should be in relation to normal text. Keep in mind that mobile UI makes this 1.5x bigger. The default font's value is `1`.
+---@field __call? fun(self: AST.Font|table, o: AST.Font|table): nil|table|AST.Font
+---@field extend? fun(self: AST.Font|table, o: AST.Font|table): table Primary method of creating a class. 
+---@field check_duplicate_register? fun(self: AST.Font|table): boolean? Ensures objects already registered will not register. 
+---@field check_duplicate_key? fun(self: AST.Font|table): boolean? Ensures objects with duplicate keys will not register. Checked on `__call` but not `take_ownership`. For take_ownership, the key must exist. 
+---@field register? fun(self: AST.Font|table) Registers the object. 
+---@field check_dependencies? fun(self: AST.Font|table): boolean? Returns `true` if there's no failed dependencies. 
+---@field process_loc_text? fun(self: AST.Font|table) Called during `inject_class`. Handles injecting loc_text. 
+---@field send_to_subclasses? fun(self: AST.Font|table, func: string, ...: any) Starting from this class, recusively searches for functions with the given key on all subordinate classes and run all found functions with the given arguments. 
+---@field pre_inject_class? fun(self: AST.Font|table) Called before `inject_class`. Injects and manages class information before object injection. 
+---@field post_inject_class? fun(self: AST.Font|table) Called after `inject_class`. Injects and manages class information after object injection. 
+---@field inject_class? fun(self: AST.Font|table) Injects all direct instances of class objects by calling `obj:inject` and `obj:process_loc_text`. Also injects anything necessary for the class itself. Only called if class has defined both `obj_table` and `obj_buffer`. 
+---@field inject? fun(self: AST.Font|table, i?: number) Called during `inject_class`. Injects the object into the game. 
+---@field take_ownership? fun(self: AST.Font|table, key: string, obj: AST.Font|table, silent?: boolean): nil|table|AST.Font Takes control of vanilla objects. Child class must have get_obj for this to function
+---@field get_obj? fun(self: AST.Font|table, key: string): AST.Font|table? Returns an object if one matches the `key`. 
+---@overload fun(self: AST.Font): AST.Font
+AST.Font = setmetatable({}, {
+    __call = function(self)
+        return self
+    end
+})
+
+---@type table<string, AST.Font|table>
+AST.Fonts = {} 
+
+AST.Font{
     key = "futhark",
     path = "Futhark.ttf",
     render_scale = 7,
@@ -90,7 +126,7 @@ SMODS.Font{
     DESCSCALE = 1
 }
 
-SMODS.Font{
+AST.Font{
     key = "futhark2",
     path = "Futhark2.ttf",
     render_scale = 7,
@@ -101,7 +137,7 @@ SMODS.Font{
     DESCSCALE = 1
 }
 
-function ast.FormatArrowMult(arrows, chips) --
+function ast.FormatArrowMult(arrows, chips)
     chips = number_format(chips)
     if to_big(arrows) < to_big(-1) then 
         return "="..chips 

@@ -1,3 +1,65 @@
+-- SMODS.Joker {
+-- 	key = "", 
+-- 	loc_txt = {
+-- 		name = "{f:ast_futhark2,s:1.1,C:chips}",
+-- 		text = {
+-- 		}
+-- 	},
+-- 	pos = { x = 0, y = 0 },
+-- 	soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
+-- 	cost = 100,
+-- 	rarity = 'ast_empyrean',
+-- 	unlocked = true,
+-- 	discovered = true,
+-- 	blueprint_compat = true,
+-- 	demicoloncompat = true,
+-- 	eternal_compat = true,
+-- 	perishable_compat = true,
+-- 	immutable = false,
+-- 	atlas = "exotic",
+-- 	ast_credits = {
+-- 	},
+-- 	config = {
+-- 		extra = {
+-- 			n = 3, 
+-- 			c = false
+-- 		},
+-- 	},
+-- 	loc_vars = function(self, info_queue, card)
+-- 		return {
+-- 			vars = {card.ability.extra.n}
+-- 		}
+-- 	end,
+-- 	calculate = function(self, card, context)
+-- 	end,
+-- 	generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+--     SMODS.Center.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+
+--     if desc_nodes == full_UI_table.main then
+--         full_UI_table.name = {
+--             {
+--                 n = G.UIT.C,
+--                 config = { align = "cm", padding = 0.05 },
+--                 nodes = {
+--                     {
+--                         n = G.UIT.R,
+--                         config = { align = "cm" },
+--                         nodes = full_UI_table.name
+--                     },
+--                     {
+--                         n = G.UIT.R,
+--                         config = { align = "cm" },
+--                         nodes = {{
+--                           n = G.UIT.T,
+--                           config = { text = "()", colour = G.C.INACTIVE, scale = (0.4 - 0.004 * #"()") } }
+--                     }},
+--                 }
+--             }
+--         }
+--     end
+-- end
+-- }
+
 SMODS.Joker {
 	key = "radalingr", 
 	loc_txt = {
@@ -175,7 +237,7 @@ SMODS.Joker {
 	loc_txt = {
 		name = "{f:ast_futhark2,s:1.1,C:chips}Asgard",
 		text = {
-			"Gains {C:dark_edition}#2#{} Chip per scored card or joker, caps at {C:dark_edition}100{},",
+			"Gains {C:dark_edition}#2#{} Chip per scored card or joker, caps at {C:dark_edition}#4#{},",
 			"When reached, increase operator by one and reset Chips",
 			"Joker's scoring effects trigger per card played",
 			"{C:inactive}(Currently {X:dark_edition,C:white}#1# {C:inactive} Chips)"
@@ -210,6 +272,7 @@ SMODS.Joker {
 			vars = {
                 ast.FormatArrowMult(card.ability.extra.arrows, card.ability.extra.chips),
                 card.ability.extra.chips_mod,
+				card.ability.extra.arrows, --??????????
                 card.ability.extra.cap,
             },
 		}

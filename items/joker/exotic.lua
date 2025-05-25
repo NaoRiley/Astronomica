@@ -116,7 +116,7 @@ SMODS.Joker{
 		end
 		if context.after then
 			return {
-				message = "X" .. tostring(card.ability.extra.score),
+				message = "^^" .. tostring(card.ability.extra.score),
 				colour = G.C.PURPLE
 			}
 		end
