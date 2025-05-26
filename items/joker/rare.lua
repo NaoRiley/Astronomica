@@ -113,6 +113,68 @@ SMODS.Joker {
 	},
 }
 
+-- SMODS.Joker{
+--     key = 'stopwatch',
+--     loc_txt = {
+--         name = 'Stopwatch',
+--         text = {
+--             'Gives {C:chips}+#2# {C:black}chip for each ',
+-- 			'{C:attention}second {C:black}game has been open',
+-- 			'{C:inactive}(Currently {C:chips}#1# {C:inactive}chips)',
+--         }
+--     },
+--     atlas = 'jokers',
+--     pos = {x = 1, y = 0},
+-- 	rarity = 3,
+-- 	blueprint_compat = true,
+-- 	ast_credits = {
+--         art = {"Coo29"}
+--     },
+-- 	config = {
+-- 		extra = {
+-- 			chips = 0,
+-- 			chip_mod = 1,
+-- 			evil_chip_mod = 2,
+-- 			anticheat = false,
+-- 		}
+-- 	},
+-- 	loc_vars = function(self, info_queue, card)
+-- 		return {
+-- 			vars = {card.ability.extra.chips, card.ability.extra.chip_mod}
+-- 		}
+-- 	end,
+-- 	update = function(self, card, dt)
+-- 		local time_elapsed = love.timer.getTime() - ast.start
+-- 		local anticheat = love.timer.getTime() - ast.idle
+-- 		card.ability.extra.chips = (math.floor(time_elapsed/1) * card.ability.extra.chip_mod) --/1 means per second, /60 would mean per minute
+-- 		if anticheat >= 60 then
+-- 			card.ability.extra.anticheat = true
+-- 		end
+-- 		if anticheat <= 60 then
+-- 			card.ability.extra.anticheat = false
+-- 		end
+-- 		if card.ability.extra.anticheat == true then
+-- 			card.ability.extra.chips = card.ability.extra.chips - (math.floor(anticheat-60) * card.ability.extra.evil_chip_mod) --STOP SETTING THE FUCKING CHIPS TO NEGATIVE DUMBASS
+-- 		end
+-- 		if card.ability.extra.chips < 0 then
+-- 			card.ability.extra.chips = 0
+			
+-- 		end
+-- 	end,
+-- 	calculate = function(self, card, context)
+-- 		if context.cry_press then
+-- 			ast.idle = love.timer.getTime()
+-- 		end	
+-- 		if context.joker_main and card.ability.extra.chips > 0 then
+-- 			return {
+-- 				message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } },
+-- 				chip_mod = card.ability.extra.chips,
+-- 				colour = G.C.CHIPS
+-- 			}
+-- 		end
+-- 	end
+-- }
+
 SMODS.Joker{
     key = 'stopwatch',
     loc_txt = {
@@ -127,15 +189,10 @@ SMODS.Joker{
     pos = {x = 1, y = 0},
 	rarity = 3,
 	blueprint_compat = true,
-	ast_credits = {
-        art = {"Coo29"}
-    },
 	config = {
 		extra = {
 			chips = 0,
-			chip_mod = 1,
-			evil_chip_mod = 2,
-			anticheat = false,
+			chip_mod = 1
 		}
 	},
 	loc_vars = function(self, info_queue, card)
@@ -144,27 +201,10 @@ SMODS.Joker{
 		}
 	end,
 	update = function(self, card, dt)
-		local time_elapsed = love.timer.getTime() - ast.start
-		local anticheat = love.timer.getTime() - ast.idle
+		local time_elapsed = love.timer.getTime() - AST.start
 		card.ability.extra.chips = (math.floor(time_elapsed/1) * card.ability.extra.chip_mod) --/1 means per second, /60 would mean per minute
-		if anticheat >= 60 then
-			card.ability.extra.anticheat = true
-		end
-		if anticheat <= 60 then
-			card.ability.extra.anticheat = false
-		end
-		if card.ability.extra.anticheat == true then
-			card.ability.extra.chips = card.ability.extra.chips - (math.floor(anticheat-60) * card.ability.extra.evil_chip_mod) --STOP SETTING THE FUCKING CHIPS TO NEGATIVE DUMBASS
-		end
-		if card.ability.extra.chips < 0 then
-			card.ability.extra.chips = 0
-			
-		end
 	end,
 	calculate = function(self, card, context)
-		if context.cry_press then
-			ast.idle = love.timer.getTime()
-		end	
 		if context.joker_main and card.ability.extra.chips > 0 then
 			return {
 				message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } },

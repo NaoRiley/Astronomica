@@ -1,15 +1,17 @@
 ast = {} --global variables
 AST = {} --just dont think too hard about this one
 
+if not AST then AST = ast end
+
 ast.euler = 2.718281828459045 --this is for the factorial function
 
 ast.pi = 3.14159265358979 --this is also for the factorial functuion
 
 --print('before')
-ast.start = love.timer.getTime() --gives some time
+AST.start = love.timer.getTime() --gives some time
 --print('after', start)
 
-ast.idle = love.timer.getTime() --idle anticheat
+-- ast.idle = love.timer.getTime() --idle anticheat
 
 ast.context_counts={}
 
