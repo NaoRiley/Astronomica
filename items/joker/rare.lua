@@ -201,7 +201,7 @@ SMODS.Joker{
 		}
 	end,
 	update = function(self, card, dt)
-		local time_elapsed = love.timer.getTime() - AST.start
+		local time_elapsed = love.timer.getTime() - ast.start
 		card.ability.extra.chips = (math.floor(time_elapsed/1) * card.ability.extra.chip_mod) --/1 means per second, /60 would mean per minute
 	end,
 	calculate = function(self, card, context)

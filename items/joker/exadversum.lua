@@ -1,3 +1,5 @@
+--funny how i have to hardcode every single boss blind
+
 SMODS.Atlas{
 	key = 'fallback', --Inverted Blind
 	path = 'invertedblinds/fallback.png',
@@ -83,6 +85,8 @@ SMODS.Joker{
                 G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_itooth"])
             elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_pillar" then
                 G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_ipillar"])
+            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_cry_box" then
+                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_ibox"])
             elseif G.GAME.blind.in_blind and G.GAME.blind.boss
             and G.GAME.blind.config.blind.key ~= "bl_ast_iboss"
             and G.GAME.blind.config.blind.key ~= "bl_entr_endless_entropy_phase_one"
@@ -507,4 +511,36 @@ SMODS.Blind{
 --     calculate = funtion(self, blind, context)
 --         if context.full_hand[5] then
 
+-- }
+
+-- SMODS.Blind{
+--     key = 'ibox', --The Box Inverted
+--     loc_txt = {
+--         name = 'The Box',
+--         text = {
+--             'All Common Jokers',
+--             'are retriggered',
+--         }
+--     },
+--     atlas = 'cry',
+--     in_pool = function () end,
+--     no_collection = true,
+--     pos = {x = 0, y = 8},
+-- 	dollars = 5,
+-- 	mult = 2,
+-- 	boss = {min = 0},
+-- 	boss_colour = HEX('77c5c4'), --883a3b original
+--     calculate = function(self, card, context)
+-- 		if context.retrigger_joker_check and not context.retrigger_joker then
+-- 			if card.config.center.rarity == 1 then
+-- 				return {
+-- 					message = localize("k_again_ex"),
+-- 					repetitions = 1,
+-- 					card = card,
+-- 				}
+-- 			else
+-- 				return nil, true
+-- 			end
+-- 		end
+-- 	end,
 -- }

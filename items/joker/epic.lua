@@ -51,3 +51,19 @@ SMODS.Joker{
 		end
 	end
 }
+
+-- SMODS.Joker{
+--     key = 'trueinvisiblejoker',
+--     loc_txt = {
+--         name = 'True Invisible Joker',
+--         text = {
+--         }
+--     },
+-- 	demicoloncompat = true,
+--     atlas = 'jokers',
+--     pos = {x = 2000, y = 2000},
+-- 	rarity = 'cry_epic',
+-- 	blueprint_compat = true,
+-- 	calculate = function(self, card, context)
+-- }
+

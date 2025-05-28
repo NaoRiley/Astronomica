@@ -122,3 +122,39 @@ SMODS.Joker{
 		end
 	end
 }
+
+-- SMODS.Joker{
+--     key = 'congruentia',
+--     loc_txt = {
+--         name = 'Congruentia',
+--         text = {
+--             'When Mult increases, Chips also increase',
+-- 			'When Chips increase, Mult also increases'
+--         }
+--     },
+--     atlas = 'j_placeholder',
+--     rarity = 'cry_exotic',
+--     cost = 50,
+--     pos = {x = 0, y = 0},
+--     soul_pos = { x = 0, y = 0, extra = { x = 0, y = 0 } },
+--     config = {
+-- 		extra = {
+-- 		}
+-- 	},
+--     init = function(self)
+-- 		local congruentia_mult = mod_mult
+-- 		mod_mult = function(mult)
+-- 			if next(SMODS.find_card("j_ast_congruentia")) then
+-- 				return hand_chips
+-- 			end
+-- 		return congruentia_mult(mult)
+-- 		end
+-- 		local congruentia_chips = mod_chips
+-- 		mod_chips = function(chips)
+-- 			if next(SMODS.find_card("j_ast_congruentia")) then
+-- 				return mult
+-- 			end
+-- 		return congruentia_chips(chips)
+-- 		end
+-- 	end
+-- }

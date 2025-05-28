@@ -253,7 +253,7 @@ SMODS.Joker {
 	demicoloncompat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	immutable = true,
+	immutable = false, --worth a try
 	atlas = "exotic",
 	ast_credits = {
 		art = {"Tatteredlurker"},
@@ -262,73 +262,75 @@ SMODS.Joker {
         extra = {
 			chips = 1,
 			chips_mod = 1,
-            arrows = -1,
 			cap = 100,
 			fakechips = 1e300,
+			immutable = {
+				arrows = -1,
+			},
         },
     },
 	loc_vars = function(self, q, card)
 		return {
 			vars = {
-                ast.FormatArrowMult(card.ability.extra.arrows, card.ability.extra.chips),
+                ast.FormatArrowMult(card.ability.extra.immutable.arrows, card.ability.extra.chips),
                 card.ability.extra.chips_mod,
-				card.ability.extra.arrows, --??????????
+				card.ability.extra.immutable.arrows, --??????????
                 card.ability.extra.cap,
             },
 		}
 	end,
 	calculate = function(self, card, context)
 		if ((to_big(card.ability.extra.chips)) >= (to_big(card.ability.extra.cap)) and not context.repetition and not context.blueprint) or context.forcetrigger then
-			card.ability.extra.arrows = (to_big(card.ability.extra.arrows)) + (to_big(1))
+			card.ability.extra.immutable.arrows = (to_big(card.ability.extra.immutable.arrows)) + (to_big(1))
 			card.ability.extra.chips = (to_big(1))
 		end
 		if not context.blueprint and ((context.post_trigger and context.other_joker ~= card) or (context.individual and context.cardarea == G.play)) then --duplicare type beat
 			card.ability.extra.chips = lenient_bignum(to_big(card.ability.extra.chips) + card.ability.extra.chips_mod)
 			card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_upgrade_ex") })
 		end
-		if (context.individual and (to_big(card.ability.extra.arrows)) <= (to_big(100)) and context.cardarea == G.play) or (context.forcetrigger and (to_big(card.ability.extra.arrows)) <= (to_big(100))) then
-            if to_big(card.ability.extra.arrows) < to_big(0) then
+		if (context.individual and (to_big(card.ability.extra.immutable.arrows)) <= (to_big(100)) and context.cardarea == G.play) or (context.forcetrigger and (to_big(card.ability.extra.immutable.arrows)) <= (to_big(100))) then
+            if to_big(card.ability.extra.immutable.arrows) < to_big(0) then
                     return {
                         chip_mod=card.ability.extra.chips,
-                        message = ast.FormatArrowMult(card.ability.extra.arrows, card.ability.extra.chips) .. ' Chips',
+                        message = ast.FormatArrowMult(card.ability.extra.immutable.arrows, card.ability.extra.chips) .. ' Chips',
                         colour = G.C.CHIPS,
                     }
-            elseif to_big(card.ability.extra.arrows) < to_big(1) then
+            elseif to_big(card.ability.extra.immutable.arrows) < to_big(1) then
                 return {
                     Xchip_mod=card.ability.extra.chips,
-                    message = ast.FormatArrowMult(card.ability.extra.arrows, card.ability.extra.chips) .. ' Chips',
+                    message = ast.FormatArrowMult(card.ability.extra.immutable.arrows, card.ability.extra.chips) .. ' Chips',
                     colour = G.C.CHIPS,
                 }
             end
             return {
 				hyperchip_mod = {
-                    card.ability.extra.arrows,
+                    card.ability.extra.immutable.arrows,
                     card.ability.extra.chips
                 },
-				message =   ast.FormatArrowMult(card.ability.extra.arrows, card.ability.extra.chips) .. ' Chips',
+				message =   ast.FormatArrowMult(card.ability.extra.immutable.arrows, card.ability.extra.chips) .. ' Chips',
 				colour = { 0.8, 0.45, 0.85, 1 },
 			}
 		end
-		if (context.individual and (to_big(card.ability.extra.arrows)) > (to_big(100)) and context.cardarea == G.play) or (context.forcetrigger and (to_big(card.ability.extra.arrows)) > (to_big(100))) then
-            if to_big(card.ability.extra.arrows) < to_big(0) then
+		if (context.individual and (to_big(card.ability.extra.immutable.arrows)) > (to_big(100)) and context.cardarea == G.play) or (context.forcetrigger and (to_big(card.ability.extra.immutable.arrows)) > (to_big(100))) then
+            if to_big(card.ability.extra.immutable.arrows) < to_big(0) then
                     return {
                         chip_mod=card.ability.extra.chips,
-                        message = ast.FormatArrowMult(card.ability.extra.arrows, card.ability.extra.chips) .. ' Chips',
+                        message = ast.FormatArrowMult(card.ability.extra.immutable.arrows, card.ability.extra.chips) .. ' Chips',
                         colour = G.C.CHIPS,
                     }
-            elseif to_big(card.ability.extra.arrows) < to_big(1) then
+            elseif to_big(card.ability.extra.immutable.arrows) < to_big(1) then
                 return {
                     Xchip_mod=card.ability.extra.chips,
-                    message = ast.FormatArrowMult(card.ability.extra.arrows, card.ability.extra.chips) .. ' Chips',
+                    message = ast.FormatArrowMult(card.ability.extra.immutable.arrows, card.ability.extra.chips) .. ' Chips',
                     colour = G.C.CHIPS,
                 }
             end
             return {
 				hyperchip_mod = {
-                    card.ability.extra.arrows,
+                    card.ability.extra.immutable.arrows,
                     card.ability.extra.fakechips
                 },
-				message =   ast.FormatArrowMult(card.ability.extra.arrows, card.ability.extra.chips) .. ' Chips',
+				message =   ast.FormatArrowMult(card.ability.extra.immutable.arrows, card.ability.extra.chips) .. ' Chips',
 				colour = { 0.8, 0.45, 0.85, 1 },
 			}
 		end
