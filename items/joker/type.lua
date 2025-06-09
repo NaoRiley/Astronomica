@@ -873,3 +873,121 @@ SMODS.Joker{
         end
 	end
 }
+
+SMODS.Joker{
+	key = "hypothetical",
+    loc_txt = {
+        name = 'Hypothetical Joker',
+        text = {
+            '{C:purple}+#1# {}Score if played',
+            'hand is {C:attention}#2#'
+        }
+    },
+	config = {
+		extra = {
+			score = 150,
+			type = "cry_None",
+            active = false,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				number_format(card.ability.extra.score),
+				localize(card.ability.extra.type, "poker_hands"),
+			},
+		}
+	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["cry_None"].played or 0) > 0
+    end,
+	atlas = "jokers",
+    pos = { x = 6, y = 2 },
+	rarity = 1,
+    order = 2,
+	cost = 4,
+    effect = "Cry Type Score",
+	blueprint_compat = true,
+	demicoloncompat = true,
+	calculate = function(self, card, context)
+		if (context.before and context.poker_hands and next(context.poker_hands["cry_None"])) or context.forcetrigger then
+            card.ability.extra.active = true
+            end
+            if context.after and card.ability.extra.active == true then  
+                G.E_MANAGER:add_event(Event({
+                func = function() 
+                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
+                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+                    play_sound('gong')
+                    card.ability.extra.active = false
+                    return true
+                end,
+            }))
+            return {
+                message = "+" .. tostring(card.ability.extra.score),
+                colour = G.C.PURPLE
+            }
+        end
+	end
+}
+
+SMODS.Joker{
+	key = "tefd",
+    loc_txt = {
+        name = 'A Tremendous Amount Of Effort Is Required To Even Begin To Simply Comprehend The Concept Behind This Joker',
+        text = {
+            '{X:purple,C:white}X#1#{} Score if played',
+            'hand contains',
+            'a {C:attention}#2#'
+        }
+    },
+	config = {
+		extra = {
+			score = 52525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252,
+			type = "cry_WholeDeck",
+            active = false,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				number_format(card.ability.extra.score),
+				localize(card.ability.extra.type, "poker_hands"),
+			},
+		}
+	end,
+    in_pool = function(self, args)
+        return (G.GAME.hands["cry_WholeDeck"].played or 0) > 0
+    end,
+	atlas = "jokers",
+    pos = { x = 7, y = 2 },
+	rarity = 1,
+    order = 2,
+	cost = 4,
+    effect = "Cry Type Score",
+	blueprint_compat = true,
+	demicoloncompat = true,
+	calculate = function(self, card, context)
+		if (context.before and context.poker_hands and next(context.poker_hands["cry_WholeDeck"])) or context.forcetrigger then
+            card.ability.extra.active = true
+            end
+            if context.after and card.ability.extra.active == true then  
+                G.E_MANAGER:add_event(Event({
+                func = function() 
+                    G.GAME.chips = (to_big(G.GAME.chips))*(to_big(card.ability.extra.score))
+                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+                    play_sound('gong')
+                    card.ability.extra.active = false
+                    return true
+                end,
+            }))
+            return {
+                message = "X" .. tostring(card.ability.extra.score),
+                colour = G.C.PURPLE
+            }
+        end
+	end,
+	ast_credits = {
+		art = {'luigicat11'},
+	},
+}

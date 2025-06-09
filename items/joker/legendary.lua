@@ -69,4 +69,7 @@ SMODS.Joker{
 -- 	end,
 -- 	calculate = function(self, card, context)
 -- 	end,
+-- 	ast_credits = {
+-- 		art = {'gudusername_53951'},
+-- 	},
 -- }
