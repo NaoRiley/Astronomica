@@ -44,3 +44,29 @@ SMODS.Joker{
 		end
 	end
 }
+
+-- SMODS.Joker{
+--     key = 'ena',
+--     loc_txt = {
+--         name = '{f:ast_m6x11mod}ƎNA',
+--         text = {
+--         }
+--     },
+-- 	blueprint_compat = true,
+-- 	demicoloncompat = true,
+--     atlas = 'jokers',
+--     pos = {x = 0, y = 3},
+-- 	rarity = 4,
+-- 	config = {
+-- 		extra = {
+-- 		}
+-- 	},
+-- 	blueprint_compat = true,
+-- 	loc_vars = function(self, info_queue, card)
+-- 		return {
+-- 			vars = {}
+-- 		}
+-- 	end,
+-- 	calculate = function(self, card, context)
+-- 	end,
+-- }

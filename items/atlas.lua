@@ -1,4 +1,11 @@
 SMODS.Atlas{
+    key = "modicon", --Mod Icon
+    path = "ast_icon.png",
+    px = 34,
+    py = 34,
+}
+
+SMODS.Atlas{
     key = 'j_placeholder', --Joker placeholder sprite
     path = 'j_placeholder.png',
     px = 71,

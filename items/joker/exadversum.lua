@@ -85,8 +85,8 @@ SMODS.Joker{
                 G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_itooth"])
             elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_pillar" then
                 G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_ipillar"])
-            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_cry_box" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_ibox"])
+            -- elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_cry_box" then
+            --     G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_ibox"])
             elseif G.GAME.blind.in_blind and G.GAME.blind.boss
             and G.GAME.blind.config.blind.key ~= "bl_ast_iboss"
             and G.GAME.blind.config.blind.key ~= "bl_entr_endless_entropy_phase_one"

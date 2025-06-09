@@ -104,6 +104,11 @@ SMODS.Font{
     DESCSCALE = 1
 }
 
+SMODS.Font{
+    key = "m6x11mod",
+    path = "m6x11Mod.ttf",
+}
+
 function ast.FormatArrowMult(arrows, chips)
     chips = number_format(chips)
     if to_big(arrows) < to_big(-1) then 
