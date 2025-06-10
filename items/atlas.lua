@@ -101,3 +101,16 @@ SMODS.Atlas{
 	py = 95
 }
 
+SMODS.Atlas{
+	key = 'anomaly', --Anomaly
+	path = 'anomaly.png',
+	px = 65,
+	py = 95
+}
+
+SMODS.Atlas{
+	key = 'exadversum', --Exadversum
+	path = 'exadversum.png',
+	px = 71,
+	py = 95
+}

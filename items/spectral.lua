@@ -8,8 +8,9 @@ SMODS.Consumable {
 			'with {C:dark_edition}Anomalous {C:black}power',
         },
     },
-    atlas = 'spectral',
+    atlas = 'anomaly',
     pos = {x = 0, y = 0},
+	soul_pos = { x = 0, y = 5, },
     cost = 250,
 	hidden = true,
     soul_rate = 0,
@@ -18,9 +19,9 @@ SMODS.Consumable {
 	-- in_pool =  function(self, args)
 	-- 	return to_big(G.GAME.round_resets.ante) > to_big(8) --only appears after ante 8
 	-- end,
-    frames = 2,
-    dt = 0,
-    dt_r = 1,
+    -- frames = 2,
+    -- dt = 0,
+    -- dt_r = 1,
     can_use = function(self, card)
 		if #G.consumeables.highlighted + ((G.pack_cards and G.pack_cards.highlighted[1] and G.pack_cards.highlighted[1].ability.consumeable and #G.pack_cards.highlighted) or 0) == 2 then
     		return true
@@ -139,17 +140,17 @@ SMODS.Consumable {
 -- 			end
 -- 		end
 -- 	end,
---     update = function(self, card, dt)
---         if self.dt and self.frames and self.dt_r then
---             self.dt = self.dt + .05
---             if self.dt > self.dt_r then
---                 self.dt = 0
---                 self.pos.x = self.pos.x + 1
---                 if self.pos.x > self.frames-1 then
---                     self.pos.x = 0
---                 end
---                 card.children.center:set_sprite_pos(self.pos)
---             end
---         end
---     end,
+    -- update = function(self, card, dt)
+    --     if self.dt and self.frames and self.dt_r then
+    --         self.dt = self.dt + .05
+    --         if self.dt > self.dt_r then
+    --             self.dt = 0
+    --             self.pos.x = self.pos.x + 1
+    --             if self.pos.x > self.frames-1 then
+    --                 self.pos.x = 0
+    --             end
+    --             card.children.center:set_sprite_pos(self.pos)
+    --         end
+    --     end
+    -- end,
 -- }

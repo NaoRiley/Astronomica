@@ -134,3 +134,27 @@ win_game = function()
   wg()
   G.P_CENTERS['c_ast_anomaly'].soul_rate = 0.2
 end
+
+local fakestart = Game.start_run
+function Game:start_run(args)
+    fakestart(self, args)
+
+    for i,center in pairs(G.P_CENTERS) do
+        if center.oldrarity then
+
+            -- remove from the old pool
+            local pool = G.P_JOKER_RARITY_POOLS[center.rarity]
+            for idx = #pool, 1, -1 do
+                if pool[idx] == center.key then
+                    table.remove(pool, idx)
+                    break
+                end
+            end
+
+            -- readd to it's original pool
+            G.P_JOKER_RARITY_POOLS[center.oldrarity][center.key] = center
+
+            center.rarity = center.oldrarity
+        end
+    end
+end

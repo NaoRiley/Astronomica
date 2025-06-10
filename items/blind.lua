@@ -29,37 +29,37 @@ SMODS.Blind{
 	end
 }
 
--- SMODS.Blind{
---     key = 'torrent',
---     loc_txt = {
---         name = 'The Torrent',
---         text = {
--- 			'Mult is always equal to 1',
---         }
---     },
---     atlas = 'fallback',
---     pos = {x = 0, y = 0},
--- 	dollars = 5,
--- 	mult = 0.1,
--- 	boss = {min = 6},
--- 	boss_colour = G.C.CHIPS,
--- }
+SMODS.Blind{
+    key = 'torrent',
+    loc_txt = {
+        name = 'The Torrent',
+        text = {
+			'Mult is always equal to 1',
+        }
+    },
+    atlas = 'fallback',
+    pos = {x = 0, y = 0},
+	dollars = 5,
+	mult = 0.1,
+	boss = {min = 6},
+	boss_colour = G.C.CHIPS,
+}
 
--- SMODS.Blind{
---     key = 'inferno',
---     loc_txt = {
---         name = 'The Inferno',
---         text = {
--- 			'Chips is always equal to 1',
---         }
---     },
---     atlas = 'fallback',
---     pos = {x = 0, y = 0},
--- 	dollars = 5,
--- 	mult = 0.1,
--- 	boss = {min = 6},
--- 	boss_colour = G.C.MULT,
--- }
+SMODS.Blind{
+    key = 'inferno',
+    loc_txt = {
+        name = 'The Inferno',
+        text = {
+			'Chips is always equal to 1',
+        }
+    },
+    atlas = 'fallback',
+    pos = {x = 0, y = 0},
+	dollars = 5,
+	mult = 0.1,
+	boss = {min = 6},
+	boss_colour = G.C.MULT,
+}
 
 -- SMODS.Blind{
 --     key = 'iris_candle', 
