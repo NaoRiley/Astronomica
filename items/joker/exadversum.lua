@@ -48,8 +48,8 @@ SMODS.Joker{
     atlas = 'exadversum',
     rarity = 'cry_exotic',
     cost = 50,
-    pos = {x = 3, y = 1},
-    soul_pos = { x = 5, y = 1, extra = { x = 4, y = 1 } },
+    pos = {x = 0, y = 0},
+    soul_pos = { x = 0, y = 3, extra = { x = 4, y = 1 } },
     config = {
 		extra = {
 			active = true
@@ -563,4 +563,75 @@ SMODS.Blind{
 -- 			end
 -- 		end
 -- 	end,
+-- }
+SMODS.Blind{
+    key = 'iox', --The Ox Inverted
+    loc_txt = {
+        name = 'The Ox',
+        text = {
+            "Playing a #1#",
+            "doubles money",
+        }
+    },
+    atlas = 'vanilla',
+    in_pool = function () end,
+    no_collection = true,
+    pos = {x = 0, y = 2},
+	dollars = 5,
+	mult = 2,
+	boss = {min = 0},
+	boss_colour = HEX('46a4f7'), --b95b08 original
+    loc_vars = function(self)
+        return { vars = { localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands') } }
+    end,
+    collection_loc_vars = function(self)
+        return { vars = { localize('ph_most_played') } }
+    end,
+    calculate = function(self, blind, context)
+        if context.debuff_hand then
+            blind.triggered = false
+            if context.scoring_name == G.GAME.current_round.most_played_poker_hand then
+                blind.triggered = true
+                if not context.check then
+                    ease_dollars(G.GAME.dollars, true) -- `return {dollars = -G.GAME.dollars}` lacks the ability to set the amount instantly
+                    blind:wiggle()
+                end
+            end
+        end
+    end
+}
+
+-- SMODS.Blind{
+--     key = 'ihook', --The Hook Inverted
+--     loc_txt = {
+--         name = 'The Hook',
+--         text = {
+--             "Draws 2 random",
+--             "cards per hand played",
+--         }
+--     },
+--     atlas = 'vanilla',
+--     in_pool = function () end,
+--     no_collection = true,
+--     pos = {x = 0, y = 7},
+-- 	dollars = 5,
+-- 	config = {
+-- 		extra = {
+-- 			active = false,
+-- 		}
+-- 	},
+-- 	mult = 2,
+-- 	boss = {min = 0},
+-- 	boss_colour = HEX('57bfdb'), --a84024 original
+--     calculate = function(self, card, context)
+--         if context.setting_blind then
+--             card.ability.extra.active = false
+--         end
+--         if context.before then
+--             card.ability.extra.active = true
+--         end
+--         if context.drawing_cards and card.ability.extra.active == true then
+--             return{cards_to_draw = G.hand.config.card_limit + 2}
+--         end
+--     end
 -- }
