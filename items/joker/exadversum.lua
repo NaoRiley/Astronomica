@@ -49,7 +49,7 @@ SMODS.Joker{
     rarity = 'cry_exotic',
     cost = 50,
     pos = {x = 0, y = 0},
-    soul_pos = { x = 0, y = 3, extra = { x = 4, y = 1 } },
+    soul_pos = { x = 0, y = 3, extra = { x = 0, y = 6 } },
     config = {
 		extra = {
 			active = true
