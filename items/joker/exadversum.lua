@@ -45,7 +45,7 @@ SMODS.Joker{
             'Converts all boss blinds into positive variants',
         }
     },
-    atlas = 'exotic',
+    atlas = 'exadversum',
     rarity = 'cry_exotic',
     cost = 50,
     pos = {x = 3, y = 1},
