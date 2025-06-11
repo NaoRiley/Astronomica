@@ -82,10 +82,6 @@ SMODS.Joker{
                 {base="bl_flint", inv="bl_ast_iflint"},
                 {base="bl_tooth", inv="bl_ast_itooth"},
                 {base="bl_pillar", inv="bl_ast_ipillar"},
-                {base="bl_tooth", inv="bl_ast_iclock"},
-                {base="bl_tooth", inv="bl_ast_iclock"},
-                {base="bl_tooth", inv="bl_ast_iclock"},
-                {base="bl_tooth", inv="bl_ast_iclock"},
             }
 
             -- G.GAME.blind:set_blind(G.P_BLINDS[blind_key])
