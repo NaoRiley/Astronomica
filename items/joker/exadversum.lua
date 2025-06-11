@@ -1,4 +1,5 @@
 --funny how i have to hardcode every single boss blind
+-- yeah but what if you did it better -lily
 
 SMODS.Atlas{
 	key = 'fallback', --Inverted Blind
@@ -44,11 +45,11 @@ SMODS.Joker{
             'Converts all boss blinds into positive variants',
         }
     },
-    atlas = 'exadversum',
+    atlas = 'exotic',
     rarity = 'cry_exotic',
     cost = 50,
-    pos = {x = 0, y = 0},
-    soul_pos = { x = 0, y = 3, extra = { x = 0, y = 6 } },
+    pos = {x = 3, y = 1},
+    soul_pos = { x = 5, y = 1, extra = { x = 4, y = 1 } },
     config = {
 		extra = {
 			active = true
@@ -57,47 +58,66 @@ SMODS.Joker{
     calculate = function(self, card, context)
         if G.GAME.blind.in_blind and card.ability.extra.active == true then
             card.ability.extra.active = false
-            if  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_cry_clock" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iclock"])
-            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_ast_shard" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_ishard"])
-            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_manacle" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_imanacle"])
-            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_wall" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iwall"])
-            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_serpent" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iserpent"])
-            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_goad" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_igoad"])
-            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_head" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_ihead"])
-            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_club" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iclub"])
-            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_window" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iwindow"])
-            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_plant" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iplant"])
-            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_arm" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iarm"])
-            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_flint" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iflint"])
-            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_tooth" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_itooth"])
-            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_pillar" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_ipillar"])
-            elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_ox" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iox"])
-            -- elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_hook" then
-            --     G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_ihook"])
-            -- elseif  G.GAME.blind.in_blind and G.GAME.blind.config.blind.key == "bl_cry_box" then
-            --     G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_ibox"])
-            elseif G.GAME.blind.in_blind and G.GAME.blind.boss
-            and G.GAME.blind.config.blind.key ~= "bl_ast_iboss"
-            and G.GAME.blind.config.blind.key ~= "bl_entr_endless_entropy_phase_one"
-            and G.GAME.blind.config.blind.key ~= "bl_entr_endless_entropy_phase_three"
-            and G.GAME.blind.config.blind.key ~= "bl_entr_endless_entropy_phase_two"
-            and G.GAME.blind.config.blind.key ~= "bl_entr_endless_entropy_phase_four" then
-                G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iboss"])
+
+            local blacklist = {
+                "bl_ast_iboss",
+                "bl_entr_endless_entropy_phase_one",
+                "bl_entr_endless_entropy_phase_three",
+                "bl_entr_endless_entropy_phase_two",
+                "bl_entr_endless_entropy_phase_four",
+            }
+
+            local iblinds = {
+                {base="bl_cry_clock", inv="bl_ast_iclock"},
+                {base="bl_ast_shard", inv="bl_ast_ishard"},
+                {base="bl_manacle", inv="bl_ast_imanacle"},
+                {base="bl_wall", inv="bl_ast_iwall"},
+                {base="bl_serpent", inv="bl_ast_iserpent"},
+                {base="bl_goad", inv="bl_ast_igoad"},
+                {base="bl_head", inv="bl_ast_ihead"},
+                {base="bl_club", inv="bl_ast_iclub"},
+                {base="bl_window", inv="bl_ast_iwindow"},
+                {base="bl_plant", inv="bl_ast_iplant"},
+                {base="bl_arm", inv="bl_ast_iarm"},
+                {base="bl_flint", inv="bl_ast_iflint"},
+                {base="bl_tooth", inv="bl_ast_itooth"},
+                {base="bl_pillar", inv="bl_ast_ipillar"},
+                {base="bl_tooth", inv="bl_ast_iclock"},
+                {base="bl_tooth", inv="bl_ast_iclock"},
+                {base="bl_tooth", inv="bl_ast_iclock"},
+                {base="bl_tooth", inv="bl_ast_iclock"},
+            }
+
+            -- G.GAME.blind:set_blind(G.P_BLINDS[blind_key])
+            -- G.GAME.blind.config.blind.key
+
+            if  G.GAME.blind.in_blind then
+
+                local success = false
+                for _,p in ipairs(iblinds) do
+                    -- look thru all inversions
+                    if (G.GAME.blind.config.blind.key == p.base) then --found you!
+                        G.GAME.blind:set_blind(G.P_BLINDS[p.inv])
+                        success = true --prevent setting to base inv
+                    end
+
+                    
+
+                end
+
+                if not success then
+                    
+                    local valid = true
+                    for _,blacklisted in pairs(blacklist) do
+                        if G.GAME.blind.config.blind.key == blacklisted then valid = false end
+                    end
+
+                    if valid then
+                        G.GAME.blind:set_blind(G.P_BLINDS["bl_ast_iboss"])
+                    end
+
+                end
+
             end
         end
         if context.blind_defeated then
@@ -547,76 +567,4 @@ SMODS.Blind{
 -- 			end
 -- 		end
 -- 	end,
--- }
-
-SMODS.Blind{
-    key = 'iox', --The Ox Inverted
-    loc_txt = {
-        name = 'The Ox',
-        text = {
-            "Playing a #1#",
-            "doubles money",
-        }
-    },
-    atlas = 'vanilla',
-    in_pool = function () end,
-    no_collection = true,
-    pos = {x = 0, y = 2},
-	dollars = 5,
-	mult = 2,
-	boss = {min = 0},
-	boss_colour = HEX('46a4f7'), --b95b08 original
-    loc_vars = function(self)
-        return { vars = { localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands') } }
-    end,
-    collection_loc_vars = function(self)
-        return { vars = { localize('ph_most_played') } }
-    end,
-    calculate = function(self, blind, context)
-        if context.debuff_hand then
-            blind.triggered = false
-            if context.scoring_name == G.GAME.current_round.most_played_poker_hand then
-                blind.triggered = true
-                if not context.check then
-                    ease_dollars(G.GAME.dollars, true) -- `return {dollars = -G.GAME.dollars}` lacks the ability to set the amount instantly
-                    blind:wiggle()
-                end
-            end
-        end
-    end
-}
-
--- SMODS.Blind{
---     key = 'ihook', --The Hook Inverted
---     loc_txt = {
---         name = 'The Hook',
---         text = {
---             "Draws 2 random",
---             "cards per hand played",
---         }
---     },
---     atlas = 'vanilla',
---     in_pool = function () end,
---     no_collection = true,
---     pos = {x = 0, y = 7},
--- 	dollars = 5,
--- 	config = {
--- 		extra = {
--- 			active = false,
--- 		}
--- 	},
--- 	mult = 2,
--- 	boss = {min = 0},
--- 	boss_colour = HEX('57bfdb'), --a84024 original
---     calculate = function(self, card, context)
---         if context.setting_blind then
---             card.ability.extra.active = false
---         end
---         if context.before then
---             card.ability.extra.active = true
---         end
---         if context.drawing_cards and card.ability.extra.active == true then
---             return{cards_to_draw = G.hand.config.card_limit + 2}
---         end
---     end
 -- }
