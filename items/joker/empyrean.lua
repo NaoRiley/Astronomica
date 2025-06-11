@@ -1,7 +1,10 @@
 -- SMODS.Joker {
 -- 	key = "", 
 -- 	loc_txt = {
--- 		name = "{f:ast_futhark2,s:1.1,C:chips}",
+-- 		name = {
+-- 			"{f:ast_futhark2,s:1.1,C:chips}",
+-- 			"{s:0.8}()"
+-- 		},
 -- 		text = {
 -- 		}
 -- 	},
@@ -32,32 +35,6 @@
 -- 	end,
 -- 	calculate = function(self, card, context)
 -- 	end,
--- 	generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
---     SMODS.Center.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-
---     if desc_nodes == full_UI_table.main then
---         full_UI_table.name = {
---             {
---                 n = G.UIT.C,
---                 config = { align = "cm", padding = 0.05 },
---                 nodes = {
---                     {
---                         n = G.UIT.R,
---                         config = { align = "cm" },
---                         nodes = full_UI_table.name
---                     },
---                     {
---                         n = G.UIT.R,
---                         config = { align = "cm" },
---                         nodes = {{
---                           n = G.UIT.T,
---                           config = { text = "()", colour = G.C.INACTIVE, scale = (0.4 - 0.004 * #"()") } }
---                     }},
---                 }
---             }
---         }
---     end
--- end
 -- }
 
 -- SMODS.Joker {
@@ -161,7 +138,10 @@
 SMODS.Joker {
 	key = "radalingr", 
 	loc_txt = {
-		name = "{f:ast_futhark2,s:1.1,C:chips}Radalingr",
+		name = {
+			"{f:ast_futhark2,s:1.1,C:mult}Radalingr",
+			"{s:0.8}(Radalingr)"
+		},
 		text = {
 			"When triggered, Joker's {X:mult,C:white}XMult{C:black} becomes {X:dark_edition,C:white}XMult!",
 			"{C:inactive}(Currently {X:mult,C:white}X#1#{}{C:inactive} Mult)",
@@ -218,38 +198,15 @@ SMODS.Joker {
 			return {Xmult_mod = card.ability.extra.n, message = "X" .. tostring(card.ability.extra.n)}
 		end
 	end,
-	generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    SMODS.Center.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-
-    if desc_nodes == full_UI_table.main then
-        full_UI_table.name = {
-            {
-                n = G.UIT.C,
-                config = { align = "cm", padding = 0.05 },
-                nodes = {
-                    {
-                        n = G.UIT.R,
-                        config = { align = "cm" },
-                        nodes = full_UI_table.name
-                    },
-                    {
-                        n = G.UIT.R,
-                        config = { align = "cm" },
-                        nodes = {{
-                          n = G.UIT.T,
-                          config = { text = "(Radąlingr)", colour = G.C.INACTIVE, scale = (0.4 - 0.004 * #"(Radąlingr)") } }
-                    }},
-                }
-            }
-        }
-    end
-end
 }
 
 SMODS.Joker {
 	key = "aukatigi", 
 	loc_txt = {
-		name = "{f:ast_futhark2,s:1.1,C:chips}Aukatigi",
+		name = {
+			"{f:ast_futhark2,s:1.1,C:mult}Aukatigi",
+			"{s:0.8}(Aukatigi)"
+		},
 		text = {
 			"After scoring, the total {X:chips,C:white}Chips{} and {X:mult,C:white}Mult{}",
 			"replaces the played poker hand's base {X:chips,C:white}Chips{} and {X:mult,C:white}Mult{}",
@@ -292,38 +249,15 @@ SMODS.Joker {
             }))
         end
 	end,
-	generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    SMODS.Center.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-
-    if desc_nodes == full_UI_table.main then
-        full_UI_table.name = {
-            {
-                n = G.UIT.C,
-                config = { align = "cm", padding = 0.05 },
-                nodes = {
-                    {
-                        n = G.UIT.R,
-                        config = { align = "cm" },
-                        nodes = full_UI_table.name
-                    },
-                    {
-                        n = G.UIT.R,
-                        config = { align = "cm" },
-                        nodes = {{
-                          n = G.UIT.T,
-                          config = { text = "(Aukatigi)", colour = G.C.INACTIVE, scale = (0.4 - 0.004 * #"(Aukatigi)") } }
-                    }},
-                }
-            }
-        }
-    end
-end
 }
 
 SMODS.Joker {
 	key = "alfheim", 
 	loc_txt = {
-		name = "{f:ast_futhark2,s:1.1,C:chips}Alfheim",
+		name = {
+			"{f:ast_futhark2,s:1.1,C:chips}Alfheim",
+			"{s:0.8}(Alfheim)"
+		},
 		text = {
 			'Gain {X:dark_edition,C:white}^Chips{} for each scored {C:spades}Spade{} and {C:clubs}Club{}',
 			'Gain {X:dark_edition,C:white}^Mult{} for each scored {C:hearts}Heart{} and {C:diamonds}Diamond{}',
@@ -375,38 +309,15 @@ SMODS.Joker {
 			}
 		end
 	end,
-	generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    SMODS.Center.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-
-    if desc_nodes == full_UI_table.main then
-        full_UI_table.name = {
-            {
-                n = G.UIT.C,
-                config = { align = "cm", padding = 0.05 },
-                nodes = {
-                    {
-                        n = G.UIT.R,
-                        config = { align = "cm" },
-                        nodes = full_UI_table.name
-                    },
-                    {
-                        n = G.UIT.R,
-                        config = { align = "cm" },
-                        nodes = {{
-                          n = G.UIT.T,
-                          config = { text = "(Alfheim)", colour = G.C.INACTIVE, scale = (0.4 - 0.004 * #"(Alfheim)") } }
-                    }},
-                }
-            }
-        }
-    end
-end
 }
 
 SMODS.Joker {
 	key = "asgard", 
 	loc_txt = {
-		name = "{f:ast_futhark2,s:1.1,C:chips}Asgard",
+		name = {
+			"{f:ast_futhark2,s:1.1,C:chips}Asgard",
+			"{s:0.8}(Asgard)"
+		},
 		text = {
 			"Gains {C:dark_edition}#2#{} Chip per scored card or joker, caps at {C:dark_edition}#4#{},",
 			"When reached, increase operator by one and reset Chips",
@@ -505,30 +416,4 @@ SMODS.Joker {
 			}
 		end
 	end,
-	generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    SMODS.Center.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-
-    if desc_nodes == full_UI_table.main then
-        full_UI_table.name = {
-            {
-                n = G.UIT.C,
-                config = { align = "cm", padding = 0.05 },
-                nodes = {
-                    {
-                        n = G.UIT.R,
-                        config = { align = "cm" },
-                        nodes = full_UI_table.name
-                    },
-                    {
-                        n = G.UIT.R,
-                        config = { align = "cm" },
-                        nodes = {{
-                          n = G.UIT.T,
-                          config = { text = "(Asgard)", colour = G.C.INACTIVE, scale = (0.4 - 0.004 * #"(Asgard)") } }
-                    }},
-                }
-            }
-        }
-    end
-end
 }

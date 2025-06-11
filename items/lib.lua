@@ -82,6 +82,32 @@ mod_chips = function(chips)
   return null_chips(chips)
 end
 
+local congruentia_mult = mod_mult
+mod_mult = function(mult_change)
+    local result = congruentia_mult(mult_change)
+    mult = mult or 0
+    hand_chips = hand_chips or 0
+    if next(SMODS.find_card('j_ast_congruentia')) then
+        if (to_big(mult)) + (to_big(result)) > (to_big(hand_chips)) then
+            hand_chips = (mult+result)-hand_chips
+        end
+    end
+    return result
+end
+
+local congruentia_chips = mod_chips
+mod_chips = function(chips_change)
+    local result = congruentia_chips(chips_change)
+    mult = mult or 0
+    hand_chips = hand_chips or 0
+    if next(SMODS.find_card('j_ast_congruentia')) then
+        if (to_big(hand_chips)) + (to_big(result)) > (to_big(mult)) then
+            mult = (hand_chips+result)-mult
+        end
+    end
+    return result
+end
+
 -- SMODS.Font{
 --     key = "futhark",
 --     path = "Futhark.ttf",

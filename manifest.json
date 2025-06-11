@@ -1,0 +1,20 @@
+{
+    "name": "Astronomica",
+    "id": "Astronomica",
+    "version": "",
+    "website_url": "",
+    "description": "Extremely unbalanced Cryptid add-on which aims to add a large variety of content!",
+    "prefix": "ast",
+    "author": ["NaoRiley"],
+    "main_file": "Astronomica.lua",
+    "priority": 2500,
+    "badge_colour": "c96da8",
+    "badge_text_colour": "FFFFFF",
+    "dependencies": [
+        "Steamodded",
+        "Cryptid",
+        "Talisman"
+    ],
+    "conflicts": [
+    ]
+}
