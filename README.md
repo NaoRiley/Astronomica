@@ -1,7 +1,7 @@
 # Astronomica
 Extremely unbalanced Cryptid add-on!
 
-Asteronomica Discord Server: https://discord.gg/uzfTqaHqxG
+Astronomica Discord Server: https://discord.gg/uzfTqaHqxG
 
 Requirements: Cryptid: https://github.com/MathIsFun0/Cryptid/, Steamodded: Original link: https://github.com/Steamodded/smods
 
