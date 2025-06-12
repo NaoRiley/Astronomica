@@ -128,6 +128,23 @@ mod_chips = function(chips_change)
     return result
 end
 
+local ref_get_pool = get_current_pool --ty thewintercomet
+function get_current_pool(_type, _rarity, _legendary, _append)
+    local pool, pool_key = ref_get_pool(_type, _rarity, _legendary, _append)
+
+    if _type == 'Joker' and G.GAME.modifiers.no_modded_jokers then
+        local new_pool = {}
+        for i, v in ipairs(pool) do
+            if v ~= 'UNAVAILABLE' and not G.P_CENTERS[v].original_mod then
+                new_pool[#new_pool+1] = v
+            end
+        end
+        pool = new_pool
+    end
+
+    return pool, pool_key
+end
+
 -- SMODS.Font{
 --     key = "futhark",
 --     path = "Futhark.ttf",

@@ -102,6 +102,13 @@ SMODS.Atlas{
 }
 
 SMODS.Atlas{
+	key = 'sleeve', --Sleeves
+	path = 'sleeve.png',
+	px = 73,
+	py = 96
+}
+
+SMODS.Atlas{
 	key = 'anomaly', --Anomaly
 	path = 'anomaly.png',
 	px = 65,
