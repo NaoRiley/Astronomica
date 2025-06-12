@@ -43,20 +43,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["High Card"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "+" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end
@@ -101,20 +96,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["Pair"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "+" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end
@@ -159,20 +149,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["Three of a Kind"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "+" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end
@@ -217,20 +202,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["Two Pair"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "+" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end
@@ -275,20 +255,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["Straight"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "+" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end
@@ -333,20 +308,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["Flush"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "+" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end
@@ -391,20 +361,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["Four of a Kind"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "+" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end
@@ -449,20 +414,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["Straight Flush"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "+" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end
@@ -507,20 +467,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["Full House"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "+" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end
@@ -565,20 +520,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["Five of a Kind"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "+" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end
@@ -623,20 +573,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["Flush House"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "+" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end
@@ -681,20 +626,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["Flush Five"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "+" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end
@@ -739,20 +679,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["cry_Clusterfuck"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "+" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end
@@ -797,20 +732,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["cry_UltPair"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "+" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end
@@ -855,20 +785,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["cry_Bulwark"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "+" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end
@@ -912,20 +837,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["cry_None"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "+" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end
@@ -970,20 +890,15 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if (context.before and context.poker_hands and next(context.poker_hands["cry_WholeDeck"])) or context.forcetrigger then
             card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then  
-                G.E_MANAGER:add_event(Event({
-                func = function() 
-                    G.GAME.chips = (to_big(G.GAME.chips))*(to_big(card.ability.extra.score))
-                    G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-                    play_sound('gong')
-                    card.ability.extra.active = false
-                    return true
-                end,
-            }))
+        end
+        if context.after and card.ability.extra.active == true then  
             return {
-                message = "X" .. tostring(card.ability.extra.score),
-                colour = G.C.PURPLE
+                func = function ()
+                    ast.mod_score({add = card.ability.extra.score})
+                    card.ability.extra.active = false
+                end,
+                message = ("+")..card.ability.extra.score..(" Score"),
+                colour = G.C.PURPLE,
             }
         end
 	end,

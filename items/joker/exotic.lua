@@ -116,8 +116,11 @@ SMODS.Joker{
 		end
 		if context.after then
 			return {
-				message = "^^" .. tostring(card.ability.extra.score),
-				colour = G.C.PURPLE
+				func = function ()
+					ast.mod_score({hyper = 2, card.ability.extra.score})
+				end,
+				message = ("^^")..card.ability.extra.score..(" Score"),
+				colour = G.C.PURPLE,
 			}
 		end
 	end
@@ -132,11 +135,12 @@ SMODS.Joker{
 			'both are set to the {C:attention}higher{} value'
         }
     },
-    atlas = 'j_placeholder',
+    atlas = 'exotic',
     rarity = 'cry_exotic',
     cost = 50,
-    pos = {x = 0, y = 0},
-    -- soul_pos = { x = 0, y = 0, extra = { x = 0, y = 0 } },
+    pos = {x = 3, y = 2},
+    soul_pos = { x = 5, y = 2, extra = { x = 4, y = 2 } },
+    display_size = { w = 71 * 1.4, h = 95 * 1.4 },
     config = {
 		extra = {
 		}

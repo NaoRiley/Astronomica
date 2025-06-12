@@ -54,17 +54,37 @@ function UTIL_TABLE.efactorial(n) --exponential factorial
     return (to_big(ast.pi * 2)*to_big(n^(n-1))):pow(0.5)*(to_big(n^(n-1))/to_big(ast.euler))^to_big(n^(n-1))
 end
 
--- if (key == 'p_score' or key == 'pscore' or key == 'pscore_mod') and amount ~= 1 then --i dont fucking know how to do this
--- 	G.E_MANAGER:add_event(Event({
--- 		func = function() 
--- 			G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.pscore))
--- 			G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
--- 			play_sound('multhit1')
--- 			play_sound('chips1')
--- 			return true
--- 		end,
--- 	}))
--- end
+ast.simple_event_add = function (func, delay, queue) --thanks aiko
+    G.E_MANAGER:add_event(Event{
+        trigger = 'after',
+        delay = delay or 0.1,
+        func = func
+    }, queue)
+end
+
+ast.mod_score = function(score_mod) --thanks again aiko
+    ast.simple_event_add(
+        function()
+            score_mod = score_mod or {}
+            local hyper = score_mod.arrow or 1
+            local pow = score_mod.pow or 1
+            local mult = score_mod.mult or 1
+            local add = score_mod.add or 0
+            local score_cal = score_mod.set or G.GAME.chips
+            score_cal = (to_big(score_cal)):arrow(arrow, hyper)
+            score_cal = score_cal ^ pow
+            score_cal = score_cal * mult
+            score_cal = score_cal + add
+            if Talisman then
+                score_cal = to_big(score_cal)
+            end
+            G.GAME.chips = score_cal
+            G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+            play_sound('gong')
+            return true
+        end, 0
+    )
+end
 
 local null_mult = mod_mult
 mod_mult = function(mult)

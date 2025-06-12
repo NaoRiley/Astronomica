@@ -23,17 +23,12 @@ SMODS.Joker{
 	end,
 	calculate = function(self, card, context)
 		if context.after then
-			G.E_MANAGER:add_event(Event({
-				func = function() 
-					G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score))
-					G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-					play_sound('gong')
-					return true
-				end,
-			}))
 			return {
-				message = "+" .. tostring(card.ability.extra.score),
-				colour = G.C.PURPLE
+				func = function ()
+					ast.mod_score({add = card.ability.extra.score})
+				end,
+				message = ("+")..card.ability.extra.score..(" Score"),
+				colour = G.C.PURPLE,
 			}
 		end
 	end

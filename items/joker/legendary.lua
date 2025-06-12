@@ -23,15 +23,13 @@ SMODS.Joker{
 	end,
 	calculate = function(self, card, context)
 		if context.after and not context.repetiiton or context.blueprint then
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					G.GAME.chips = (to_big(G.GAME.chips))+(to_big(card.ability.extra.score)),
-					G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-					play_sound('gong')
-					card.ability.extra.score = (to_big(0))
-					return true
+			return {
+				func = function ()
+					ast.mod_score({add = card.ability.extra.score})
 				end,
-			}))
+				message = ("+")..card.ability.extra.score..(" Score"),
+				colour = G.C.PURPLE,
+			}
 		end
 		if context.blind_defeated and not context.repetition or context.blueprint then
 			card.ability.extra.score = (to_big(G.GAME.chips))-(to_big(G.GAME.blind.chips))
