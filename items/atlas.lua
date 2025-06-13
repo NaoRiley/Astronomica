@@ -122,9 +122,9 @@ SMODS.Atlas{
 	py = 95
 }
 
-SMODS.Atlas{
-	key = 'miku', --Hatsune Miku
-	path = 'miku.png',
-	px = 1000,
-	py = 1535
-}
+-- SMODS.Atlas{
+-- 	key = 'miku', --Hatsune Miku
+-- 	path = 'miku.png',
+-- 	px = 1000,
+-- 	py = 1535
+-- }
