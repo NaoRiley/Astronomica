@@ -88,7 +88,7 @@ end
 
 local null_mult = mod_mult
 mod_mult = function(mult)
-	if G.GAME.blind.config.blind.key == "bl_ast_torrent" then
+	if G.GAME.mult_disabled == true then
 		return 1
 	end
   return null_mult(mult)
@@ -96,7 +96,7 @@ end
 
 local null_chips = mod_chips
 mod_chips = function(chips)
-	if G.GAME.blind.config.blind.key == "bl_ast_inferno" then
+	if G.GAME.chips_disabled == true then
 		return 1
 	end
   return null_chips(chips)
@@ -220,4 +220,96 @@ function Game:start_run(args)
             center.rarity = center.oldrarity
         end
     end
+end
+
+function table:astcontains(table, value)
+    for i,j in ipairs(table) do
+        if (j == value) then return true end
+    end
+    return false
+end
+
+ --shoutout lily vallkarri
+
+function disable_chips()
+
+    G.GAME.chips_disabled = true
+    G.HUD:get_UIE_by_ID("chipmult_op").UIT = 0
+    G.HUD:get_UIE_by_ID("hand_chip_area").UIT = 0
+    G.HUD:get_UIE_by_ID("hand_chips").UIT = 0
+    G.HUD:get_UIE_by_ID("flame_chips").UIT = 0
+    G.HUD:get_UIE_by_ID("flame_mult").UIT = 0
+    G.HUD:get_UIE_by_ID("hand_chip_area").config.minw = 0
+    G.HUD:get_UIE_by_ID("hand_mult_area").config.minw = 4
+    G.HUD:get_UIE_by_ID("hand_mult_area").config.minh = 0
+    G.HUD:get_UIE_by_ID("chipmult_op").scale = 0
+
+    G.HUD:recalculate()
+
+end
+
+function disable_mult()
+
+    G.GAME.mult_disabled = true
+    G.HUD:get_UIE_by_ID("chipmult_op").UIT = 0
+    G.HUD:get_UIE_by_ID("hand_mult_area").UIT = 0
+    G.HUD:get_UIE_by_ID("hand_mult").UIT = 0
+    G.HUD:get_UIE_by_ID("flame_chips").UIT = 0
+    G.HUD:get_UIE_by_ID("flame_mult").UIT = 0
+    G.HUD:get_UIE_by_ID("hand_chip_area").config.minw = 4
+    G.HUD:get_UIE_by_ID("hand_mult_area").config.minw = 0
+    G.HUD:get_UIE_by_ID("hand_mult_area").config.minh = 0
+    G.HUD:get_UIE_by_ID("chipmult_op").scale = 0
+
+    G.HUD:recalculate()
+
+end
+
+function enable_chips()
+
+    G.GAME.chips_disabled = false
+    G.HUD:get_UIE_by_ID("chipmult_op").UIT = 1
+    G.HUD:get_UIE_by_ID("hand_chip_area").UIT = 3
+    G.HUD:get_UIE_by_ID("hand_chips").UIT = 5
+    G.HUD:get_UIE_by_ID("flame_chips").UIT = 5
+    G.HUD:get_UIE_by_ID("flame_mult").UIT = 5
+    G.HUD:get_UIE_by_ID("hand_chip_area").config.minw = 2
+    G.HUD:get_UIE_by_ID("hand_mult_area").config.minw = 2
+    G.HUD:get_UIE_by_ID("hand_mult_area").config.minh = 1
+    G.HUD:get_UIE_by_ID("chipmult_op").scale = 1
+
+    G.HUD:recalculate()
+
+end
+
+function enable_mult()
+
+    G.GAME.mult_disabled = false
+    G.HUD:get_UIE_by_ID("chipmult_op").UIT = 1
+    G.HUD:get_UIE_by_ID("hand_mult_area").UIT = 3
+    G.HUD:get_UIE_by_ID("hand_mult").UIT = 5
+    G.HUD:get_UIE_by_ID("flame_chips").UIT = 5
+    G.HUD:get_UIE_by_ID("flame_mult").UIT = 5
+    G.HUD:get_UIE_by_ID("hand_chip_area").config.minw = 2
+    G.HUD:get_UIE_by_ID("hand_mult_area").config.minw = 2
+    G.HUD:get_UIE_by_ID("hand_mult_area").config.minh = 1
+    G.HUD:get_UIE_by_ID("chipmult_op").scale = 1
+
+    G.HUD:recalculate()
+
+end
+
+local fakeevalstatus = card_eval_status_text
+
+function card_eval_status_text(card, eval_type, amt, percent, dir, extra)
+    if G.GAME.mult_disabled and extra and (extra.mult_mod or extra.Xmult_mod or extra.Emult_mod or extra.EEmult_mod or extra.EEEmult_mod or extra.hypermult_mod) then
+        return
+    end
+
+    if G.GAME.chips_disabled and extra and (extra.chips_mod or extra.Xchips_mod or extra.Echips_mod or extra.EEchips_mod or extra.EEEchips_mod or extra.hyperchips_mod) then
+        return
+    end
+
+    fakeevalstatus(card, eval_type, amt, percent, dir, extra)
+
 end

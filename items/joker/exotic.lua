@@ -243,16 +243,105 @@ SMODS.Joker{
 --             for mostlyuselessiterationvariable = 1, card.ability.extra.downgrades do
 --                 local candidates = {}
 --                 local order = {1, 2, 3, "cry_epic", 4, "cry_exotic", "entr_entropic", "ast_empyrean"}
---                 local names = {"Common", "Uncommon", "Rare", "Epic", "Legendary", "Exotic"}
+--                 local names = {"Common", "Uncommon", "Rare", "Epic", "Legendary", "Exotic", "Entropic", "Empyrean"}
 --                 for i, center in pairs(G.P_CENTERS) do
---                     if center.rarity and table:contains(order, center.rarity) then
+--                     if center.rarity and table:astcontains(order, center.rarity) then
 --                         table.insert(candidates, {index = i, cen = center})
 --                     end
 --                 end
 --                 if #candidates > 0 then
 --                     local chosen = candidates[math.random(#candidates)]
---                     -- print("Downgrading " .. chosen.cen.key)
---                     -- print("was " .. chosen.cen.rarity)
+--                     print("Downgrading " .. chosen.cen.key)
+--                     print("was " .. chosen.cen.rarity)
+
+--                     local current_rarity = chosen.cen.rarity
+                    
+--                     local idx = nil
+--                     for i, v in ipairs(order) do
+--                         if v == current_rarity then
+--                             idx = i
+--                             break
+--                         end
+--                     end
+--                     local new_rarity = order[idx-1]
+
+--                     if idx and idx > 1 then
+--                         local pool = G.P_JOKER_RARITY_POOLS[chosen.cen.rarity]
+--                         for idx = #pool, 1, -1 do
+--                             if pool[idx] == chosen.index then
+--                                 table.remove(pool, idx)
+--                                 break
+--                             end
+--                         end
+
+--                         if not (G.P_CENTERS[chosen.index].oldrarity) then
+--                             G.P_CENTERS[chosen.index].oldrarity = G.P_CENTERS[chosen.index].rarity
+--                         end
+
+--                         G.P_CENTERS[chosen.index].rarity = order[idx-1]
+--                         G.P_JOKER_RARITY_POOLS[new_rarity][chosen.index] = chosen.cen
+                        
+--                     end
+                
+--                 end
+--             end
+            
+--         end
+
+--     end,
+-- 	ast_credits = {
+-- 		code = {"vallariacat"},
+-- 	},
+-- } 
+
+-- SMODS.Joker{
+--     key = 'ignominiosa',
+--     loc_txt = {
+--         name = 'Ignominiosa',
+--         text = {
+-- 			'Decreases rarity of #1# random Joker',
+-- 			'in collection by 1 per reroll',
+--         }
+--     },
+--     atlas = 'j_placeholder',
+--     pos = {x = 0, y = 0},
+-- 	-- soul_pos = { x = 0, y = 0, extra = { x = 0, y = 0 } },
+-- 	blueprint_compat = true,
+-- 	demicoloncompat = true,
+-- 	cost = 50,
+-- 	rarity = 'cry_exotic',
+-- 	config = {
+-- 		extra = {
+-- 			downgrades = 1,
+-- 		}
+-- 	},
+--     loc_vars = function(self, info_queue, card)
+--         return {vars = {card.ability.extra.downgrades}}
+--     end,
+-- 	calculate = function(self, card, context)
+        
+--         if (context.reroll_shop and not context.blueprint and not context.individual and not context.repetition) then
+
+
+--             for mostlyuselessiterationvariable = 1, card.ability.extra.downgrades do
+--                 local candidates = {}
+--                 local conversions = {
+-- 					{base='ast_empyrean', new='cry_exotic'},
+-- 					{base='cry_exotic', new=4},
+-- 					{base=4, new='cry_epic'},
+-- 					{base='cry_epic', new=3},
+-- 					{base=3, new=2},
+-- 					{base=2, new=1},
+-- 				}
+--                 for i, center in pairs(G.P_CENTERS) do
+--                     if center.rarity and table:astcontains(order, center.rarity) then
+--                         table.insert(candidates, {index = i, cen = center})
+--                     end
+--                 end
+--                 if #candidates > 0 then
+--                     local chosen = candidates[math.random(#candidates)]
+--                     print("Downgrading " .. chosen.cen.key)
+--                     print("was " .. chosen.cen.rarity)
 
 --                     local current_rarity = chosen.cen.rarity
                     

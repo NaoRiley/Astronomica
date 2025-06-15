@@ -82,6 +82,7 @@ SMODS.Joker{
                 {base="bl_flint", inv="bl_ast_iflint"},
                 {base="bl_tooth", inv="bl_ast_itooth"},
                 {base="bl_pillar", inv="bl_ast_ipillar"},
+                -- {base="bl_psychic", inv="bl_ast_ipsychic"},
             }
 
             -- G.GAME.blind:set_blind(G.P_BLINDS[blind_key])
@@ -528,9 +529,11 @@ SMODS.Blind{
 -- 	mult = 2,
 -- 	boss = {min = 0},
 -- 	boss_colour = HEX('103fc3'), --efc03c original
---     calculate = funtion(self, blind, context)
---         if context.full_hand[5] then
-
+--     calculate = function(self, blind, context)
+--         if context.before and context.main_eval and #context.scoring_hand == 5 then
+--             print('5 cards')
+--         end
+--     end
 -- }
 
 -- SMODS.Blind{

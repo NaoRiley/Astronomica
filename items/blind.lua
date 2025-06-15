@@ -32,33 +32,57 @@ SMODS.Blind{
 SMODS.Blind{
     key = 'torrent',
     loc_txt = {
-        name = 'The Torrent',
+        name = 'Tempestuous Torrent',
         text = {
-			'Mult is always equal to 1',
+			'Disables all Mult effects',
         }
     },
-    atlas = 'fallback',
-    pos = {x = 0, y = 0},
+    atlas = 'blinds',
+    pos = {x = 0, y = 3},
 	dollars = 5,
+	showdown = true,
 	mult = 0.1,
-	boss = {min = 6},
+	boss = {min = 16},
 	boss_colour = G.C.CHIPS,
+    defeat = function(self, silent)
+		enable_mult()
+	end,
+    disable = function(self, silent)
+		enable_mult()
+	end,
+    set_blind = function(self)
+		if not next(SMODS.find_card('j_ast_congruentia')) then
+			disable_mult()
+		end
+    end,
 }
 
 SMODS.Blind{
     key = 'inferno',
     loc_txt = {
-        name = 'The Inferno',
+        name = 'Impetuous Inferno',
         text = {
-			'Chips is always equal to 1',
+			'Disables all Chips effects',
         }
     },
-    atlas = 'fallback',
-    pos = {x = 0, y = 0},
+    atlas = 'blinds',
+    pos = {x = 0, y = 4},
 	dollars = 5,
+	showdown = true,
 	mult = 0.1,
-	boss = {min = 6},
+	boss = {min = 16},
 	boss_colour = G.C.MULT,
+    defeat = function(self, silent)
+		enable_chips()
+	end,
+    disable = function(self, silent)
+		enable_chips()
+	end,
+    set_blind = function(self)
+		if not next(SMODS.find_card('j_ast_congruentia')) then
+			disable_chips()
+		end
+    end,
 }
 
 -- SMODS.Blind{
