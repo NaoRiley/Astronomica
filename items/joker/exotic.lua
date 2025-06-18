@@ -382,3 +382,51 @@ SMODS.Joker{
 -- 		code = {"vallariacat"},
 -- 	},
 -- } 
+
+-- SMODS.Joker{
+--     key = 'dtest',
+--     loc_txt = {
+--         name = 'dtest',
+--         text = {
+-- 			'When Blind is selected, disable',
+-- 			'Chips or Mult',
+-- 			'If Chips disabled, Mult!',
+-- 			'If Mult disabled, Chips!',
+--         }
+--     },
+--     atlas = 'j_placeholder',
+--     rarity = 'cry_exotic',
+--     cost = 50,
+--     pos = {x = 0, y = 0},
+--     soul_pos = { x = 0, y = 0, extra = { x = 0, y = 0 } },
+--     config = {
+-- 		extra = {
+-- 			disable = nil,
+-- 		}
+-- 	},
+-- 	calculate = function(self, card, context)
+-- 		if context.setting_blind then
+-- 			card.ability.extra.disable = pseudorandom("chipsmultdisable", 1, 2)
+-- 			if (to_big(card.ability.extra.disable)) == (to_big(1)) then
+-- 				disable_chips()
+-- 			elseif (to_big(card.ability.extra.disable)) == (to_big(2)) then
+-- 				disable_mult()
+-- 			end
+-- 		end
+-- 		if context.joker_main then
+-- 			if (to_big(card.ability.extra.disable)) == (to_big(1)) then
+-- 				SMODS.calculate_effect({
+-- 					fmult = 1,
+-- 				}, card)
+-- 			elseif (to_big(card.ability.extra.disable)) == (to_big(2)) then
+-- 				SMODS.calculate_effect({
+-- 					fchips = 1,
+-- 				}, card)
+-- 			end
+-- 		end
+-- 		if context.blind_defeated then
+-- 			enable_chips()
+-- 			enable_mult()
+-- 		end
+-- 	end
+-- }

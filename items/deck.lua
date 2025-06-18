@@ -7,11 +7,35 @@ SMODS.Back{
         name = "Puritan Deck",
         text ={
             "Modded Jokers no longer",
-			"appear in the shop.",
+			"appear in the shop",
+			"{C:inactive}(Unstable)"
         },
     },
 	apply = function(self)
 		G.GAME.modifiers.no_modded_jokers = true
+	end
+}
+
+SMODS.Back{
+	key = "elementary",
+	config = {},
+	pos = { x = 1, y = 0 },
+	atlas = "deck",
+    loc_txt = {
+        name = "Elementary Deck",
+        text ={
+			"Ante scaling is quadratic",
+			"Chips/Mult operator becomes +",
+        },
+    },
+	apply = function(self)
+		G.GAME.quadratic_ante_scaling = true
+	end,
+	calculate = function(self, card, context)
+		if context.first_hand_drawn then
+			G.GAME.ast_operator = -1
+			update_operator_display()
+		end
 	end
 }
 

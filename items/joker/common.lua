@@ -63,11 +63,11 @@ SMODS.Joker {
 	atlas = 'jokers',
 	calculate = function(self, card, context)
 		if context.joker_main then
-			return {
+			SMODS.calculate_effect ({
 				Emult_mod = (to_big(card.ability.extra.Emult_mod)),
 				message = "^" .. tostring(card.ability.extra.Emult_mod),
 				colour = G.C.DARK_EDITION
-			}
+			}, card)
 		end
 	end
 }

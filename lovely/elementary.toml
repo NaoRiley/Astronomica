@@ -1,0 +1,52 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = -1
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''{n=G.UIT.T, config={text = "X", lang = G.LANGUAGES['en-us'], scale = scale*2, colour = G.C.UI_MULT, shadow = true}},'''
+position = "at"
+payload = '''{n=G.UIT.T, config={id = "chipmult_op", text = "X", lang = G.LANGUAGES['en-us'], scale = scale*2, colour = G.C.UI_MULT, shadow = true}},'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "if hand_chips*mult > 0 then"
+position = "at"
+payload = "if ast.get_chipmult_score(hand_chips, mult) > to_big(0) then"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "if to_big(hand_chips)*mult > to_big(0) then"
+position = "at"
+payload = "if to_big(ast.get_chipmult_score(hand_chips, mult)) > to_big(0) then"
+match_indent = true
+
+[[patches]]
+[patches.regex]
+target = "functions/state_events.lua"
+pattern = '''hand_chips\*mult'''
+position = "at"
+payload = '''ast.get_chipmult_score(hand_chips, mult)'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "G.ARGS.score_intensity.earned_score = G.GAME.current_round.current_hand.chips*G.GAME.current_round.current_hand.mult"
+position = "at"
+payload = '''
+local bigzero = to_big(0)
+if not G.GAME.blind or to_big(G.GAME.blind.chips or 0) <= bigzero then
+	G.ARGS.score_intensity.earned_score = 0
+else
+	G.ARGS.score_intensity.earned_score = math.max(ast.get_chipmult_score(G.GAME.current_round.current_hand.chips, G.GAME.current_round.current_hand.mult), 100)
+end
+bigzero = nil
+'''
+match_indent = true

@@ -220,6 +220,9 @@ function Game:start_run(args)
             center.rarity = center.oldrarity
         end
     end
+    -- if G.GAME.elementary_active == true then
+    --     ast_chipmult_op(-1)
+    -- end
 end
 
 function table:astcontains(table, value)
@@ -312,4 +315,125 @@ function card_eval_status_text(card, eval_type, amt, percent, dir, extra)
 
     fakeevalstatus(card, eval_type, amt, percent, dir, extra)
 
+end
+
+SMODS.calculation_keys[#SMODS.calculation_keys+1] = "fmult"
+SMODS.calculation_keys[#SMODS.calculation_keys+1] = "fchips"
+-- MUST HAVE THIS, WILL NOT WORK WITHOUT ADDING NEW CALC KEYS
+
+local calceff = SMODS.calculate_individual_effect
+function SMODS.calculate_individual_effect(effect, scored_card, key, amount, from_edition)
+    
+    if key == "fmult" then
+        if effect.card then juice_card(effect.card) end
+        mult = mod_mult((to_big(ast.pi * 2)*to_big(mult)):pow(0.5)*(to_big(mult)/to_big(ast.euler))^to_big(mult))
+        update_hand_text({delay = 0}, {chips = hand_chips, mult = mult})
+        if not effect.remove_default_message then
+            card_eval_status_text(scored_card, 'jokers', nil, percent, nil, {message = "Mult".."!", colour =  G.C.EDITION, edition = true})
+        end
+        return true
+    end
+
+    if key == "fchips" then 
+        if effect.card then juice_card(effect.card) end
+        hand_chips = mod_chips((to_big(ast.pi * 2)*to_big(hand_chips)):pow(0.5)*(to_big(hand_chips)/to_big(ast.euler))^to_big(hand_chips))
+        update_hand_text({delay = 0}, {chips = hand_chips, mult = mult})
+        if not effect.remove_default_message then
+            card_eval_status_text(scored_card, 'jokers', nil, percent, nil, {message = "Chips".."!", colour =  G.C.EDITION, edition = true})
+        end
+        return true
+    end
+
+    calceff(effect, scored_card, key, amount, from_edition)
+    
+
+end
+
+local quadratic_ante_scaling = get_blind_amount
+get_blind_amount = function(ante)
+    if G.GAME.quadratic_ante_scaling == true then
+        return ante * ante * 100
+    end
+    return quadratic_ante_scaling(ante)
+end
+
+-------------OPERATOR STUFF
+
+
+-- function ast_chipmult_op(operator)
+--     if operator == -1 then
+--         G.GAME.ast_chipmult_op = -1
+--         G.HUD:get_UIE_by_ID("chipmult_op").config.text = "+"
+--         G.HUD:get_UIE_by_ID("chipmult_op").config.colour = G.C.CHIPS
+--         G.HUD:recalculate()
+--     elseif operator == 0 then
+--         G.GAME.ast_chipmult_op = 0
+--         G.HUD:get_UIE_by_ID("chipmult_op").config.text = "X"
+--         G.HUD:get_UIE_by_ID("chipmult_op").config.colour = G.C.MULT
+--         G.HUD:recalculate()
+--     elseif operator == 1 then
+--         G.GAME.ast_chipmult_op = 1
+--         G.HUD:get_UIE_by_ID("chipmult_op").config.text = "^"
+--         G.HUD:get_UIE_by_ID("chipmult_op").config.colour = G.C.DARK_EDITION
+--         G.HUD:recalculate()
+--     end
+-- end
+
+ast.score_cache = {}
+function ast.get_chipmult_score(hand_chips, mult)
+    local operator = math.max(ast_get_final_operator(), -1)
+    if ast.score_cache[number_format(hand_chips).."x"..number_format(mult)] then return ast.score_cache[number_format(hand_chips).."x"..number_format(mult)] end
+    if operator <= -2 then return to_big(1) / to_big(0)
+    elseif operator == -2 then hand_chips=to_big(mult); return hand_chips
+    elseif operator == -1 then return to_big(hand_chips)+to_big(mult) 
+    elseif operator == 0 then return to_big(hand_chips)*to_big(mult) end
+    local ret = (operator and to_big(hand_chips):arrow(operator, to_big(mult)) or to_big(hand_chips)*to_big(mult))
+    ast.score_cache[number_format(hand_chips).."x"..number_format(mult)] = ret
+    return ret
+end
+
+if not Entropy then
+    function update_operator_display()
+        local ast_aoperator = ast_get_final_operator()
+        local colours = {
+            [-1] = G.C.CHIPS,
+            [0] = G.C.MULT,
+            [1] = G.C.DARK_EDITION,
+            [2] = G.C.DARK_EDITION,
+            [3] = G.C.DARK_EDITION,
+            [4] = G.C.DARK_EDITION,
+        }
+        local txt = ast.FormatArrowMult(ast_aoperator, "")
+        local operator = G.HUD:get_UIE_by_ID('chipmult_op')
+        if operator then
+            operator.config.text = txt
+            operator.config.text_drawable:set(txt)
+            if ast_aoperator > 1 and ast_aoperator < 6 then
+                operator.config.scale = 0.3 + 0.5 / ast_aoperator
+            else
+                operator.config.scale = 0.8
+            end
+            local col = colours[math.min(math.max(ast_aoperator, -1), 4)]
+            operator.UIBox:recalculate()
+            operator.config.colour = col
+        end
+    end
+end
+
+local orig_final = ast_get_final_operator
+function ast_get_final_operator()
+    local op = 0
+    if orig_final then
+        op = op + orig_final() - 1
+    end
+    return op + (G.GAME.ast_operator or 0)
+end
+function get_chipmult_sum(chips, mult)
+    return ast.get_chipmult_score(chips, mult)
+end
+
+local ast_gsr = Game.start_run
+function Game:start_run(args)
+    ast_gsr(self, args)
+    update_operator_display()
 end
