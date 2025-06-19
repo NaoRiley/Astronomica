@@ -416,6 +416,7 @@ if not Entropy then
             local col = colours[math.min(math.max(ast_aoperator, -1), 4)]
             operator.UIBox:recalculate()
             operator.config.colour = col
+            -- play_sound('highlight2')
         end
     end
 end
@@ -437,3 +438,5 @@ function Game:start_run(args)
     ast_gsr(self, args)
     update_operator_display()
 end
+
+-------------------------------------------------------------

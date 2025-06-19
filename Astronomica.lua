@@ -24,6 +24,7 @@
 local files = {
 "items/lib",
 "Cryptid",
+"config",
 "items/atlas",
 "items/sound",
 "items/rarity",
@@ -33,6 +34,7 @@ local files = {
 "items/voucher",
 "items/joker/common",
 "items/joker/type",
+"items/joker/cursed"
 "items/joker/uncommon",
 "items/joker/rare",
 "items/joker/epic",
@@ -156,3 +158,41 @@ function SMODS.create_mod_badges(obj, badges)
 		end
 	end
 end
+
+--Taken from Ascensio
+
+-- local current_mod = SMODS.current_mod
+-- local mod_path = SMODS.current_mod.path
+-- ast_config = SMODS.current_mod.config
+-- if ast_config["Enable Unstable Features"] == nil then
+-- 	ast_config["Enable Unstable Features"] = false
+-- end
+
+-- local astronomicaTabs = function() return {
+-- 	{
+-- 		label = "Config",
+-- 		chosen = true,
+-- 		tab_definition_function = function()
+-- 			ast_nodes = {}
+-- 			settings = { n = G.UIT.C, config = { align = "tm", padding = 0.05 }, nodes = {} }
+--       settings.nodes[#settings.nodes + 1] =
+--         create_toggle({ label = "Enable Unstable Features", ref_table = ast_config, ref_value = "Enable Unstable Features" })
+-- 			config = { n = G.UIT.R, config = { align = "tm", padding = 0 }, nodes = { settings } }
+-- 			ast_nodes[#ast_nodes + 1] = config
+-- 			return {
+-- 				n = G.UIT.ROOT,
+-- 				config = {
+-- 					emboss = 0.05,
+-- 					minh = 6,
+-- 					r = 0.1,
+-- 					minw = 10,
+-- 					align = "cm",
+-- 					padding = 0.2,
+-- 					colour = G.C.BLACK,
+-- 				},
+-- 				nodes = ast_nodes,
+-- 			}
+-- 		end,
+-- 	},
+-- } end
+-- SMODS.current_mod.extra_tabs = astronomicaTabs
