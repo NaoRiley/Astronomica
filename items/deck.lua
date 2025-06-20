@@ -32,9 +32,10 @@ SMODS.Back{
 		G.GAME.quadratic_ante_scaling = true
 	end,
 	calculate = function(self, card, context)
-		if context.first_hand_drawn then
+		if context.first_hand_drawn and ast.elementary_init == false then
 			G.GAME.ast_operator = -1
 			update_operator_display()
+			ast.elementary_init = true
 		end
 	end
 }

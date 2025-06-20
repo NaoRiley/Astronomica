@@ -34,7 +34,7 @@ local files = {
 "items/voucher",
 "items/joker/common",
 "items/joker/type",
-"items/joker/cursed"
+"items/joker/cursed",
 "items/joker/uncommon",
 "items/joker/rare",
 "items/joker/epic",
@@ -42,8 +42,9 @@ local files = {
 "items/joker/exotic",
 "items/joker/exadversum",
 "items/joker/empyrean",
-"items/spectral",
-"items/tarot",
+"items/consumable/spectral",
+"items/consumable/tarot",
+"items/consumable/anomalous",
 "items/blind",
 "items/joker/tests",
 }

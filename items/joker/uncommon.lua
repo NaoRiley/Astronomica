@@ -17,6 +17,7 @@ SMODS.Joker{
 			increase = 4
 		}
 	},
+	demicoloncompat = true,
 	loc_vars = function(self, info_queue, card)
 		card.ability.blueprint_compat_ui = card.ability.blueprint_compat_ui or ""
 		card.ability.blueprint_compat_check = nil
@@ -80,7 +81,7 @@ SMODS.Joker{
 						if not Card.no(G.jokers.cards[i + 1], "immutable", true) then
 							check = true
 							Cryptid.with_deck_effects(G.jokers.cards[i + 1], function(cards)
-								Cryptid.manipulate(cards, { value = card.ability.extra.increase, type = "+" })
+								Cryptid.manipulate(cards, { value = card.ability.extra.increase, type = "+", })
 							end)
 						end
 					end

@@ -17,6 +17,8 @@ AST.start = love.timer.getTime() --fix compat
 
 ast.context_counts={}
 
+ast.elementary_init = false
+
 -- UTIL_TABLE = {} 
 -- function UTIL_TABLE.factorial(n) --for factorial bullshit
 -- 	print(type(n), n, to_number(n))
@@ -220,9 +222,10 @@ function Game:start_run(args)
             center.rarity = center.oldrarity
         end
     end
-    -- if G.GAME.elementary_active == true then
-    --     ast_chipmult_op(-1)
-    -- end
+    ast.elementary_init = false
+    G.GAME.ast_operator = -1
+    G.GAME.ast_operator = G.GAME.ast_operator + 1
+    update_operator_display()
 end
 
 function table:astcontains(table, value)
@@ -436,7 +439,6 @@ end
 local ast_gsr = Game.start_run
 function Game:start_run(args)
     ast_gsr(self, args)
-    update_operator_display()
 end
 
 -------------------------------------------------------------
