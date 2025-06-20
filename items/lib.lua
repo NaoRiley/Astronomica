@@ -317,37 +317,37 @@ function card_eval_status_text(card, eval_type, amt, percent, dir, extra)
 
 end
 
-SMODS.calculation_keys[#SMODS.calculation_keys+1] = "fmult"
-SMODS.calculation_keys[#SMODS.calculation_keys+1] = "fchips"
--- MUST HAVE THIS, WILL NOT WORK WITHOUT ADDING NEW CALC KEYS
+-- SMODS.calculation_keys[#SMODS.calculation_keys+1] = "fmult"
+-- SMODS.calculation_keys[#SMODS.calculation_keys+1] = "fchips"
+-- -- MUST HAVE THIS, WILL NOT WORK WITHOUT ADDING NEW CALC KEYS
 
-local calceff = SMODS.calculate_individual_effect
-function SMODS.calculate_individual_effect(effect, scored_card, key, amount, from_edition)
+-- local calceff = SMODS.calculate_individual_effect
+-- function SMODS.calculate_individual_effect(effect, scored_card, key, amount, from_edition)
     
-    if key == "fmult" then
-        if effect.card then juice_card(effect.card) end
-        mult = mod_mult((to_big(ast.pi * 2)*to_big(mult)):pow(0.5)*(to_big(mult)/to_big(ast.euler))^to_big(mult))
-        update_hand_text({delay = 0}, {chips = hand_chips, mult = mult})
-        if not effect.remove_default_message then
-            card_eval_status_text(scored_card, 'jokers', nil, percent, nil, {message = "Mult".."!", colour =  G.C.EDITION, edition = true})
-        end
-        return true
-    end
+--     if key == "fmult" then
+--         if effect.card then juice_card(effect.card) end
+--         mult = mod_mult((to_big(ast.pi * 2)*to_big(mult)):pow(0.5)*(to_big(mult)/to_big(ast.euler))^to_big(mult))
+--         update_hand_text({delay = 0}, {chips = hand_chips, mult = mult})
+--         if not effect.remove_default_message then
+--             card_eval_status_text(scored_card, 'jokers', nil, percent, nil, {message = "Mult".."!", colour =  G.C.EDITION, edition = true})
+--         end
+--         return true
+--     end
 
-    if key == "fchips" then 
-        if effect.card then juice_card(effect.card) end
-        hand_chips = mod_chips((to_big(ast.pi * 2)*to_big(hand_chips)):pow(0.5)*(to_big(hand_chips)/to_big(ast.euler))^to_big(hand_chips))
-        update_hand_text({delay = 0}, {chips = hand_chips, mult = mult})
-        if not effect.remove_default_message then
-            card_eval_status_text(scored_card, 'jokers', nil, percent, nil, {message = "Chips".."!", colour =  G.C.EDITION, edition = true})
-        end
-        return true
-    end
+--     if key == "fchips" then 
+--         if effect.card then juice_card(effect.card) end
+--         hand_chips = mod_chips((to_big(ast.pi * 2)*to_big(hand_chips)):pow(0.5)*(to_big(hand_chips)/to_big(ast.euler))^to_big(hand_chips))
+--         update_hand_text({delay = 0}, {chips = hand_chips, mult = mult})
+--         if not effect.remove_default_message then
+--             card_eval_status_text(scored_card, 'jokers', nil, percent, nil, {message = "Chips".."!", colour =  G.C.EDITION, edition = true})
+--         end
+--         return true
+--     end
 
-    calceff(effect, scored_card, key, amount, from_edition)
+--     calceff(effect, scored_card, key, amount, from_edition)
     
 
-end
+-- end
 
 local quadratic_ante_scaling = get_blind_amount
 get_blind_amount = function(ante)
