@@ -581,6 +581,9 @@ SMODS.Gradient{
 	interpolation = 'trig',
 }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
