@@ -286,7 +286,7 @@ SMODS.Joker {
 		}
 	},
 	pos = { x = 0, y = 2 },
-	soul_pos = { x = 2, y = 2, extra = { x = 1, y = 2 } },
+	soul_pos = { x = 1, y = 2, extra = { x = 2, y = 2 } },
 	cost = 250,
 	rarity = 'ast_empyrean',
 	unlocked = true,
@@ -393,8 +393,8 @@ SMODS.Joker {
 			}
 		}
 	},
-	pos = { x = 0, y = 0 },
-	-- soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
+	pos = { x = 0, y = 3 },
+	soul_pos = { x = 1, y = 3, extra = { x = 2, y = 3 } },
 	cost = 250, --100 normal, 250 realm, 800 yggdrasil
 	rarity = 'ast_empyrean',
 	unlocked = true,
@@ -404,7 +404,7 @@ SMODS.Joker {
 	eternal_compat = true,
 	perishable_compat = true,
 	immutable = true,
-	atlas = "j_placeholder",
+	atlas = "exotic",
 	ast_credits = {
 	},
 	config = {
@@ -457,7 +457,7 @@ SMODS.Joker {
 		}
 	},
 	pos = { x = 6, y = 0 },
-	soul_pos = { x = 8, y = 0, extra = { x = 7, y = 0 } },
+	soul_pos = { x = 7, y = 0, extra = { x = 8, y = 0 } },
 	cost = 250,
 	rarity = 'ast_empyrean',
 	unlocked = true,

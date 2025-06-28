@@ -368,6 +368,7 @@ end
 -------------OPERATOR STUFF
 
 
+
 -- function ast_chipmult_op(operator)
 --     if operator == -1 then
 --         G.GAME.ast_chipmult_op = -1
@@ -443,6 +444,7 @@ end
 local ast_gsr = Game.start_run
 function Game:start_run(args)
     ast_gsr(self, args)
+    G.GAME.ast_operator = G.GAME.ast_operator or 0
     update_operator_display()
 end
 
