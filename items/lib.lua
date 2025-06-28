@@ -357,6 +357,14 @@ get_blind_amount = function(ante)
     return quadratic_ante_scaling(ante)
 end
 
+local vanaheim_ante_scaling = get_blind_amount
+get_blind_amount = function(ante)
+    if G.GAME.vanaheim_ante_scaling == true then
+        return (ante + 1) * 2.5^ante + 295 --idfk man
+    end
+    return vanaheim_ante_scaling(ante)
+end
+
 -------------OPERATOR STUFF
 
 
@@ -432,8 +440,144 @@ function get_chipmult_sum(chips, mult)
     return ast.get_chipmult_score(chips, mult)
 end
 
+<<<<<<< Updated upstream
 local ast_gsr = Game.start_run
 function Game:start_run(args)
     ast_gsr(self, args)
     update_operator_display()
 end
+=======
+-- local ast_gsr = Game.start_run
+-- function Game:start_run(args)
+--     ast_gsr(self, args)
+-- end
+
+-------------------------------------------------------------
+
+local astscie = SMODS.calculate_individual_effect
+function SMODS.calculate_individual_effect(effect, scored_card, key, amount, from_edition)
+    if scored_card then
+        if scored_card.ability.ast_ssemiconductor then
+            if key == "hypermult" or key == "hyperchips" or key == "hypermult_mod" or key == "hyperchip_mod" or key == "hyper_mult" or key == "hyper_chips" then
+                value[1] = value[1] + 1
+            elseif key == "eee_mult" or key == "eeemult" then
+                key = "hypermult"
+                value = {4, value}
+            elseif key == "eee_chips" or key == "eeechips" then
+                key = "hyperchips"
+                value = {4, value}
+            elseif key == "EEEmult_mod" then
+                key = "hypermult_mod"
+                value = {4, value}
+            elseif key == "EEEchip_mod" then
+                key = "hyperchip_mod"
+                value = {4, value}
+            else
+                key = ({
+                    ["mult"] = "xmult",
+                    ["mult_mod"] = "x_mult_mod",
+                    ["chips"] = "x_chips",
+                    ["chip_mod"] = "Xchip_mod",
+                    ["x_chips"] = "echips",
+                    ["xchips"] = "echips",
+                    ["Xchip_mod"] = "Echip_mod",
+                    ["x_mult"] = "emult",
+                    ["xmult"] = "emult",
+                    ["x_mult_mod"] = "Emult_mod",
+                    ["Xmult_mod"] = "Emult_mod",
+                    ['e_mult'] = "ee_mult",
+                    ['e_chips'] = "ee_chips",
+                    ['ee_mult'] = "eee_mult",
+                    ['ee_chips'] = "eee_chips",
+                    --'eee_mult', 
+                    --'eee_chips'
+                    ['emult'] = "ee_mult",
+                    ['echips'] = "ee_chips",
+                    ['eemult'] = "eee_mult",
+                    ['eechips'] = "eee_chips",
+                    --'eeemult', 
+                    --'eeechips'
+                    ['Emult_mod'] = "EEmult_mod",
+                    ['Echip_mod'] = "EEchip_mod",
+                    ['EEmult_mod'] = "EEEmult_mod", 
+                    ['EEchip_mod'] = "EEEchip_mod", 
+                    --'EEEmult_mod', 
+                    --'EEEchip_mod'
+                })[key] or key
+                --TARGET: patch in custom effects here
+            end
+        end
+    end
+    return astscie(effect, scored_card, key, amount, from_edition)
+end
+
+local ast_flip = Card.flip
+function Card:flip()
+    if not self.ability.perma_flipped then
+        ast_flip(self)
+    end
+end
+
+-- flip_benefit = function()
+--     if G.GAME.flip_benefit = true then
+--         if card.facing == 'back' then
+
+--         end
+--     end
+-- end
+
+SMODS.Gradient{
+	key = 'echips',
+	colours = {
+		HEX('009dff'), --chips
+		HEX('0040ff'), --dark blue
+		HEX('89e4ff'), --light blue
+	},
+	cycle = 6,
+	interpolation = 'trig',
+}
+
+SMODS.Gradient{
+	key = 'emult',
+	colours = {
+		HEX('FE5F55'), --mult
+		HEX('d70d00'), --dark red
+		HEX('ff968f'), --light red
+	},
+	cycle = 6,
+	interpolation = 'trig',
+}
+
+SMODS.Gradient{
+	key = 'escore',
+	colours = {
+		HEX('8867a5'), --score
+		HEX('6700c1'), --dark score
+		HEX('e270ff'), --light score
+	},
+	cycle = 6,
+	interpolation = 'trig',
+}
+
+
+SMODS.Gradient{
+	key = 'evalues',
+	colours = {
+		HEX('3dd622'), --green
+		HEX('1a7509'), --dark green
+		HEX('91fa7d'), --light green
+	},
+	cycle = 6,
+	interpolation = 'trig',
+}
+
+SMODS.Gradient{
+	key = 'yggdrasil',
+	colours = {
+		HEX('3dd622'), --green
+		HEX('3dd622'), --green
+	},
+	cycle = 99999999999,
+	interpolation = 'trig',
+}
+>>>>>>> Stashed changes

@@ -65,6 +65,8 @@ SMODS.Joker{
                 "bl_entr_endless_entropy_phase_three",
                 "bl_entr_endless_entropy_phase_two",
                 "bl_entr_endless_entropy_phase_four",
+                "bl_small",
+                "bl_big",
             }
 
             local iblinds = {

@@ -1,5 +1,7 @@
 --this is some BULLSHIT WHY IS IT SO COMPLICATED TO ADD A NEW COLOR
 
+--edit from me like a month or two later: you are STUPID
+
 multi_gradient = SMODS.Gradient{
 	key = 'multicolor',
 	colours = {

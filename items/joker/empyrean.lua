@@ -10,7 +10,7 @@
 -- 	},
 -- 	pos = { x = 0, y = 0 },
 -- 	soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
--- 	cost = 100,
+-- 	cost = 100, --100 normal, 250 realm, 800 yggdrasil
 -- 	rarity = 'ast_empyrean',
 -- 	unlocked = true,
 -- 	discovered = true,
@@ -24,116 +24,135 @@
 -- 	},
 -- 	config = {
 -- 		extra = {
--- 			n = 3, 
--- 			c = false
 -- 		},
 -- 	},
 -- 	loc_vars = function(self, info_queue, card)
 -- 		return {
--- 			vars = {card.ability.extra.n}
+-- 			vars = {}
 -- 		}
 -- 	end,
 -- 	calculate = function(self, card, context)
 -- 	end,
 -- }
 
--- SMODS.Joker {
--- 	key = "radalingr", 
--- 	loc_txt = {
--- 		name = "{f:ast_futhark2,s:1.1,C:chips}Radalingr",
--- 		text = {
--- 			"At end of round, Joker's {X:mult,C:white}XMult{C:black} becomes {X:dark_edition,C:white}(XMult)! ",
--- 			"{C:inactive}(Currently {X:mult,C:white}X#1#{}{C:inactive} Mult)",
--- 		}
--- 	},
--- 	pos = { x = 0, y = 0 },
--- 	soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
--- 	cost = 100,
--- 	rarity = 'ast_empyrean',
--- 	unlocked = true,
--- 	discovered = true,
--- 	blueprint_compat = true,
--- 	demicoloncompat = true,
--- 	eternal_compat = true,
--- 	perishable_compat = true,
--- 	immutable = false,
--- 	atlas = "exotic",
--- 	ast_credits = {
--- 		art = {"Tatteredlurker"},
--- 	},
--- 	config = {
--- 		extra = {
--- 			n = 3, 
--- 			c = false
--- 		},
--- 	},
--- 	loc_vars = function(self, info_queue, card)
--- 		return {
--- 			vars = {card.ability.extra.n}
--- 		}
--- 	end,
--- 	calculate = function(self, card, context) --i now see why nobody has done factorials in this game before
--- 		--print('calculate called')
--- 		if context.first_hand_drawn then
--- 			card.ability.extra.c = false
--- 		end
--- 		if context.end_of_round and card.ability.extra.c == false then
--- 			--print('round end')
--- 			card.ability.extra.c = true
--- 			if to_big(card.ability.extra.n):gt(to_big(150)) then
--- 				card.ability.extra.n = UTIL_TABLE.factorial(card.ability.extra.n)
--- 			else
--- 				card.ability.extra.n = UTIL_TABLE.small_factorial(card.ability.extra.n)
--- 			end
--- 		end
--- 		if context.forcetrigger then
--- 			--print('round end')
--- 			card.ability.extra.c = true
--- 			if to_big(card.ability.extra.n):gt(to_big(150)) then
--- 				card.ability.extra.n = UTIL_TABLE.factorial(card.ability.extra.n)
--- 			else
--- 				card.ability.extra.n = UTIL_TABLE.small_factorial(card.ability.extra.n)
--- 			end
--- 			card.ability.extra.c = false
--- 		end
--- 		if context.joker_main then
--- 			return {Xmult_mod = card.ability.extra.n, message = "X" .. tostring(card.ability.extra.n)}
--- 		end
--- 		if context.end_of_round and context.game_over == false and not context.repetition and not context.blueprint then
--- 			return {
--- 				message = 'Upgrade!',
--- 			colour = G.C.DARK_EDITION,
--- 			card = card
--- 			}
--- 		end
--- 	end,
--- 	generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
---     SMODS.Center.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-
---     if desc_nodes == full_UI_table.main then
---         full_UI_table.name = {
---             {
---                 n = G.UIT.C,
---                 config = { align = "cm", padding = 0.05 },
---                 nodes = {
---                     {
---                         n = G.UIT.R,
---                         config = { align = "cm" },
---                         nodes = full_UI_table.name
---                     },
---                     {
---                         n = G.UIT.R,
---                         config = { align = "cm" },
---                         nodes = {{
---                           n = G.UIT.T,
---                           config = { text = "(Radąlingr)", colour = G.C.INACTIVE, scale = (0.4 - 0.004 * #"(Radąlingr)") } }
---                     }},
---                 }
---             }
---         }
---     end
--- end
--- }
+SMODS.Joker {
+	key = "bifrost", 
+	loc_txt = {
+		name = {
+			"Bifrost",
+		},
+		text = {
+			"{X:dark_edition,C:white}^#1#{} {C:attention}Boss Blind{} size",
+			"When {C:attention}Boss Blind{} is defeated,",
+			"{C:red}self destructs{}, and creates",
+			"an {C:ast_multicolor}Empyrean{} Joker",
+			"{C:inactive,s:0.7}Does something {C:ast_evalues,s:0.7}Special",
+			"{C:inactive,s:0.7}if you have all {C:ast_multicolor,s:0.7}Realm Empyrean{C:inactive,s:0.7} Jokers",
+		}
+	},
+	pos = { x = 0, y = 0 },
+	cost = 20,
+	rarity = 'cry_epic',
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = false,
+	demicoloncompat = false,
+	eternal_compat = true,
+	perishable_compat = true,
+	immutable = false,
+	atlas = "j_placeholder",
+	ast_credits = {
+	},
+	config = {
+		extra = {
+			boss_size = 25,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {card.ability.extra.boss_size}
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.setting_blind and not context.blueprint and context.blind.boss and not card.getting_sliced then
+			card.gone = false
+			G.GAME.blind.chips = G.GAME.blind.chips ^ card.ability.extra.boss_size
+			G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+			G.HUD_blind:recalculate()
+		end
+		if context.end_of_round
+			and not context.individual
+			and not context.repetition
+			and not context.blueprint
+			and G.GAME.blind.boss
+			and not card.gone and (next(SMODS.find_card('j_ast_alfheim')) and next(SMODS.find_card('j_ast_vanaheim')) and next(SMODS.find_card('j_ast_asgard'))) then
+			G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                play_sound('timpani')
+                local card = create_card('Joker',G.jokers, nil, nil, nil, nil, 'j_ast_yggdrasil', nil)
+                card:add_to_deck()
+                G.jokers:emplace(card)
+                return true end }))
+			delay(0.6)
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					play_sound("tarot1")
+					card.T.r = -0.2
+					card:juice_up(0.3, 0.4)
+					card.states.drag.is = true
+					card.children.center.pinch.x = true
+					G.E_MANAGER:add_event(Event({
+						trigger = "after",
+						delay = 0.3,
+						blockable = false,
+						func = function()
+							G.jokers:remove_card(card)
+							card:remove()
+							card = nil
+							return true
+						end,
+					}))
+					return true
+				end,
+			}))
+			card.gone = true
+		elseif context.end_of_round
+			and not context.individual
+			and not context.repetition
+			and not context.blueprint
+			and G.GAME.blind.boss
+			and not card.gone then
+			G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                play_sound('timpani')
+                local card = create_card('Joker', G.jokers, nil, 'ast_empyrean', nil, nil, nil)
+                card:add_to_deck()
+                G.jokers:emplace(card)
+                return true end }))
+			delay(0.6)
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					play_sound("tarot1")
+					card.T.r = -0.2
+					card:juice_up(0.3, 0.4)
+					card.states.drag.is = true
+					card.children.center.pinch.x = true
+					G.E_MANAGER:add_event(Event({
+						trigger = "after",
+						delay = 0.3,
+						blockable = false,
+						func = function()
+							G.jokers:remove_card(card)
+							card:remove()
+							card = nil
+							return true
+						end,
+					}))
+					return true
+				end,
+			}))
+			card.gone = true
+		end
+	end,
+}
 
 SMODS.Joker {
 	key = "radalingr", 
@@ -268,7 +287,7 @@ SMODS.Joker {
 	},
 	pos = { x = 0, y = 2 },
 	soul_pos = { x = 2, y = 2, extra = { x = 1, y = 2 } },
-	cost = 100,
+	cost = 250,
 	rarity = 'ast_empyrean',
 	unlocked = true,
 	discovered = true,
@@ -311,6 +330,118 @@ SMODS.Joker {
 	end,
 }
 
+-- SMODS.Joker {
+-- 	key = "nidavellir", 
+-- 	loc_txt = {
+-- 		name = {
+-- 			"{f:ast_futhark2,s:1.1,C:chips}Nidavellir",
+-- 			"{s:0.8}(Nidavellir)"
+-- 		},
+-- 		text = {
+-- 			"",
+
+-- 		}
+-- 	},
+-- 	pos = { x = 6, y = 2 },
+-- 	soul_pos = { x = 8, y = 2, extra = { x = 7, y = 2 } },
+-- 	cost = 250, --100 normal, 250 realm, 800 yggdrasil
+-- 	rarity = 'ast_empyrean',
+-- 	unlocked = true,
+-- 	discovered = true,
+-- 	blueprint_compat = true,
+-- 	demicoloncompat = true,
+-- 	eternal_compat = true,
+-- 	perishable_compat = true,
+-- 	immutable = false,
+-- 	atlas = "exotic",
+-- 	ast_credits = {
+-- 	},
+-- 	config = {
+-- 		extra = {
+-- 		},
+-- 	},
+-- 	loc_vars = function(self, info_queue, card)
+-- 		return {
+-- 			vars = {}
+-- 		}
+-- 	end,
+-- 	add_to_deck = function(self, card, from_debuff)
+-- 		G.GAME.nidavellir = true
+-- 	end,
+-- 	add_to_deck = function(self, card, from_debuff)
+-- 		G.GAME.nidavellir = false
+-- 	end,
+-- }
+
+SMODS.Joker {
+	key = "vanaheim", 
+	loc_txt = {
+		name = {
+			"{f:ast_futhark2,s:1.1,C:chips}Vanaheim",
+			"{s:0.8}(Vanaheim)"
+		},
+		text = {
+			{
+				"While in rightmost {C:attention}Joker{} slot, {C:attention}-1{} Ante when exiting shop",
+			},
+			{
+				"{C:attention}Chips/Mult{} operator is increased by 1 when first obtained",
+				"and every {C:attention}8{} {C:inactive}[#1#]{} {C:attention}Boss Blinds{} defeated",
+			},
+			{
+				"Ante scaling is {C:attention}lowered{}",
+			}
+		}
+	},
+	pos = { x = 0, y = 0 },
+	-- soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
+	cost = 250, --100 normal, 250 realm, 800 yggdrasil
+	rarity = 'ast_empyrean',
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = false,
+	demicoloncompat = false,
+	eternal_compat = true,
+	perishable_compat = true,
+	immutable = true,
+	atlas = "j_placeholder",
+	ast_credits = {
+	},
+	config = {
+		extra = {
+			antes_defeated = 8,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.antes_defeated
+			}
+		}
+	end,
+	calculate = function(self, card, context)
+		if G.jokers.cards[#G.jokers.cards] == card and context.ending_shop then
+			ease_ante(-1)
+		end
+		if context.end_of_round and context.main_eval and G.GAME.blind.boss then
+			card.ability.extra.antes_defeated = card.ability.extra.antes_defeated - 1
+		end
+		if card.ability.extra.antes_defeated == 0 then
+			G.GAME.ast_operator = G.GAME.ast_operator + 1
+			update_operator_display()
+			card.ability.extra.antes_defeated = 8
+		end
+	end,
+	add_to_deck = function(self, card, from_debuff)
+		if G.GAME.vanaheim_init ~= true then
+			G.GAME.ast_operator = G.GAME.ast_operator + 1
+			update_operator_display()
+			G.GAME.vanaheim_init = true
+		end
+		G.GAME.vanaheim_ante_scaling = true
+	end
+}
+
 SMODS.Joker {
 	key = "asgard", 
 	loc_txt = {
@@ -327,7 +458,7 @@ SMODS.Joker {
 	},
 	pos = { x = 6, y = 0 },
 	soul_pos = { x = 8, y = 0, extra = { x = 7, y = 0 } },
-	cost = 100,
+	cost = 250,
 	rarity = 'ast_empyrean',
 	unlocked = true,
 	discovered = true,
@@ -417,3 +548,86 @@ SMODS.Joker {
 		end
 	end,
 }
+
+SMODS.Joker {
+	key = "yggdrasil", 
+	loc_txt = {
+		name = {
+			"{f:ast_futhark2,s:1.1,C:ast_yggdrasil}Yggdrasil",
+			"{s:0.8}(Yggdrasil, The World Tree)"
+		},
+		text = {
+			"Increase values of all {C:attention}Jokers{} to the right",
+			"by {X:ast_evalues,C:white}#1#{} at end of round and {C:attention}exponentiate{} multiplier",
+			"When obtaining a {C:attention}Joker{}, increase operator by one",
+		}
+	},
+	pos = { x = 0, y = 0 },
+	-- soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
+	cost = 800,
+	rarity = 'ast_empyrean',
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = true,
+	demicoloncompat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+	immutable = false,
+	atlas = "j_placeholder",
+	ast_credits = {
+	},
+	in_pool = function(self, args)
+		return false
+	end,
+	config = {
+		extra = {
+			increase = 2,
+			immutable = {
+				arrows = 0,
+			},
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {ast.FormatArrowMult(card.ability.extra.immutable.arrows, card.ability.extra.increase), card.ability.extra.immutable.arrows}
+		}
+	end,
+	calculate = function(self, card, context)
+		if (context.end_of_round and not context.repetition and not context.individual and not context.blueprint) or context.forcetrigger then
+			local check = false
+			local cardind = #G.jokers.cards
+			for i=1, #G.jokers.cards do
+				if G.jokers.cards[i] == card then
+					cardind = i
+				end
+			end
+			for i=1, #G.jokers.cards do
+				if i > cardind then
+					if not Card.no(G.jokers.cards[i], "immutable", true) then
+						check = true
+						Cryptid.manipulate(G.jokers.cards[i], { value = {arrows = card.ability.extra.immutable.arrows, height = card.ability.extra.increase}, type = "hyper" })
+					end
+				end
+			end
+			if check then
+				card_eval_status_text(
+					card,
+					"extra",
+					nil,
+					nil,
+					nil,
+					{ message = localize("k_upgrade_ex"), colour = G.C.GREEN }
+				)
+			end
+			card.ability.extra.increase = (to_big(card.ability.extra.increase))^(to_big(2))
+		end
+		if context.card_added or context.forcetrigger then
+			card.ability.extra.immutable.arrows = (to_big(card.ability.extra.immutable.arrows)) + (to_big(1))
+			return {
+				message = ("+1"),
+				colour = G.C.GREEN,
+			}
+		end
+	end,
+}
+
