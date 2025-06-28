@@ -440,13 +440,12 @@ function get_chipmult_sum(chips, mult)
     return ast.get_chipmult_score(chips, mult)
 end
 
-<<<<<<< Updated upstream
 local ast_gsr = Game.start_run
 function Game:start_run(args)
     ast_gsr(self, args)
     update_operator_display()
 end
-=======
+
 -- local ast_gsr = Game.start_run
 -- function Game:start_run(args)
 --     ast_gsr(self, args)
@@ -580,10 +579,3 @@ SMODS.Gradient{
 	cycle = 99999999999,
 	interpolation = 'trig',
 }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
