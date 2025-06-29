@@ -50,7 +50,7 @@ SMODS.Joker {
 			"{C:inactive,s:0.7}if you have all {C:ast_multicolor,s:0.7}Realm Empyrean{C:inactive,s:0.7} Jokers",
 		}
 	},
-	pos = { x = 0, y = 0 },
+	pos = { x = 4, y = 3 },
 	cost = 20,
 	rarity = 'cry_epic',
 	unlocked = true,
@@ -60,8 +60,9 @@ SMODS.Joker {
 	eternal_compat = true,
 	perishable_compat = true,
 	immutable = false,
-	atlas = "j_placeholder",
+	atlas = "jokers",
 	ast_credits = {
+		art = {"Tatteredlurker"},
 	},
 	config = {
 		extra = {
@@ -400,12 +401,13 @@ SMODS.Joker {
 	unlocked = true,
 	discovered = true,
 	blueprint_compat = false,
-	demicoloncompat = false,
+	demicoloncompat = true,
 	eternal_compat = true,
 	perishable_compat = true,
 	immutable = true,
 	atlas = "exotic",
 	ast_credits = {
+		art = {"Tatteredlurker"},
 	},
 	config = {
 		extra = {
@@ -420,22 +422,20 @@ SMODS.Joker {
 		}
 	end,
 	calculate = function(self, card, context)
-		if G.jokers.cards[#G.jokers.cards] == card and context.ending_shop then
+		if G.jokers.cards[#G.jokers.cards] == card and context.ending_shop or context.forcetrigger then
 			ease_ante(-1)
 		end
-		if context.end_of_round and context.main_eval and G.GAME.blind.boss then
+		if context.end_of_round and context.main_eval and G.GAME.blind.boss or context.forcetrigger then
 			card.ability.extra.antes_defeated = card.ability.extra.antes_defeated - 1
 		end
 		if card.ability.extra.antes_defeated == 0 then
-			G.GAME.ast_operator = G.GAME.ast_operator + 1
-			update_operator_display()
+			ease_operator(1)
 			card.ability.extra.antes_defeated = 4
 		end
 	end,
 	add_to_deck = function(self, card, from_debuff)
 		if G.GAME.vanaheim_init ~= true then
-			G.GAME.ast_operator = G.GAME.ast_operator + 1
-			update_operator_display()
+			ease_operator(1)
 			G.GAME.vanaheim_init = true
 		end
 		G.GAME.vanaheim_ante_scaling = true

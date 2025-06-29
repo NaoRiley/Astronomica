@@ -8,8 +8,11 @@ SMODS.Joker{
         }
     },
 	blueprint_compat = true,
-    atlas = 'j_placeholder',
-    pos = {x = 0, y = 0},
+    atlas = 'jokers',
+    pos = {x = 1, y = 3},
+	ast_credits = {
+		art = {"LFMoth"},
+	},
 	rarity = 2,
 	order = 1,
 	config = {

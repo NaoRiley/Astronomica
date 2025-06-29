@@ -7,8 +7,12 @@ SMODS.Joker{
 			'{C:inactive}(Currently {C:purple}+#1# {C:inactive}Score)',
         }
     },
-    atlas = 'j_placeholder',
-    pos = {x = 0, y = 0},
+    atlas = 'jokers',
+    pos = {x = 2, y = 3},
+    soul_pos = { x = 3, y = 3 },
+	ast_credits = {
+		art = {"LFMoth"},
+	},
 	blueprint_compat = false,
 	rarity = 4,
 	config = {

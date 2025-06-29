@@ -453,6 +453,24 @@ end
 --     ast_gsr(self, args)
 -- end
 
+function ease_operator(operator)
+
+    G.GAME.ast_operator = G.GAME.ast_operator + operator
+    update_operator_display()
+    play_sound('highlight2', 0.685, 0.2)
+    play_sound('generic1')
+    
+end
+
+function set_operator(operator)
+
+    G.GAME.ast_operator = operator
+    update_operator_display()
+    play_sound('highlight2', 0.685, 0.2)
+    play_sound('generic1')
+
+end
+
 -------------------------------------------------------------
 
 local astscie = SMODS.calculate_individual_effect

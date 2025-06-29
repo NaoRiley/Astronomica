@@ -1,0 +1,39 @@
+
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = -1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+pattern = '''    G.E_MANAGER:add_event(Event({
+      trigger = 'ease',
+      blocking = false,
+      ref_table = G.GAME,
+      ref_value = 'chips',
+      ease_to = G.GAME.chips + math.floor(hand_chips*mult),
+      delay =  0.5,
+      func = (function(t) return math.floor(t) end)
+    }))'''
+position = 'at'
+payload = '''    if G.GAME.coalescere == true and G.GAME.ast_operator ~= -1 then
+        G.E_MANAGER:add_event(Event({
+            trigger = 'ease',
+            blocking = false,
+            ref_table = G.GAME,
+            ref_value = 'chips',
+            ease_to = G.GAME.chips:arrow(G.GAME.ast_operator, math.floor(hand_chips*mult)),
+            delay =  0.5,
+        }))
+    else
+        G.E_MANAGER:add_event(Event({
+            trigger = 'ease',
+            blocking = false,
+            ref_table = G.GAME,
+            ref_value = 'chips',
+            ease_to = G.GAME.chips + math.floor(hand_chips*mult),
+            delay =  0.5,
+        }))
+    end    '''

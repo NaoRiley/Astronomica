@@ -30,13 +30,14 @@ SMODS.Back{
     },
 	apply = function(self)
 		G.GAME.quadratic_ante_scaling = true
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				set_operator(-1)
+				return true
+			end,
+		}))
 	end,
-	calculate = function(self, card, context)
-		if context.first_hand_drawn then
-			G.GAME.ast_operator = -1
-			update_operator_display()
-		end
-	end
+
 }
 
 SMODS.Back{

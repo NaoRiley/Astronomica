@@ -561,3 +561,58 @@ SMODS.Joker{
 -- 		code = { "NaoRiley" },
 -- 	},
 -- }
+
+-- SMODS.Joker{
+--     key = 'coalescere',
+--     loc_txt = {
+--         name = 'Coalescere',
+--         text = {
+--             '',
+--         }
+--     },
+--     atlas = 'j_placeholder',
+--     rarity = 'cry_exotic',
+--     cost = 50,
+--     pos = {x = 0, y = 0},
+--     -- soul_pos = { x = 0, y = 0, extra = { x = 0, y = 0 } },
+--     config = {
+-- 		extra = {
+-- 		}
+-- 	},
+-- }
+
+SMODS.Joker{
+    key = 'coalescere',
+    loc_txt = {
+        name = 'Coalescere',
+        text = {
+            '{C:attention}Hand Score{} calculation matches the',
+			"{C:attention}Chips/Mult{} operator",
+			"{C:inactive}(Does not apply on first hand)"
+        }
+    },
+    atlas = 'j_placeholder',
+    rarity = 'cry_exotic',
+    cost = 50,
+    pos = {x = 0, y = 0},
+    -- soul_pos = { x = 0, y = 0, extra = { x = 0, y = 0 } },
+    config = {
+		extra = {
+		}
+	},
+	ast_credits = {
+		idea = {"uwo"},
+	},
+	calculate = function(self, card, context)
+		if context.blind_defeated then
+			G.GAME.coalescere = false
+		end
+		if context.after then
+			G.GAME.coalescere = true
+		end
+	end,
+	remove_from_deck = function(self, card, from_debuff)
+		G.GAME.coalescere = false
+	end
+}
+
