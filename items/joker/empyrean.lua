@@ -385,8 +385,8 @@ SMODS.Joker {
 				"While in rightmost {C:attention}Joker{} slot, {C:attention}-1{} Ante when exiting shop",
 			},
 			{
-				"{C:attention}Chips/Mult{} operator is increased by 1 when first obtained",
-				"and every {C:attention}8{} {C:inactive}[#1#]{} {C:attention}Boss Blinds{} defeated",
+				"{C:attention}Chips/Mult{} operator is increased by one when first obtained",
+				"and every {C:attention}4{} {C:inactive}[#1#]{} {C:attention}Boss Blinds{} defeated",
 			},
 			{
 				"Ante scaling is {C:attention}lowered{}",
@@ -409,7 +409,7 @@ SMODS.Joker {
 	},
 	config = {
 		extra = {
-			antes_defeated = 8,
+			antes_defeated = 4,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
@@ -429,7 +429,7 @@ SMODS.Joker {
 		if card.ability.extra.antes_defeated == 0 then
 			G.GAME.ast_operator = G.GAME.ast_operator + 1
 			update_operator_display()
-			card.ability.extra.antes_defeated = 8
+			card.ability.extra.antes_defeated = 4
 		end
 	end,
 	add_to_deck = function(self, card, from_debuff)

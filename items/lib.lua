@@ -192,11 +192,11 @@ function ast.FormatArrowMult(arrows, chips)
     end
 end
 
-local wg = win_game --makes anomaly FUCKING WORK since hidden cards IGNORE POOLS FOR SOME FUCKING REASON grahhhhhhhhhhhhhhh
-win_game = function()
-  wg()
-  G.P_CENTERS['c_ast_anomaly'].soul_rate = 0.2
-end
+-- local wg = win_game --makes anomaly FUCKING WORK since hidden cards IGNORE POOLS FOR SOME FUCKING REASON grahhhhhhhhhhhhhhh
+-- win_game = function()
+--   wg()
+--   G.P_CENTERS['c_ast_anomaly'].soul_rate = 0.2
+-- end
 
 local fakestart = Game.start_run
 function Game:start_run(args)
