@@ -89,7 +89,7 @@ end
 local null_mult = mod_mult
 mod_mult = function(mult)
 	if G.GAME.mult_disabled == true then
-		return 1
+		return to_big(1)
 	end
   return null_mult(mult)
 end
@@ -97,7 +97,7 @@ end
 local null_chips = mod_chips
 mod_chips = function(chips)
 	if G.GAME.chips_disabled == true then
-		return 1
+		return to_big(1)
 	end
   return null_chips(chips)
 end
