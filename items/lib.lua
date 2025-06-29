@@ -357,13 +357,13 @@ get_blind_amount = function(ante)
     return quadratic_ante_scaling(ante)
 end
 
-local vanaheim_ante_scaling = get_blind_amount
-get_blind_amount = function(ante)
-    if G.GAME.vanaheim_ante_scaling == true then
-        return (ante + 1) * 2.5^ante + 295 --idfk man
-    end
-    return vanaheim_ante_scaling(ante)
-end
+-- local vanaheim_ante_scaling = get_blind_amount
+-- get_blind_amount = function(ante)
+--     if G.GAME.vanaheim_ante_scaling == true then
+--         return math.ceil((((ante + 1) * 2.5^ante + 295) / 100)) * 100 --idfk man
+--     end
+--     return vanaheim_ante_scaling(ante)
+-- end
 
 -------------OPERATOR STUFF
 

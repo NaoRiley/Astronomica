@@ -389,9 +389,9 @@ SMODS.Joker {
 				"{C:attention}Chips/Mult{} operator is increased by one when first obtained",
 				"and every {C:attention}4{} {C:inactive}[#1#]{} {C:attention}Boss Blinds{} defeated",
 			},
-			{
-				"Ante scaling is {C:attention}lowered{}",
-			}
+			-- {
+			-- 	"Ante scaling is {C:attention}lowered{}",
+			-- }
 		}
 	},
 	pos = { x = 0, y = 3 },
@@ -438,7 +438,7 @@ SMODS.Joker {
 			ease_operator(1)
 			G.GAME.vanaheim_init = true
 		end
-		G.GAME.vanaheim_ante_scaling = true
+		-- G.GAME.vanaheim_ante_scaling = true
 	end
 }
 
