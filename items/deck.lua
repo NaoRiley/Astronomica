@@ -24,8 +24,8 @@ SMODS.Back{
     loc_txt = {
         name = "Elementary Deck",
         text ={
-			"Ante scaling is quadratic",
-			"Chips/Mult operator becomes +",
+			"Ante scaling is {C:attention}quadratic{}",
+			"{C:attention}Chips/Mult{} operator becomes {C:chips,s:1.5}+",
         },
     },
 	apply = function(self)
@@ -37,7 +37,6 @@ SMODS.Back{
 			end,
 		}))
 	end,
-
 }
 
 SMODS.Back{
@@ -48,7 +47,7 @@ SMODS.Back{
     loc_txt = {
         name = "Runic Deck",
         text ={
-            "Start with an {C:chips}Empyrean{C:attention} Joker",
+            "Start with an {C:ast_multicolor}Empyrean{C:attention} Joker",
             "Jokers are {C:attention}40X{} more",
             "likely to be {C:dark_edition}Negative",
             "{C:attention}-3{} Joker slots",
