@@ -93,11 +93,6 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if context.end_of_round and context.main_eval and (to_big(card.ability.extra.random)) == (to_big(1)) then --mod
 			card.ability.extra.mod = card.ability.extra.mod + card.ability.extra.mod
-			-- SMODS.calculate_effect({
-			-- 	message = 'Values!',
-			-- 	colour = G.C.ATTENTION,
-			-- 	card = card
-			-- }, card)
 			print("1: mod")
 		end
 		if context.end_of_round and context.main_eval and (to_big(card.ability.extra.random)) == (to_big(2)) then --hands
@@ -190,8 +185,12 @@ SMODS.Joker{
 			}))
 			print("13: interest cap")
 		end
+		if context.end_of_round and context.main_eval and (to_big(card.ability.extra.random)) == (to_big(14)) then --win ante
+			G.GAME.win_ante = G.GAME.win_ante + card.ability.extra.mod
+			print("14: win ante")
+		end
 		if context.first_hand_drawn then
-			card.ability.extra.random = pseudorandom("black_joker_main", 1, 13)
+			card.ability.extra.random = pseudorandom("black_joker_main", 1, 14)
 		end
 	end
 }

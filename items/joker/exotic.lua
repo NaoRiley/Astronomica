@@ -104,16 +104,16 @@ SMODS.Joker{
 			card = card
 			}
 		end
-		if context.after then
-			G.E_MANAGER:add_event(Event({
-				func = function() 
-					G.GAME.chips = (to_big(G.GAME.chips)):arrow(2, card.ability.extra.score)
-					G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-					play_sound('gong')
-					return true
-				end,
-			}))
-		end
+		-- if context.after then
+		-- 	G.E_MANAGER:add_event(Event({
+		-- 		func = function() 
+		-- 			G.GAME.chips = (to_big(G.GAME.chips)):arrow(2, card.ability.extra.score)
+		-- 			G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+		-- 			play_sound('gong')
+		-- 			return true
+		-- 		end,
+		-- 	}))
+		-- end
 		if context.after then
 			return {
 				func = function ()
@@ -588,7 +588,7 @@ SMODS.Joker{
         text = {
             '{C:attention}Hand Score{} calculation matches the',
 			"{C:attention}Chips/Mult{} operator",
-			"{C:inactive}(Does not apply on first hand)"
+			"{C:inactive}(Does not apply if score is 0)"
         }
     },
     atlas = 'j_placeholder',

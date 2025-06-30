@@ -18,7 +18,7 @@ pattern = '''    G.E_MANAGER:add_event(Event({
       func = (function(t) return math.floor(t) end)
     }))'''
 position = 'at'
-payload = '''    if G.GAME.coalescere == true and G.GAME.ast_operator ~= -1 then
+payload = '''    if G.GAME.coalescere == true and G.GAME.ast_operator ~= -1 and G.GAME.chips ~= (to_big(0)) then
         G.E_MANAGER:add_event(Event({
             trigger = 'ease',
             blocking = false,
