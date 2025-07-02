@@ -232,6 +232,14 @@ function Game:start_run(args)
 
 end
 
+local dollarsspent = ease_dollars
+ease_dollars = function(mod, instant)
+    G.GAME.dollars_spent = G.GAME.dollars_spent or 0
+    if (to_big(mod)) < (to_big(0)) then
+        G.GAME.dollars_spent = G.GAME.dollars_spent - mod
+    end
+    return dollarsspent(mod, instant)
+end
 
 function table:astcontains(table, value)
     for i,j in ipairs(table) do
