@@ -648,7 +648,7 @@ SMODS.Joker{
 SMODS.Joker{
     key = 'coalescere',
     loc_txt = {
-        name = 'Coalescere Segmentum',
+        name = 'Coalescere',
         text = {
             '{C:attention}Hand Score{} calculation matches the',
 			"{C:attention}Chips/Mult{} operator",
