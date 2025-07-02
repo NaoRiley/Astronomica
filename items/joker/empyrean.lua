@@ -475,87 +475,99 @@ SMODS.Joker {
 -- 	end,
 -- }
 
--- SMODS.Joker {
--- 	key = "jotunheim", 
--- 	loc_txt = {
--- 		name = {
--- 			"{f:ast_futhark2,s:1.1,C:chips}Jotunheim",
--- 			"{s:0.8}(Jotunheim)"
--- 		},
--- 		text = {
--- 			{
--- 				"Sets a random {C:attention}Joker{} in collection's",
--- 				"rarity to {C:blue}Common{} when {C:attention}rerolling{}",
--- 			},
--- 			{
--- 				"{X:money,C:white}$?{} at end of round",
--- 				"{C:inactive,s:0.8}Example: {X:money,C:white}4?{} ={C:inactive,s:0.8} {C:attention,s:0.8}4+3+2+1{C:inactive,s:0.8} (10)"
--- 			},
--- 			{
--- 				"{X:chips,C:white}X#2#{} Chips per {C:money}Dollar{} spent this run",
--- 				"{C:inactive}(Currently {X:chips,C:white}X#3#{C:inactive} Chips)"
--- 			},
--- 		}
--- 	},
--- 	pos = { x = 6, y = 3 },
--- 	soul_pos = { x = 7, y = 3, extra = { x = 8, y = 3 } },
--- 	cost = 100, --100 normal, 250 realm, 800 yggdrasil
--- 	rarity = 'ast_empyrean',
--- 	unlocked = true,
--- 	discovered = true,
--- 	blueprint_compat = true,
--- 	demicoloncompat = true,
--- 	eternal_compat = true,
--- 	perishable_compat = true,
--- 	immutable = false,
--- 	atlas = "exotic",
--- 	ast_credits = {
--- 		art = {"Tatteredlurker"},
--- 	},
--- 	config = {
--- 		extra = {
--- 			current = nil,
--- 			xchips_mod = 1,
--- 			xchips = 1,
--- 		}
--- 	},
--- 	loc_vars = function(self, info_queue, card)
--- 		return {
--- 			vars = {card.ability.extra.current, card.ability.extra.xchips_mod, card.ability.extra.xchips}
--- 		}
--- 	end,
--- 	calculate = function(self, card, context)
--- 		G.GAME.dollars_spent = G.GAME.dollars_spent or 0
--- 		if G.GAME.dollars_spent <= 0 then
--- 			card.ability.extra.xchips = 1
--- 		else
--- 			card.ability.extra.xchips = (G.GAME.dollars_spent*card.ability.extra.xchips_mod)
--- 		end
--- 		if context.reroll_shop or context.forcetrigger then
--- 			card.ability.extra.current = pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed("seed")).key
--- 			if G.P_CENTERS[card.ability.extra.current].no_doe == true then
--- 				return
--- 			else
--- 				local center = G.P_CENTERS[card.ability.extra.current]
--- 				local rarity = G.P_CENTERS[card.ability.extra.current].rarity
--- 				print(card.ability.extra.current)
--- 				G.P_CENTERS[card.ability.extra.current].rarity = 1
--- 				SMODS.remove_pool(G.P_JOKER_RARITY_POOLS[rarity], center.key)
--- 				SMODS.insert_pool(G.P_JOKER_RARITY_POOLS[1], center, true)
--- 			end
--- 		end
--- 		if (context.end_of_round and context.main_eval and not context.repetition) or context.forcetrigger then
--- 			local mdollars = G.GAME.dollars
--- 			G.GAME.dollars = 0
--- 			ease_dollars(((mdollars*(mdollars+1))/2))
--- 		end
--- 		if context.joker_main or context.forcetrigger then
--- 			SMODS.calculate_effect ({
--- 				xchips = (to_big(card.ability.extra.xchips)),
--- 			}, card)
--- 		end
--- 	end
--- }
+SMODS.Joker {
+	key = "jotunheim", 
+	loc_txt = {
+		name = {
+			"{f:ast_futhark2,s:1.1,C:chips}Jotunheim",
+			"{s:0.8}(Jotunheim)"
+		},
+		text = {
+			{
+				"Sets a random {C:attention}Joker{} in collection's",
+				"rarity to {C:blue}Common{} when {C:attention}rerolling{}",
+			},
+			{
+				"{X:money,C:white}$?{} at end of round",
+				"{C:inactive,s:0.8}Example: {X:money,C:white}4?{} ={C:inactive,s:0.8} {C:attention,s:0.8}4+3+2+1{C:inactive,s:0.8} (10)"
+			},
+			{
+				"{X:chips,C:white}X#2#{} Chips per {C:money}Dollar{} spent this run",
+				"{C:inactive}(Currently {X:chips,C:white}X#3#{C:inactive} Chips)"
+			},
+		}
+	},
+	pos = { x = 6, y = 3 },
+	soul_pos = { x = 7, y = 3, extra = { x = 8, y = 3 } },
+	cost = 100, --100 normal, 250 realm, 800 yggdrasil
+	rarity = 'ast_empyrean',
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = true,
+	demicoloncompat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+	immutable = false,
+	atlas = "exotic",
+	ast_credits = {
+		art = {"Tatteredlurker"},
+	},
+	config = {
+		extra = {
+			current = nil,
+			xchips_mod = 1,
+			xchips = 1,
+		}
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {card.ability.extra.current, card.ability.extra.xchips_mod, card.ability.extra.xchips}
+		}
+	end,
+	calculate = function(self, card, context)
+		G.GAME.dollars_spent = G.GAME.dollars_spent or 0
+		if G.GAME.dollars_spent <= 0 then
+			card.ability.extra.xchips = 1
+		else
+			card.ability.extra.xchips = (G.GAME.dollars_spent*card.ability.extra.xchips_mod)
+		end
+		if context.reroll_shop or context.forcetrigger then
+			if not G.GAME.modified_rarities then
+				G.GAME.modified_rarities = {}
+			end
+			card.ability.extra.current = pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed("seed")).key
+			if not G.GAME.modified_rarities[card.ability.extra.current] then
+				G.GAME.modified_rarities[card.ability.extra.current] = {}
+			end
+			if G.P_CENTERS[card.ability.extra.current].no_doe == true then
+				return
+			else
+				G.GAME.modified_rarities[card.ability.extra.current] = 1
+				G.P_CENTERS[card.ability.extra.current].oldrarity = G.P_CENTERS[card.ability.extra.current].rarity
+			end
+			if G.P_CENTERS[card.ability.extra.current].no_doe == true then
+				return
+			else
+				local center = G.P_CENTERS[card.ability.extra.current]
+				local rarity = G.P_CENTERS[card.ability.extra.current].rarity
+				print(card.ability.extra.current)
+				G.P_CENTERS[card.ability.extra.current].rarity = 1
+				SMODS.remove_pool(G.P_JOKER_RARITY_POOLS[rarity], center.key)
+				SMODS.insert_pool(G.P_JOKER_RARITY_POOLS[1], center, true)
+			end
+		end
+		if (context.end_of_round and context.main_eval and not context.repetition) or context.forcetrigger then
+			local mdollars = G.GAME.dollars
+			G.GAME.dollars = 0
+			ease_dollars(((mdollars*(mdollars+1))/2))
+		end
+		if context.joker_main or context.forcetrigger then
+			SMODS.calculate_effect ({
+				xchips = (to_big(card.ability.extra.xchips)),
+			}, card)
+		end
+	end
+}
 
 SMODS.Joker {
 	key = "vanaheim", 

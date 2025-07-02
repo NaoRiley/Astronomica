@@ -202,25 +202,36 @@ local fakestart = Game.start_run
 function Game:start_run(args)
     fakestart(self, args)
 
-    for i,center in pairs(G.P_CENTERS) do
-        if center.oldrarity then
-
-            -- remove from the old pool
-            local pool = G.P_JOKER_RARITY_POOLS[center.rarity]
-            for idx = #pool, 1, -1 do
-                if pool[idx] == center.key then
-                    table.remove(pool, idx)
-                    break
-                end
+    if not args.savetext then
+        for i,center in pairs(G.P_CENTERS) do
+            if center.oldrarity then
+                local rarity = center.rarity
+                local oldrarity = center.oldrarity
+                SMODS.remove_pool(G.P_JOKER_RARITY_POOLS[rarity], center.key)
+                SMODS.insert_pool(G.P_JOKER_RARITY_POOLS[oldrarity], center, true)
+                center.rarity = oldrarity
             end
-
-            -- readd to it's original pool
-            G.P_JOKER_RARITY_POOLS[center.oldrarity][center.key] = center
-
-            center.rarity = center.oldrarity
         end
     end
 end
+
+local fakestart2 = Game.start_run
+function Game:start_run(args)
+    fakestart2(self, args)
+
+    if args.savetext then --run is being continued, make every joker in table common
+        local table = G.GAME.modified_rarities
+        for k, v in pairs(table) do
+        local center = G.P_CENTERS[k]
+        local rarity = center.rarity
+        SMODS.remove_pool(G.P_JOKER_RARITY_POOLS[rarity], center.key)
+        SMODS.insert_pool(G.P_JOKER_RARITY_POOLS[1], center, true)
+        center.rarity = 1
+        end
+    end
+
+end
+
 
 function table:astcontains(table, value)
     for i,j in ipairs(table) do
