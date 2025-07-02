@@ -177,7 +177,7 @@ SMODS.Joker{
 -- 		if context.reroll_shop then
 -- 			local center = G.P_CENTERS[card.ability.extra.current]
 -- 			card.ability.extra.current = pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed("seed")).key
--- 			-- print(card.ability.extra.current)
+-- 			print(card.ability.extra.current)
 -- 			if G.P_CENTERS[card.ability.extra.current].rarity == 'ast_empyrean' then --if empyrean then exotic
 -- 				G.P_CENTERS[card.ability.extra.current].rarity = 'cry_exotic'
 -- 				for i, v in ipairs(G.P_JOKER_RARITY_POOLS['ast_empyrean']) do if v == center then table.remove(G.P_JOKER_RARITY_POOLS['ast_empyrean'], i) break end end
@@ -216,6 +216,70 @@ SMODS.Joker{
 --     loc_txt = {
 --         name = 'Ignominiosa',
 --         text = {
+-- 			"Sets a random Joker in collection's",
+-- 			"rarity to Common when rerolling"
+--         }
+--     },
+--     atlas = 'j_placeholder',
+--     pos = {x = 0, y = 0},
+-- 	-- soul_pos = { x = 0, y = 0, extra = { x = 0, y = 0 } },
+-- 	blueprint_compat = true,
+-- 	demicoloncompat = true,
+-- 	cost = 50,
+-- 	rarity = 'cry_exotic',
+-- 	config = {
+-- 		extra = {
+-- 			current = nil,
+-- 		}
+-- 	},
+-- 	loc_vars = function(self, info_queue, card)
+-- 		return {
+-- 			vars = {card.ability.extra.current}
+-- 		}
+-- 	end,
+-- 	calculate = function(self, card, context)
+-- 		if context.reroll_shop then
+-- 			card.ability.extra.current = pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed("seed")).key
+-- 			local center = G.P_CENTERS[card.ability.extra.current]
+-- 			print(card.ability.extra.current)
+-- 			if G.P_CENTERS[card.ability.extra.current].rarity == 'ast_empyrean' then
+-- 				G.P_CENTERS[card.ability.extra.current].rarity = 1
+-- 				for i, v in ipairs(G.P_JOKER_RARITY_POOLS['ast_empyrean']) do if v == center then SMODS.remove_pool(G.P_JOKER_RARITY_POOLS['ast_empyrean'], i) break end end
+-- 				SMODS.insert_pool(G.P_JOKER_RARITY_POOLS[1], center, true)
+-- 			elseif G.P_CENTERS[card.ability.extra.current].rarity == 'entr_entropic' then
+-- 				G.P_CENTERS[card.ability.extra.current].rarity = 1
+-- 				for i, v in ipairs(G.P_JOKER_RARITY_POOLS[1]) do if v == center then SMODS.remove_pool(G.P_JOKER_RARITY_POOLS['entr_entropic'], i) break end end
+-- 				SMODS.insert_pool(G.P_JOKER_RARITY_POOLS[1], center, true)
+-- 			elseif G.P_CENTERS[card.ability.extra.current].rarity == 'cry_exotic' then
+-- 				G.P_CENTERS[card.ability.extra.current].rarity = 1
+-- 				for i, v in ipairs(G.P_JOKER_RARITY_POOLS['cry_exotic']) do if v == center then SMODS.remove_pool(G.P_JOKER_RARITY_POOLS['cry_exotic'], i) break end end
+-- 				SMODS.insert_pool(G.P_JOKER_RARITY_POOLS[1], center, true)
+-- 			elseif G.P_CENTERS[card.ability.extra.current].rarity == 4 then
+-- 				G.P_CENTERS[card.ability.extra.current].rarity = 1
+-- 				for i, v in ipairs(G.P_JOKER_RARITY_POOLS[4]) do if v == center then SMODS.remove_pool(G.P_JOKER_RARITY_POOLS[4], i) break end end
+-- 				SMODS.insert_pool(G.P_JOKER_RARITY_POOLS[1], center, true)
+-- 			elseif G.P_CENTERS[card.ability.extra.current].rarity == 'cry_epic' then
+-- 				G.P_CENTERS[card.ability.extra.current].rarity = 1
+-- 				for i, v in ipairs(G.P_JOKER_RARITY_POOLS['cry_epic']) do if v == center then SMODS.remove_pool(G.P_JOKER_RARITY_POOLS['cry_epic'], i) break end end
+-- 				SMODS.insert_pool(G.P_JOKER_RARITY_POOLS[1], card.ability.extra.current, true)
+-- 			elseif G.P_CENTERS[card.ability.extra.current].rarity == 3 then
+-- 				G.P_CENTERS[card.ability.extra.current].rarity = 1
+-- 				for i, v in ipairs(G.P_JOKER_RARITY_POOLS[3]) do if v == center then SMODS.remove_pool(G.P_JOKER_RARITY_POOLS[3], i) break end end
+-- 				SMODS.insert_pool(G.P_JOKER_RARITY_POOLS[1], center, true)
+-- 			elseif G.P_CENTERS[card.ability.extra.current].rarity == 2 then
+-- 				G.P_CENTERS[card.ability.extra.current].rarity = 1
+-- 				for i, v in ipairs(G.P_JOKER_RARITY_POOLS[2]) do if v == center then SMODS.remove_pool(G.P_JOKER_RARITY_POOLS[2], i) break end end
+-- 				SMODS.insert_pool(G.P_JOKER_RARITY_POOLS[1], center, true)
+-- 			end
+-- 		end
+-- 	end
+-- }
+
+-- SMODS.Joker{
+--     key = 'ignominiosa',
+--     loc_txt = {
+--         name = 'Ignominiosa',
+--         text = {
 -- 			'Decreases rarity of #1# random Joker',
 -- 			'in collection by 1 per reroll',
 --         }
@@ -242,8 +306,8 @@ SMODS.Joker{
 
 --             for mostlyuselessiterationvariable = 1, card.ability.extra.downgrades do
 --                 local candidates = {}
---                 local order = {1, 2, 3, "cry_epic", 4, "cry_exotic", "entr_entropic", "ast_empyrean"}
---                 local names = {"Common", "Uncommon", "Rare", "Epic", "Legendary", "Exotic", "Entropic", "Empyrean"}
+--                 local order = {1, 2, 3, "cry_epic", 4, "cry_exotic", "ast_empyrean", "entr_entropic"}
+--                 local names = {"Common", "Uncommon", "Rare", "Epic", "Legendary", "Exotic", "Empyrean", "Entropic"}
 --                 for i, center in pairs(G.P_CENTERS) do
 --                     if center.rarity and table:astcontains(order, center.rarity) then
 --                         table.insert(candidates, {index = i, cen = center})
@@ -584,7 +648,7 @@ SMODS.Joker{
 SMODS.Joker{
     key = 'coalescere',
     loc_txt = {
-        name = 'Coalescere',
+        name = 'Coalescere Segmentum',
         text = {
             '{C:attention}Hand Score{} calculation matches the',
 			"{C:attention}Chips/Mult{} operator",
@@ -616,3 +680,22 @@ SMODS.Joker{
 	end
 }
 
+-- if next(SMODS.find_mod('aikoyorisshenanigans')) then
+-- 	SMODS.Joker{
+-- 		key = 'leviculus',
+-- 		loc_txt = {
+-- 			name = 'Leviculus',
+-- 			text = {
+-- 			}
+-- 		},
+-- 		atlas = 'j_placeholder',
+-- 		rarity = 'cry_exotic',
+-- 		cost = 50,
+-- 		pos = {x = 0, y = 0},
+-- 		-- soul_pos = { x = 0, y = 0, extra = { x = 0, y = 0 } },
+-- 		config = {
+-- 			extra = {
+-- 			}
+-- 		},
+-- 	}
+-- end

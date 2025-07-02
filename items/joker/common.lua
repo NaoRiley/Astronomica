@@ -71,3 +71,27 @@ SMODS.Joker {
 		end
 	end
 }
+
+-- if math.random(1, 10) == 7 then --must stay commented because it cooks old runss
+-- 	SMODS.Joker{
+-- 		key = 'goodluckcharm',
+-- 		loc_txt = {
+-- 			name = 'Good Luck Charm',
+-- 			text = {
+-- 				'Gives you {C:attention}Good Luck',
+-- 			}
+-- 		},
+-- 		blueprint_compat = true,
+-- 		atlas = 'j_placeholder',
+-- 		pos = {x = 0, y = 0},
+-- 		config = {
+-- 			extra = {
+-- 			}
+-- 		},
+-- 		loc_vars = function(self, info_queue, card)
+-- 			return {
+-- 				vars = {}
+-- 			}
+-- 		end,
+-- 	}
+-- end

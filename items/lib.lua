@@ -220,9 +220,6 @@ function Game:start_run(args)
             center.rarity = center.oldrarity
         end
     end
-    -- if G.GAME.elementary_active == true then
-    --     ast_chipmult_op(-1)
-    -- end
 end
 
 function table:astcontains(table, value)
@@ -446,6 +443,7 @@ function Game:start_run(args)
     ast_gsr(self, args)
     G.GAME.ast_operator = G.GAME.ast_operator or 0
     update_operator_display()
+    ast.safe_pointer = false
 end
 
 -- local ast_gsr = Game.start_run
@@ -473,62 +471,62 @@ end
 
 -------------------------------------------------------------
 
-local astscie = SMODS.calculate_individual_effect
-function SMODS.calculate_individual_effect(effect, scored_card, key, amount, from_edition)
-    if scored_card then
-        if scored_card.ability.ast_ssemiconductor then
-            if key == "hypermult" or key == "hyperchips" or key == "hypermult_mod" or key == "hyperchip_mod" or key == "hyper_mult" or key == "hyper_chips" then
-                value[1] = value[1] + 1
-            elseif key == "eee_mult" or key == "eeemult" then
-                key = "hypermult"
-                value = {4, value}
-            elseif key == "eee_chips" or key == "eeechips" then
-                key = "hyperchips"
-                value = {4, value}
-            elseif key == "EEEmult_mod" then
-                key = "hypermult_mod"
-                value = {4, value}
-            elseif key == "EEEchip_mod" then
-                key = "hyperchip_mod"
-                value = {4, value}
-            else
-                key = ({
-                    ["mult"] = "xmult",
-                    ["mult_mod"] = "x_mult_mod",
-                    ["chips"] = "x_chips",
-                    ["chip_mod"] = "Xchip_mod",
-                    ["x_chips"] = "echips",
-                    ["xchips"] = "echips",
-                    ["Xchip_mod"] = "Echip_mod",
-                    ["x_mult"] = "emult",
-                    ["xmult"] = "emult",
-                    ["x_mult_mod"] = "Emult_mod",
-                    ["Xmult_mod"] = "Emult_mod",
-                    ['e_mult'] = "ee_mult",
-                    ['e_chips'] = "ee_chips",
-                    ['ee_mult'] = "eee_mult",
-                    ['ee_chips'] = "eee_chips",
-                    --'eee_mult', 
-                    --'eee_chips'
-                    ['emult'] = "ee_mult",
-                    ['echips'] = "ee_chips",
-                    ['eemult'] = "eee_mult",
-                    ['eechips'] = "eee_chips",
-                    --'eeemult', 
-                    --'eeechips'
-                    ['Emult_mod'] = "EEmult_mod",
-                    ['Echip_mod'] = "EEchip_mod",
-                    ['EEmult_mod'] = "EEEmult_mod", 
-                    ['EEchip_mod'] = "EEEchip_mod", 
-                    --'EEEmult_mod', 
-                    --'EEEchip_mod'
-                })[key] or key
-                --TARGET: patch in custom effects here
-            end
-        end
-    end
-    return astscie(effect, scored_card, key, amount, from_edition)
-end
+-- local astscie = SMODS.calculate_individual_effect
+-- function SMODS.calculate_individual_effect(effect, scored_card, key, amount, from_edition)
+--     if scored_card then
+--         if scored_card.ability.ast_ssemiconductor then
+--             if key == "hypermult" or key == "hyperchips" or key == "hypermult_mod" or key == "hyperchip_mod" or key == "hyper_mult" or key == "hyper_chips" then
+--                 value[1] = value[1] + 1
+--             elseif key == "eee_mult" or key == "eeemult" then
+--                 key = "hypermult"
+--                 value = {4, value}
+--             elseif key == "eee_chips" or key == "eeechips" then
+--                 key = "hyperchips"
+--                 value = {4, value}
+--             elseif key == "EEEmult_mod" then
+--                 key = "hypermult_mod"
+--                 value = {4, value}
+--             elseif key == "EEEchip_mod" then
+--                 key = "hyperchip_mod"
+--                 value = {4, value}
+--             else
+--                 key = ({
+--                     ["mult"] = "xmult",
+--                     ["mult_mod"] = "x_mult_mod",
+--                     ["chips"] = "x_chips",
+--                     ["chip_mod"] = "Xchip_mod",
+--                     ["x_chips"] = "echips",
+--                     ["xchips"] = "echips",
+--                     ["Xchip_mod"] = "Echip_mod",
+--                     ["x_mult"] = "emult",
+--                     ["xmult"] = "emult",
+--                     ["x_mult_mod"] = "Emult_mod",
+--                     ["Xmult_mod"] = "Emult_mod",
+--                     ['e_mult'] = "ee_mult",
+--                     ['e_chips'] = "ee_chips",
+--                     ['ee_mult'] = "eee_mult",
+--                     ['ee_chips'] = "eee_chips",
+--                     --'eee_mult', 
+--                     --'eee_chips'
+--                     ['emult'] = "ee_mult",
+--                     ['echips'] = "ee_chips",
+--                     ['eemult'] = "eee_mult",
+--                     ['eechips'] = "eee_chips",
+--                     --'eeemult', 
+--                     --'eeechips'
+--                     ['Emult_mod'] = "EEmult_mod",
+--                     ['Echip_mod'] = "EEchip_mod",
+--                     ['EEmult_mod'] = "EEEmult_mod", 
+--                     ['EEchip_mod'] = "EEEchip_mod", 
+--                     --'EEEmult_mod', 
+--                     --'EEEchip_mod'
+--                 })[key] or key
+--                 --TARGET: patch in custom effects here
+--             end
+--         end
+--     end
+--     return astscie(effect, scored_card, key, amount, from_edition)
+-- end
 
 local ast_flip = Card.flip
 function Card:flip()
@@ -599,3 +597,84 @@ SMODS.Gradient{
 	cycle = 99999999999,
 	interpolation = 'trig',
 }
+
+SMODS.Consumable:take_ownership("cry_gateway",{
+	use = function(self, card, area, copier)
+		if not Entropy.DeckOrSleeve("doc") and (#SMODS.find_card("j_jen_saint") + #SMODS.find_card("j_jen_saint_attuned")) <= 0 and (G.GAME.safe_gateway ~= true) then
+			local deletable_jokers = {}
+			for k, v in pairs(G.jokers.cards) do
+				if not v.ability.eternal then
+					deletable_jokers[#deletable_jokers + 1] = v
+				end
+			end
+			local _first_dissolve = nil
+			G.E_MANAGER:add_event(Event({
+				trigger = "before",
+				delay = 0.75,
+				func = function()
+					for k, v in pairs(deletable_jokers) do
+						if v.config.center.rarity == "cry_exotic" then
+							check_for_unlock({ type = "what_have_you_done" })
+						end
+						v:start_dissolve(nil, _first_dissolve)
+						_first_dissolve = true
+					end
+					return true
+				end,
+			}))
+		end
+		G.E_MANAGER:add_event(Event({
+			trigger = "after",
+			delay = 0.4,
+			func = function()
+				play_sound("timpani")
+				local card = create_card("Joker", G.jokers, nil, "cry_exotic", nil, nil, nil, "cry_gateway")
+				card:add_to_deck()
+				G.jokers:emplace(card)
+				card:juice_up(0.3, 0.5)
+				return true
+			end,
+		}))
+		delay(0.6)
+    if Entropy.DeckOrSleeve("doc") then
+      ease_entropy(-math.min(G.GAME.entropy, 5))
+    end
+	end
+},true)
+
+-- if ast.safe_pointer == true then
+--     local midgard_pointer = Cryptid.inject_pointer_aliases
+--     Cryptid.inject_pointer_aliases = function()
+--         --print("[CRYPTID] Inserting Pointer Aliases")
+--         local alify = Cryptid.pointeraliasify
+--         for key, aliasesTable in pairs(aliases) do
+--             for _, alias in pairs(aliasesTable) do
+--                 alify(key, alias, nil)
+--             end
+--             alify(key, key, nil)
+--         end
+--         for _, group in pairs(G.localization.descriptions) do
+--             if
+--                 _ ~= "Back"
+--                 and _ ~= "Content Set"
+--                 and _ ~= "Edition"
+--                 and _ ~= "Enhanced"
+--                 and _ ~= "Stake"
+--                 and _ ~= "Other"
+--             then
+--                 for key, card in pairs(group) do
+--                     if G.P_CENTERS[key] then
+--                         alify(key, type(card.name) == "table" and card.name[1] or card.name, nil)
+--                         if G.P_CENTERS[key].name then
+--                             alify(key, G.P_CENTERS[key].name, nil)
+--                         end
+--                         if G.P_CENTERS[key].original_key then
+--                             alify(key, G.P_CENTERS[key].original_key, nil)
+--                         end
+--                     end
+--                 end
+--             end
+--         end
+--         return midgard_pointer
+--     end
+-- end

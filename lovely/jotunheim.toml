@@ -1,0 +1,20 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = -1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+match_indent = true
+pattern = '''        if mod < 0 then
+            text = '-'..localize('$')
+            col = G.C.RED              
+        else'''
+position = 'at'
+payload = '''        if mod < 0 then
+            G.GAME.dollars_spent = G.GAME.dollars_spent or 0
+            text = '-'..localize('$')
+            col = G.C.RED              
+            G.GAME.dollars_spent = G.GAME.dollars_spent - mod
+        else'''
