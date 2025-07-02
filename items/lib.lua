@@ -219,7 +219,7 @@ local fakestart2 = Game.start_run
 function Game:start_run(args)
     fakestart2(self, args)
 
-    if args.savetext then --run is being continued, make every joker in table common
+    if args.savetext and G.GAME.modified_rarities then --run is being continued, make every joker in table common
         local table = G.GAME.modified_rarities
         for k, v in pairs(table) do
         local center = G.P_CENTERS[k]
