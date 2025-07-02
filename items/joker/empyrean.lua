@@ -539,13 +539,13 @@ SMODS.Joker {
 			if not G.GAME.modified_rarities[card.ability.extra.current] then
 				G.GAME.modified_rarities[card.ability.extra.current] = {}
 			end
-			if G.P_CENTERS[card.ability.extra.current].no_doe == true then
+			if G.P_CENTERS[card.ability.extra.current].no_doe == true or G.P_CENTERS[card.ability.extra.current].no_collection == true then
 				return
 			else
 				G.GAME.modified_rarities[card.ability.extra.current] = 1
 				G.P_CENTERS[card.ability.extra.current].oldrarity = G.P_CENTERS[card.ability.extra.current].rarity
 			end
-			if G.P_CENTERS[card.ability.extra.current].no_doe == true then
+			if G.P_CENTERS[card.ability.extra.current].no_doe == true or G.P_CENTERS[card.ability.extra.current].no_collection == true then
 				return
 			else
 				local center = G.P_CENTERS[card.ability.extra.current]
