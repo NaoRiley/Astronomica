@@ -86,7 +86,7 @@ SMODS.Joker {
 			and not context.repetition
 			and not context.blueprint
 			and G.GAME.blind.boss
-			and not card.gone and (next(SMODS.find_card('j_ast_alfheim')) and next(SMODS.find_card('j_ast_vanaheim')) and next(SMODS.find_card('j_ast_asgard'))) then
+			and not card.gone and (next(SMODS.find_card('j_ast_alfheim')) and next(SMODS.find_card('j_ast_jotunheim')) and next(SMODS.find_card('j_ast_vanaheim')) and next(SMODS.find_card('j_ast_asgard'))) then
 			G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                 play_sound('timpani')
                 local card = create_card('Joker',G.jokers, nil, nil, nil, nil, 'j_ast_yggdrasil', nil)
@@ -757,8 +757,8 @@ SMODS.Joker {
 			"When obtaining a {C:attention}Joker{}, increase operator by one",
 		}
 	},
-	pos = { x = 0, y = 0 },
-	-- soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
+	pos = { x = 0, y = 5 },
+	soul_pos = { x = 1, y = 5, extra = { x = 2, y = 5 } },
 	cost = 800,
 	rarity = 'ast_empyrean',
 	unlocked = true,
@@ -768,7 +768,7 @@ SMODS.Joker {
 	eternal_compat = true,
 	perishable_compat = true,
 	immutable = false,
-	atlas = "j_placeholder",
+	atlas = "exotic",
 	ast_credits = {
 	},
 	in_pool = function(self, args)
