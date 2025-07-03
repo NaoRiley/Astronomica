@@ -241,7 +241,7 @@ ease_dollars = function(mod, instant)
     return dollarsspent(mod, instant)
 end
 
-function table:astcontains(table, value)
+function table:astcontains(table, value) --i genuinely forgot what this does
     for i,j in ipairs(table) do
         if (j == value) then return true end
     end
