@@ -525,9 +525,9 @@ SMODS.Joker {
 		}
 	end,
 	calculate = function(self, card, context)
-		G.GAME.dollars_spent = G.GAME.dollars_spent or 0
+		G.GAME.dollars_spent = G.GAME.dollars_spent or (to_big(0))
 		if G.GAME.dollars_spent <= (to_big(0)) then
-			card.ability.extra.xchips = 1
+			card.ability.extra.xchips = (to_big(1))
 		else
 			card.ability.extra.xchips = (G.GAME.dollars_spent*card.ability.extra.xchips_mod)
 		end
