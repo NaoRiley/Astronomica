@@ -75,3 +75,30 @@ SMODS.Joker{
 -- 		art = {'gudusername_53951'},
 -- 	},
 -- }
+
+-- SMODS.Joker{
+--     key = 'lovelace',
+--     loc_txt = {
+--         name = 'Lovelace',
+--         text = {
+
+--         }
+--     },
+--     atlas = 'j_placeholder',
+--     pos = {x = 0, y = 0},
+--     -- soul_pos = { x = 0, y = 0 },
+-- 	blueprint_compat = false,
+-- 	rarity = 4,
+-- 	config = {
+-- 		extra = {
+-- 			score = 0,
+-- 		}
+-- 	},
+-- 	loc_vars = function(self, info_queue, card)
+-- 		return {
+-- 			vars = {}
+-- 		}
+-- 	end,
+-- 	calculate = function(self, card, context)
+-- 	end
+-- }

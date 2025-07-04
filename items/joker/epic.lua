@@ -326,3 +326,30 @@ SMODS.Joker{
 	-- end
 -- }
 -- card.ability.extra.increase = card.ability.extra.increase - card.ability.extra.decrease
+
+-- SMODS.Joker{
+--     key = 'punchcard',
+--     loc_txt = {
+--         name = 'Punch Card',
+--         text = {
+--         }
+--     },
+-- 	blueprint_compat = true,
+-- 	demicoloncompat = true,
+--     atlas = 'j_placeholder',
+--     pos = {x = 0, y = 0},
+-- 	rarity = 'cry_epic',
+-- 	config = {
+-- 		extra = {
+-- 		}
+-- 	},
+-- 	blueprint_compat = true,
+-- 	loc_vars = function(self, info_queue, card)
+-- 		return {
+-- 			vars = {card.ability.extra.score, card.ability.extra.score_mod}
+-- 		}
+-- 	end,
+-- 	calculate = function(self, card, context)
+-- 	end
+-- }
+

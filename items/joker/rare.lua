@@ -152,3 +152,53 @@ SMODS.Joker{
 	end
 }
 
+SMODS.Joker{
+    key = 'weex2',
+    loc_txt = {
+        name = 'Wee{X:chips,C:white}X2',
+        text = {
+			"Gains {X:chips,C:white}X#2#{} Chips per scored card if",
+			"played hand is exactly {C:attention}Two 2s{}",
+			"{C:inactive}(Currently {X:chips,C:white}X#1#{C:inactive} Chips)"
+        }
+    },
+    -- atlas = 'j_placeholder',
+    pos = {x = 0, y = 0},
+	display_size = { w = 71 * 0.5, h = 95 * 0.5 },
+	rarity = 3,
+	blueprint_compat = true,
+	demicoloncompat = true,
+	config = {
+		extra = {
+			xchips = 1,
+			xchip_mod = 1
+		}
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {card.ability.extra.xchips, card.ability.extra.xchip_mod}
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.joker_main or context.forcetrigger then
+			SMODS.calculate_effect ({
+				xchips = (to_big(card.ability.extra.xchips)),
+			}, card)
+		end
+		if context.before or context.forcetrigger then
+			if #G.play.cards == 2 or context.forcetrigger then
+				for _, playing_card in ipairs(G.play.cards) do
+					if (playing_card:get_id() ~= 2 or SMODS.has_no_rank(playing_card)) and not context.forcetrigger then
+						return
+					else
+						card.ability.extra.xchips = (to_big(card.ability.extra.xchips)) + (to_big(card.ability.extra.xchip_mod))
+						SMODS.calculate_effect ({
+							message = 'Upgrade!',
+						colour = G.C.CHIPS,
+						}, card)
+					end
+				end
+			end
+		end
+	end
+}
