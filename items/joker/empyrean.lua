@@ -86,7 +86,7 @@ SMODS.Joker {
 			and not context.repetition
 			and not context.blueprint
 			and G.GAME.blind.boss
-			and not card.gone and (next(SMODS.find_card('j_ast_alfheim')) and next(SMODS.find_card('j_ast_jotunheim')) and next(SMODS.find_card('j_ast_vanaheim')) and next(SMODS.find_card('j_ast_asgard'))) then
+			and not card.gone and (next(SMODS.find_card('j_ast_alfheim')) and next(SMODS.find_card('j_ast_muspelheim')) and next(SMODS.find_card('j_ast_jotunheim')) and next(SMODS.find_card('j_ast_vanaheim')) and next(SMODS.find_card('j_ast_asgard'))) then
 			G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                 play_sound('timpani')
                 local card = create_card('Joker',G.jokers, nil, nil, nil, nil, 'j_ast_yggdrasil', nil)
@@ -474,6 +474,45 @@ SMODS.Joker {
 -- 		G.GAME.nidavellir = false
 -- 	end,
 -- }
+
+SMODS.Joker {
+	key = "muspelheim", 
+	loc_txt = {
+		name = {
+			"{f:ast_futhark2,s:1.1,C:chips}Muspelheim",
+			"{s:0.8}(Muspelheim)"
+		},
+		text = {
+			"Increases the {C:attention}operator{} of",
+			"all {C:attention}Scoring{} effects",
+		}
+	},
+	pos = { x = 0, y = 4 },
+	soul_pos = { x = 1, y = 4, extra = { x = 2, y = 4 } },
+	cost = 100, --100 normal, 250 realm, 800 yggdrasil
+	rarity = 'ast_empyrean',
+	unlocked = true,
+	discovered = true,
+	eternal_compat = true,
+	perishable_compat = true,
+	immutable = false,
+	atlas = "exotic",
+	ast_credits = {
+		art = {"Tatteredlurker"},
+		code = {"LordRuby"},
+	},
+	config = {
+		extra = {
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {}
+		}
+	end,
+	calculate = function(self, card, context)
+	end,
+}
 
 SMODS.Joker {
 	key = "jotunheim", 

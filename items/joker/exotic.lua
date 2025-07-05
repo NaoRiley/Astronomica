@@ -585,15 +585,8 @@ SMODS.Joker{
 -- 		end
 -- 	end,
 -- })
--- local incrementum = {
--- 	dependencies = {
--- 		items = {
--- 			"c_cry_gateway",
--- 			"set_cry_exotic",
--- 		},
--- 	},
--- 	object_type = "Joker",
--- 	name = "cry-Incrementum",
+
+-- SMODS.Joker{
 -- 	key = "incrementum",
 -- 	pos = { x = 0, y = 1 },
 -- 	-- soul_pos = { x = 0, y = 0, extra = { x = 0, y = 0 } },
@@ -603,8 +596,7 @@ SMODS.Joker{
 -- 	-- },
 -- 	rarity = "cry_exotic",
 -- 	cost = 50,
--- 	order = 519,
--- 	atlas = "placeholders",
+-- 	atlas = "j_placeholder",
 -- 	demicoloncompat = true,
 -- 	-- loc_vars = function(self, info_queue, center)
 -- 	-- end,

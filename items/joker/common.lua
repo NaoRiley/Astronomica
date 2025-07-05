@@ -95,3 +95,38 @@ SMODS.Joker {
 -- 		end,
 -- 	}
 -- end
+
+-- SMODS.Joker {
+-- 	key = 'antijoker',
+-- 	loc_txt = {
+-- 		name = 'The Antijoker',
+-- 		text = {
+-- 			"Joker's {C:mult}Mult is inversely",
+-- 			"proportional to it's operator",
+-- 			"Joker's operator increases by one whenever",
+-- 			'{X:mult,C:white}#1#',
+-- 		}
+-- 	},
+-- 	pos = { x = 0, y = 0 },
+-- 	-- soul_pos = { x = 0, y = 0, extra = { x = 0, y = 0 } },
+-- 	config = {
+-- 		extra = {
+			
+-- 		} 
+-- 	},
+-- 	loc_vars = function(self, info_queue, card)
+-- 		return { vars = {  } }
+-- 	end,
+-- 	cost = 1, 
+-- 	rarity = 1,
+-- 	unlocked = true,
+-- 	discovered = true,
+-- 	no_doe = false,
+-- 	immutable = false,
+-- 	blueprint_compat = true,
+-- 	eternal_compat = true,
+-- 	perishable_compat = true,
+-- 	atlas = 'j_placeholder',
+-- 	calculate = function(self, card, context)
+-- 	end
+-- }

@@ -569,6 +569,7 @@ SMODS.Blind{
 -- 		end
 -- 	end,
 -- }
+
 SMODS.Blind{
     key = 'iox', --The Ox Inverted
     loc_txt = {
