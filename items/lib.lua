@@ -128,9 +128,9 @@ mod_chips = function(chips_change)
     return result
 end
 
-local ref_get_pool = get_current_pool --ty thewintercomet
-function get_current_pool(_type, _rarity, _legendary, _append)
-    local pool, pool_key = ref_get_pool(_type, _rarity, _legendary, _append)
+local ref_get_pool = get_current_pool
+function get_current_pool(_type, _rarity, _legendary, _append, ...)
+    local pool, pool_key = ref_get_pool(_type, _rarity, _legendary, _append, ...)
 
     if _type == 'Joker' and G.GAME.modifiers.no_modded_jokers then
         local new_pool = {}
@@ -144,6 +144,8 @@ function get_current_pool(_type, _rarity, _legendary, _append)
 
     return pool, pool_key
 end
+
+--ty thewintercomet for the pool hook
 
 -- SMODS.Font{
 --     key = "futhark",
