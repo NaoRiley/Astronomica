@@ -97,6 +97,7 @@ SMODS.Blind{
     atlas = 'blinds',
     pos = {x = 0, y = 1},
 	dollars = 5,
+	showdown = true,
 	mult = 2,
 	boss = {min = 1},
 	boss_colour = HEX('6479bd'),
