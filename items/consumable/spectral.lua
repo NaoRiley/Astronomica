@@ -1,28 +1,28 @@
-SMODS.Consumable {
-    key = 'enshroud',
-    set = 'Spectral',
-    loc_txt = {
-        name = 'Enshroud',
-        text = {
-			'Flips all selected cards face down',
-			'All face down cards for the rest of',
-			'the run count as every suit',
-			'and cannot be debuffed',
-        },
-    },
-    atlas = 's_placeholder',
-    pos = {x = 0, y = 0},
-    can_use = function(self, card)
-    	return true
-	end,
-    use = function(self, card, area, copier)
-		for _,v in ipairs(G.hand.highlighted) do
-		v:flip()
-		v.ability.perma_flipped = true
-		G.GAME.flip_benefit = true
-		end
-	end
-}
+-- SMODS.Consumable {
+--     key = 'enshroud',
+--     set = 'Spectral',
+--     loc_txt = {
+--         name = 'Enshroud',
+--         text = {
+-- 			'Flips all selected cards face down',
+-- 			'All face down cards for the rest of',
+-- 			'the run count as every suit',
+-- 			'and cannot be debuffed',
+--         },
+--     },
+--     atlas = 's_placeholder',
+--     pos = {x = 0, y = 0},
+--     can_use = function(self, card)
+--     	return true
+-- 	end,
+--     use = function(self, card, area, copier)
+-- 		for _,v in ipairs(G.hand.highlighted) do
+-- 		v:flip()
+-- 		v.ability.perma_flipped = true
+-- 		G.GAME.flip_benefit = true
+-- 		end
+-- 	end
+-- }
 
 -- SMODS.Consumable {
 --     key = 'anomaly',

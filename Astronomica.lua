@@ -40,6 +40,7 @@ local files = {
 "items/joker/exotic",
 "items/joker/exadversum",
 "items/joker/empyrean",
+"items/consumable/planet",
 "items/consumable/spectral",
 "items/tarot",
 "items/blind",

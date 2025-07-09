@@ -271,106 +271,84 @@ SMODS.Joker {
 	end,
 }
 
--- SMODS.Joker {
--- 	key = "midgard", 
--- 	loc_txt = {
--- 		name = {
--- 			"{f:ast_futhark2,s:1.1,C:chips}Midgard",
--- 			"{s:0.8}(Midgard)"
--- 		},
--- 		text = {
--- 			{
--- 				"Certain {C:spectral}Rare Spectral{} rates are {C:attention}substantially{} increased",
--- 			},
--- 			{
--- 				"{C:spectral}Gateway{} no longer has a {C:attention}downside{}",
--- 			},
--- 			-- {
--- 			-- 	"{C:spectral}POINTER://{} can now create {C:cry_exotic}Exotic{} Jokers",
--- 			-- },
--- 			{
--- 				"Create a {C:dark_edition}Negative{} Mega {C:spectral}Spectral{} Pack at end of round",
--- 			},
--- 			-- {
--- 			-- 	"Open a Mega {C:spectral}Spectral{} Pack at end of shop",
--- 			-- },
--- 			-- {
--- 			-- 	"Create an {C:spectral}Ethereal Tag{} at end of round",
--- 			-- },
--- 		}
--- 	},
--- 	pos = { x = 3, y = 3 },
--- 	soul_pos = { x = 4, y = 3, extra = { x = 5, y = 3 } },
--- 	cost = 250, --100 normal, 250 realm, 800 yggdrasil
--- 	rarity = 'ast_empyrean',
--- 	unlocked = true,
--- 	discovered = true,
--- 	blueprint_compat = true,
--- 	demicoloncompat = true,
--- 	eternal_compat = true,
--- 	perishable_compat = true,
--- 	immutable = false,
--- 	atlas = "exotic",
--- 	ast_credits = {
--- 	},
--- 	config = {
--- 		extra = {
--- 		},
--- 	},
--- 	loc_vars = function(self, info_queue, card)
--- 		return {
--- 			vars = {}
--- 		}
--- 	end,
--- 	calculate = function(self, card, context)
--- 		if context.end_of_round and context.main_eval then
--- 			if Entropy then
--- 				SMODS.add_card{key = 'p_spectral_mega_1', edition = 'e_negative', area = G.consumeables}
--- 				G.consumeables.config.card_limit = G.consumeables.config.card_limit +
--- 			else
--- 				G.E_MANAGER:add_event(Event({
--- 					trigger = "before",
--- 					func = function()
--- 						local key = "p_spectral_mega_1"
--- 						local card = Card(
--- 							G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
--- 							G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2,
--- 							G.CARD_W * 1.27,
--- 							G.CARD_H * 1.27,
--- 							G.P_CARDS.empty,
--- 							G.P_CENTERS[key],
--- 							{ bypass_discovery_center = true, bypass_discovery_ui = true }
--- 						)
--- 						card.cost = 0
--- 						card.from_tag = true
--- 						G.FUNCS.use_card({ config = { ref_table = card } })
--- 						card:start_materialize()
--- 						pack_opened = true
--- 						return true
--- 					end,
--- 				}))
--- 			end
--- 		end
--- 	end,
--- 	add_to_deck = function(self, card, from_debuff)
--- 		-- G.P_CENTERS['c_soul'].soul_rate = 0
--- 		-- G.P_CENTERS['c_black_hole'].soul_rate = 0
--- 		G.P_CENTERS['c_cry_gateway'].soul_rate = 0.1
--- 		-- G.P_CENTERS['c_entr_beyond'].soul_rate = 0.01
--- 		G.P_CENTERS['c_cry_pointer'].soul_rate = 0.05
--- 		G.GAME.safe_gateway = true
--- 		-- G.GAME.safe_pointer = true
--- 	end,
--- 	remove_from_deck = function(self, card, from_debuff)
--- 		-- G.P_CENTERS['c_soul'].soul_rate = 0.003
--- 		-- G.P_CENTERS['c_black_hole'].soul_rate = 0.003
--- 		G.P_CENTERS['c_cry_gateway'].soul_rate = 0.003
--- 		-- G.P_CENTERS['c_entr_beyond'].soul_rate = 0
--- 		G.P_CENTERS['c_cry_pointer'].soul_rate = 0.003
--- 		G.GAME.safe_gateway = false
--- 		-- G.GAME.safe_pointer = false
--- 	end
--- }
+SMODS.Joker {
+	key = "midgard", 
+	loc_txt = {
+		name = {
+			"{f:ast_futhark2,s:1.1,C:chips}Midgard",
+			"{s:0.8}(Midgard)"
+		},
+		text = {
+			{
+				"Certain {C:spectral}Rare Spectral{} rates are {C:attention}substantially{} increased",
+			},
+			{
+				"{C:spectral}Gateway{} no longer has a {C:attention}downside{}",
+			},
+			-- {
+			-- 	"{C:spectral}POINTER://{} can now create {C:cry_exotic}Exotic{} Jokers",
+			-- },
+			-- {
+			-- 	"Create a {C:dark_edition}Negative{} Mega {C:spectral}Spectral{} Pack at end of round",
+			-- },
+			{
+				"Create a Mega {C:spectral}Spectral{} Pack in every {C:attention}Shop{}",
+			},
+			-- {
+			-- 	"Open a Mega {C:spectral}Spectral{} Pack at end of shop",
+			-- },
+			-- {
+			-- 	"Create an {C:spectral}Ethereal Tag{} at end of round",
+			-- },
+		}
+	},
+	pos = { x = 3, y = 3 },
+	soul_pos = { x = 4, y = 3, extra = { x = 5, y = 3 } },
+	cost = 250, --100 normal, 250 realm, 800 yggdrasil
+	rarity = 'ast_empyrean',
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = true,
+	demicoloncompat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+	immutable = false,
+	atlas = "exotic",
+	ast_credits = {
+	},
+	config = {
+		extra = {
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {}
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.starting_shop then
+			SMODS.add_booster_to_shop('p_spectral_mega_1')
+		end
+	end,
+	add_to_deck = function(self, card, from_debuff)
+		-- G.P_CENTERS['c_soul'].soul_rate = 0
+		-- G.P_CENTERS['c_black_hole'].soul_rate = 0
+		G.P_CENTERS['c_cry_gateway'].soul_rate = 0.1
+		-- G.P_CENTERS['c_entr_beyond'].soul_rate = 0.01
+		G.P_CENTERS['c_cry_pointer'].soul_rate = 0.05
+		G.GAME.safe_gateway = true
+		-- G.GAME.safe_pointer = true
+	end,
+	remove_from_deck = function(self, card, from_debuff)
+		-- G.P_CENTERS['c_soul'].soul_rate = 0.003
+		-- G.P_CENTERS['c_black_hole'].soul_rate = 0.003
+		G.P_CENTERS['c_cry_gateway'].soul_rate = 0.003
+		-- G.P_CENTERS['c_entr_beyond'].soul_rate = 0
+		G.P_CENTERS['c_cry_pointer'].soul_rate = 0.003
+		G.GAME.safe_gateway = false
+		-- G.GAME.safe_pointer = false
+	end
+}
 
 SMODS.Joker {
 	key = "alfheim", 
@@ -385,6 +363,7 @@ SMODS.Joker {
 			'{X:chips,C:white}Chips{} and {X:mult,C:white}Mult{} scale exponentially',
 			"Joker's scoring effects trigger per card played",
 			"{C:inactive}(Currently {X:dark_edition,C:white}^#1# {C:inactive} Chips and {X:dark_edition,C:white}^#2# {C:inactive} Mult)",
+			-- "Each scored {C:spades}Spade{} and {C:clubs}Club{} "
 		}
 	},
 	pos = { x = 0, y = 2 },
