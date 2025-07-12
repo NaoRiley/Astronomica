@@ -155,70 +155,70 @@ SMODS.Joker {
 	end,
 }
 
-SMODS.Joker {
-	key = "radalingr", 
-	loc_txt = {
-		name = {
-			"{f:ast_futhark2,s:1.1,C:mult}Radalingr",
-			"{s:0.8}(Radalingr)"
-		},
-		text = {
-			"When triggered, Joker's {X:mult,C:white}XMult{C:black} becomes {X:dark_edition,C:white}XMult!",
-			"{C:inactive}(Currently {X:mult,C:white}X#1#{}{C:inactive} Mult)",
-			"{C:inactive,s:0.8}Example: {X:dark_edition,C:white,s:0.8}3!{} ={C:inactive,s:0.8} {C:attention,s:0.8}3x2x1{C:inactive,s:0.8} (6)"
-		}
-	},
-	pos = { x = 0, y = 0 },
-	soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
-	cost = 100,
-	rarity = 'ast_empyrean',
-	unlocked = true,
-	discovered = true,
-	blueprint_compat = true,
-	demicoloncompat = true,
-	eternal_compat = true,
-	perishable_compat = true,
-	immutable = false,
-	atlas = "exotic",
-	ast_credits = {
-		art = {"Tatteredlurker"},
-	},
-	config = {
-		extra = {
-			n = 3, 
-			c = false
-		},
-	},
-	loc_vars = function(self, info_queue, card)
-		return {
-			vars = {card.ability.extra.n}
-		}
-	end,
-	calculate = function(self, card, context) --i now see why nobody has done factorials in this game before
-		--print('calculate called')
-		if context.first_hand_drawn then
-			card.ability.extra.c = false
-		end
-		if context.pre_joker and card.ability.extra.c == false or context.forcetrigger then
-			--print('round end')
-			card.ability.extra.c = true
-			if to_big(card.ability.extra.n):gt(to_big(150)) then
-				card.ability.extra.n = UTIL_TABLE.factorial(card.ability.extra.n)
-			else
-				card.ability.extra.n = UTIL_TABLE.small_factorial(card.ability.extra.n)
-			end
-			card.ability.extra.c = false
-			return {
-				message = 'Upgrade!',
-			colour = G.C.DARK_EDITION,
-			card = card
-			}
-		end
-		if context.joker_main then
-			return {Xmult_mod = card.ability.extra.n, message = "X" .. tostring(card.ability.extra.n)}
-		end
-	end,
-}
+-- SMODS.Joker {
+-- 	key = "radalingr", 
+-- 	loc_txt = {
+-- 		name = {
+-- 			"{f:ast_futhark2,s:1.1,C:mult}Radalingr",
+-- 			"{s:0.8}(Radalingr)"
+-- 		},
+-- 		text = {
+-- 			"When triggered, Joker's {X:mult,C:white}XMult{C:black} becomes {X:dark_edition,C:white}XMult!",
+-- 			"{C:inactive}(Currently {X:mult,C:white}X#1#{}{C:inactive} Mult)",
+-- 			"{C:inactive,s:0.8}Example: {X:dark_edition,C:white,s:0.8}3!{} ={C:inactive,s:0.8} {C:attention,s:0.8}3x2x1{C:inactive,s:0.8} (6)"
+-- 		}
+-- 	},
+-- 	pos = { x = 0, y = 0 },
+-- 	soul_pos = { x = 2, y = 0, extra = { x = 1, y = 0 } },
+-- 	cost = 100,
+-- 	rarity = 'ast_empyrean',
+-- 	unlocked = true,
+-- 	discovered = true,
+-- 	blueprint_compat = true,
+-- 	demicoloncompat = true,
+-- 	eternal_compat = true,
+-- 	perishable_compat = true,
+-- 	immutable = false,
+-- 	atlas = "exotic",
+-- 	ast_credits = {
+-- 		art = {"Tatteredlurker"},
+-- 	},
+-- 	config = {
+-- 		extra = {
+-- 			n = 3, 
+-- 			c = false
+-- 		},
+-- 	},
+-- 	loc_vars = function(self, info_queue, card)
+-- 		return {
+-- 			vars = {card.ability.extra.n}
+-- 		}
+-- 	end,
+-- 	calculate = function(self, card, context) --i now see why nobody has done factorials in this game before
+-- 		--print('calculate called')
+-- 		if context.first_hand_drawn then
+-- 			card.ability.extra.c = false
+-- 		end
+-- 		if context.pre_joker and card.ability.extra.c == false or context.forcetrigger then
+-- 			--print('round end')
+-- 			card.ability.extra.c = true
+-- 			if to_big(card.ability.extra.n):gt(to_big(150)) then
+-- 				card.ability.extra.n = UTIL_TABLE.factorial(card.ability.extra.n)
+-- 			else
+-- 				card.ability.extra.n = UTIL_TABLE.small_factorial(card.ability.extra.n)
+-- 			end
+-- 			card.ability.extra.c = false
+-- 			return {
+-- 				message = 'Upgrade!',
+-- 			colour = G.C.DARK_EDITION,
+-- 			card = card
+-- 			}
+-- 		end
+-- 		if context.joker_main then
+-- 			return {Xmult_mod = card.ability.extra.n, message = "X" .. tostring(card.ability.extra.n)}
+-- 		end
+-- 	end,
+-- }
 
 SMODS.Joker {
 	key = "aukatigi", 
@@ -419,8 +419,9 @@ SMODS.Joker {
 -- 			"{s:0.8}(Nidavellir)"
 -- 		},
 -- 		text = {
--- 			"",
-
+-- 			"Scaling {C:attention}Jokers{}",
+-- 			"scale {C:attention}",
+-- 			"{C:inactive,s:0.8}(ex. +n, +n, +n, +n)",
 -- 		}
 -- 	},
 -- 	pos = { x = 6, y = 2 },
@@ -429,28 +430,17 @@ SMODS.Joker {
 -- 	rarity = 'ast_empyrean',
 -- 	unlocked = true,
 -- 	discovered = true,
--- 	blueprint_compat = true,
--- 	demicoloncompat = true,
+-- 	blueprint_compat = false,
+-- 	demicoloncompat = false,
 -- 	eternal_compat = true,
 -- 	perishable_compat = true,
--- 	immutable = false,
+-- 	immutable = true,
 -- 	atlas = "exotic",
 -- 	ast_credits = {
+-- 		art = {"Tatteredlurker"},
 -- 	},
--- 	config = {
--- 		extra = {
--- 		},
--- 	},
--- 	loc_vars = function(self, info_queue, card)
--- 		return {
--- 			vars = {}
--- 		}
--- 	end,
--- 	add_to_deck = function(self, card, from_debuff)
--- 		G.GAME.nidavellir = true
--- 	end,
--- 	add_to_deck = function(self, card, from_debuff)
--- 		G.GAME.nidavellir = false
+-- 	cry_scale_mod = function(self, card, joker, orig_scale_scale, true_base, orig_scale_base, new_scale_base)
+-- 		return lenient_bignum(to_big(true_base))
 -- 	end,
 -- }
 

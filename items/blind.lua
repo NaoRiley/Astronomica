@@ -97,9 +97,8 @@ SMODS.Blind{
     atlas = 'blinds',
     pos = {x = 0, y = 1},
 	dollars = 5,
-	showdown = true,
 	mult = 2,
-	boss = {min = 1},
+	boss = {min = 8, showdown = true,},
 	boss_colour = HEX('6479bd'),
 	loc_vars = function(self, info_queue, card)
 		return {

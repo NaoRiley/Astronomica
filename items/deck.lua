@@ -130,6 +130,10 @@ if CardSleeves then
 	}
 end
 
+-- SMODS.Challenge {
+	
+-- }
+
 -- "j_joker",
 -- "j_greedy_joker",
 -- "j_lusty_joker",
