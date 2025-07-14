@@ -250,6 +250,15 @@ function table:astcontains(table, value) --i genuinely forgot what this does
     return false
 end
 
+local to_big_old = to_big
+function to_big(x)
+    if G and G.GAME and G.GAME.talisman_debuffed == true then
+        return to_number(x)
+    else
+        return to_big_old(x)
+    end
+end
+
  --shoutout lily vallkarri
 
 function disable_chips()
@@ -703,3 +712,4 @@ SMODS.Consumable:take_ownership("cry_gateway",{
 --         return midgard_pointer
 --     end
 -- end
+

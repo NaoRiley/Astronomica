@@ -358,12 +358,10 @@ SMODS.Joker {
 			"{s:0.8}(Alfheim)"
 		},
 		text = {
-			'Gain {X:dark_edition,C:white}^Chips{} for each scored {C:spades}Spade{} and {C:clubs}Club{}',
-			'Gain {X:dark_edition,C:white}^Mult{} for each scored {C:hearts}Heart{} and {C:diamonds}Diamond{}',
-			'{X:chips,C:white}Chips{} and {X:mult,C:white}Mult{} scale exponentially',
-			"Joker's scoring effects trigger per card played",
-			"{C:inactive}(Currently {X:dark_edition,C:white}^#1# {C:inactive} Chips and {X:dark_edition,C:white}^#2# {C:inactive} Mult)",
-			-- "Each scored {C:spades}Spade{} and {C:clubs}Club{} "
+			"Each scored {C:spades}Spade{} and {C:clubs}Club{} permanently gains {X:chips,C:white}X#1#{} Chips",
+			'and increases {C:attention}modifier{} by {C:chips}#3#{}',
+			"Each scored {C:hearts}Heart{} and {C:diamonds}Diamond{} permanently gains {X:mult,C:white}X#2#{} Mult",
+			'and increases {C:attention}modifier{} by {C:mult}#3#{}',
 		}
 	},
 	pos = { x = 0, y = 2 },
@@ -383,31 +381,37 @@ SMODS.Joker {
 	},
 	config = {
 		extra = {
-			echips = 2,
-			emult = 2,
+			chips = 1.5,
+			mult = 1.5,
+			gain = 1.5,
 		},
 	},
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
-				card.ability.extra.echips,
-				card.ability.extra.emult,
+				card.ability.extra.chips,
+				card.ability.extra.mult,
+				card.ability.extra.gain,
 			}
 		}
 	end,
 	calculate = function(self, card, context)
 		if (context.cardarea == G.play and context.individual and context.other_card:is_suit("Spades")) or (context.cardarea == G.play and context.individual and context.other_card:is_suit("Clubs")) or context.forcetrigger then
-            card.ability.extra.echips = (to_big(card.ability.extra.echips)) ^ (to_big(2))
+            context.other_card.ability.perma_x_chips = (context.other_card.ability.perma_e_chips or 0) + card.ability.extra.chips
+            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.gain
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.CHIPS
+            }
         end
 		if (context.cardarea == G.play and context.individual and context.other_card:is_suit("Hearts")) or (context.cardarea == G.play and context.individual and context.other_card:is_suit("Diamonds")) or context.forcetrigger then
-            card.ability.extra.emult = (to_big(card.ability.extra.emult)) ^ (to_big(2))
-        end
-		if (context.individual and context.cardarea == G.play) or context.forcetrigger then
+            context.other_card.ability.perma_x_mult = (context.other_card.ability.perma_e_mult or 0) + card.ability.extra.mult
+            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
             return {
-				emult = card.ability.extra.emult, 
-				echips = card.ability.extra.echips,
-			}
-		end
+                message = localize('k_upgrade_ex'),
+                colour = G.C.MULT
+            }
+        end
 	end,
 }
 

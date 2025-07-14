@@ -300,3 +300,21 @@
 --     atlas = 'j_placeholder',
 --     pos = {x = 0, y = 0}
 -- }
+
+-- SMODS.Joker{
+--     key = 'denary',
+--     loc_txt = {
+--         name = 'Denary',
+--         text = {
+--             '{C:red}Permanently{} debuffs {C:attention}Talisman{}',
+--             "for the rest of this {C:attention}run{}",
+--             "{C:inactive,s:0.8}No, I don't mean the spectral card",
+--         }
+--     },
+--     atlas = 'j_placeholder',
+--     pos = {x = 0, y = 0},
+--     rarity = 'valk_supercursed',
+--     add_to_deck = function(self, card, from_debuff)
+--         G.GAME.talisman_debuffed = true
+--     end
+-- }
