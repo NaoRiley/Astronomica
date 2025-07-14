@@ -449,6 +449,59 @@ SMODS.Joker {
 -- }
 
 SMODS.Joker {
+	key = "niflheim", 
+	loc_txt = {
+		name = {
+			"{f:ast_futhark2,s:1.1,C:chips}Niflheim",
+			"{s:0.8}(Niflheim)"
+		},
+		text = {
+			"{C:attention}Blind Requirement{} modifier increases by",
+			"{X:invalid,C:white}#2#{} per card scored",
+			"{C:inactive}(Currently {X:invalid,C:white}÷(#3#^#1#){C:inactive} Blind Requirement)"
+		}
+	},
+	pos = { x = 3, y = 4 },
+	soul_pos = { x = 4, y = 4, extra = { x = 5, y = 4 } },
+	cost = 250, --100 normal, 250 realm, 800 yggdrasil
+	rarity = 'ast_empyrean',
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = true,
+	demicoloncompat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+	immutable = false,
+	atlas = "exotic",
+	ast_credits = {
+		art = {"Tatteredlurker"},
+	},
+	config = {
+		extra = {
+			blindmod = 2,
+			increase = 1,
+			base = 10,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {card.ability.extra.blindmod, card.ability.extra.increase, card.ability.extra.base}
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.joker_main then
+			G.GAME.blind.chips = (to_big(G.GAME.blind.chips))/((to_big(card.ability.extra.base)^(to_big(card.ability.extra.blindmod))))
+			G.hand_text_area.blind_chips:juice_up(0.3, 0.3)
+			play_sound('slice1')
+		end
+		if not context.blueprint and ((context.individual and context.cardarea == G.play)) then
+			card.ability.extra.blindmod = lenient_bignum(to_big(card.ability.extra.blindmod) + card.ability.extra.increase)
+			card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_upgrade_ex") })
+		end
+	end,
+}
+
+SMODS.Joker {
 	key = "muspelheim", 
 	loc_txt = {
 		name = {
