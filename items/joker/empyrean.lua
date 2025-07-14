@@ -359,9 +359,9 @@ SMODS.Joker {
 		},
 		text = {
 			"Each scored {C:spades}Spade{} and {C:clubs}Club{} permanently gains {X:chips,C:white}X#1#{} Chips",
-			'and increases {C:attention}modifier{} by {C:chips}#3#{}',
+			'and exponentiates {C:attention}modifier{} by {C:chips}#3#{}',
 			"Each scored {C:hearts}Heart{} and {C:diamonds}Diamond{} permanently gains {X:mult,C:white}X#2#{} Mult",
-			'and increases {C:attention}modifier{} by {C:mult}#3#{}',
+			'and exponentiates {C:attention}modifier{} by {C:mult}#3#{}',
 		}
 	},
 	pos = { x = 0, y = 2 },
@@ -397,16 +397,16 @@ SMODS.Joker {
 	end,
 	calculate = function(self, card, context)
 		if (context.cardarea == G.play and context.individual and context.other_card:is_suit("Spades")) or (context.cardarea == G.play and context.individual and context.other_card:is_suit("Clubs")) or context.forcetrigger then
-            context.other_card.ability.perma_x_chips = (context.other_card.ability.perma_e_chips or 0) + card.ability.extra.chips
-            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.gain
+            context.other_card.ability.perma_x_chips = ((to_big(context.other_card.ability.perma_e_chips)) or (to_big(0))) + (to_big(card.ability.extra.chips))
+            card.ability.extra.chips = (to_big(card.ability.extra.chips)) ^ (to_big(card.ability.extra.gain))
             return {
                 message = localize('k_upgrade_ex'),
                 colour = G.C.CHIPS
             }
         end
 		if (context.cardarea == G.play and context.individual and context.other_card:is_suit("Hearts")) or (context.cardarea == G.play and context.individual and context.other_card:is_suit("Diamonds")) or context.forcetrigger then
-            context.other_card.ability.perma_x_mult = (context.other_card.ability.perma_e_mult or 0) + card.ability.extra.mult
-            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
+            context.other_card.ability.perma_x_mult = ((to_big(context.other_card.ability.perma_e_mult)) or (to_big(0))) + (to_big(card.ability.extra.mult))
+            card.ability.extra.mult = (to_big(card.ability.extra.mult)) ^ (to_big(card.ability.extra.gain))
             return {
                 message = localize('k_upgrade_ex'),
                 colour = G.C.MULT
