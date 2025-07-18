@@ -713,3 +713,16 @@ SMODS.Consumable:take_ownership("cry_gateway",{
 --     end
 -- end
 
+function jlann(txt, duration, size, col, snd, sndpitch, sndvol) --i took this basically verbatim from jenlib, jen, if this needs to be removed tell me and ill remove it
+	if type(duration) == 'string' then
+		duration = (tonumber(duration) or 0)*G.SETTINGS.GAMESPEED
+	end
+	G.E_MANAGER:add_event(Event({
+		func = (function()
+			if snd then play_sound(snd, sndpitch, sndvol) end
+			attention_text({
+				scale = size or 1.4, text = txt, hold = duration or 2, colour = col or G.C.WHITE, align = 'cm', offset = {x = 0,y = -2.7},major = G.play
+			})
+		return true
+	end)}))
+end

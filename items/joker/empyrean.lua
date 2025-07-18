@@ -221,6 +221,93 @@ SMODS.Joker {
 -- }
 
 SMODS.Joker {
+	key = "saemiligr", 
+	loc_txt = {
+		name = {
+			"{f:ast_futhark2,s:1.1,C:mult}Saemiligr",
+			"{s:0.8}(Saemiligr)"
+		},
+		text = {
+			{
+				"While in rightmost {C:attention}Joker{} slot, all probabilities are {C:green}100%{}",
+				"While in leftmost {C:attention}Joker{} slot, all probabilities are {C:red}0%{}",
+				"If in neither or both, all probabilities are {C:money}50%{}",
+			},
+			{
+				"Randomly gain {X:chips,C:white}Chips{} when any probability {C:green}succeeds{}",
+				"Randomly gain {X:mult,C:white}Mult{} when any probability {C:red}fails{}",
+				"Joker's scoring operator is {C:attention}randomized {C:inactive}(Max Tetration){}",
+				"{C:inactive}(Currently {X:chips,C:white}#1#{C:inactive} Chips and {X:mult,C:white}#2#{C:inactive} Mult)",
+			}
+		}
+	},
+	pos = { x = 0, y = 0 },
+	-- soul_pos = { x = 0, y = 0, extra = { x = 0, y = 0 } },
+	cost = 100, --100 normal, 250 realm, 800 yggdrasil
+	rarity = 'ast_empyrean',
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = true,
+	demicoloncompat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+	immutable = false,
+	atlas = "j_placeholder",
+	ast_credits = {
+	},
+	config = {
+		extra = {
+			chips = 1,
+			mult = 1,
+		},
+	},
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {card.ability.extra.chips, card.ability.extra.mult,
+			}
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.joker_main then
+			local chance_chips = pseudorandom("chancechips", -1, 2)
+			local chance_mult = pseudorandom("chancemult", -1, 2)
+			return {
+				chips = chance_chips == -1 and card.ability.extra.chips or nil,
+				xchips = chance_chips == 0 and card.ability.extra.chips or nil,
+				echips = chance_chips == 1 and card.ability.extra.chips or nil,
+				eechips = chance_chips == 2 and card.ability.extra.chips or nil,
+				mult = chance_mult == -1 and card.ability.extra.mult or nil,
+				xmult = chance_mult == 0 and card.ability.extra.mult or nil,
+				emult = chance_mult == 1 and card.ability.extra.mult or nil,
+				eemult = chance_mult == 2 and card.ability.extra.mult or nil,
+				-- message = ast.FormatArrowMult(chance_chips, card.ability.extra.chips) .. ',' ..  ast.FormatArrowMult(chance_mult, card.ability.extra.mult),
+				-- colour = G.C.DARK_EDITION
+			}
+		end
+		if ((G.jokers.cards[#G.jokers.cards] == card and card == G.jokers.cards[1]) and (context.mod_probability))
+		or ((G.jokers.cards[#G.jokers.cards] ~= card and card ~= G.jokers.cards[1]) and (context.mod_probability)) then --leftmost and rightmost or neither
+			return {
+				numerator = context.denominator/2
+			}
+		elseif (G.jokers.cards[#G.jokers.cards] == card and card ~= G.jokers.cards[1]) and (context.mod_probability) then --rightmost
+			return {
+				numerator = context.denominator
+			}
+		elseif (G.jokers.cards[#G.jokers.cards] ~= card and card == G.jokers.cards[1]) and (context.mod_probability) then --leftmost
+			return {
+				numerator = 0
+			}
+		end
+		if context.pseudorandom_result and context.result then
+			card.ability.extra.chips = (to_big(card.ability.extra.chips)) + (to_big(pseudorandom('chipgain', 1, 10)))
+		end
+		if context.pseudorandom_result and not context.result then
+			card.ability.extra.mult = (to_big(card.ability.extra.mult)) + (to_big(pseudorandom('multgain', 1, 10)))
+		end
+	end
+}
+
+SMODS.Joker {
 	key = "aukatigi", 
 	loc_txt = {
 		name = {
@@ -233,7 +320,7 @@ SMODS.Joker {
 		}
 	},
 	pos = { x = 6, y = 1 },
-	soul_pos = { x = 8, y = 1, extra = { x = 7, y = 1 } },
+	soul_pos = { x = 7, y = 1, extra = { x = 8, y = 1 } },
 	cost = 100,
 	rarity = 'ast_empyrean',
 	unlocked = true,
@@ -245,7 +332,7 @@ SMODS.Joker {
 	immutable = false,
 	atlas = "exotic",
 	ast_credits = {
-		art = {"yahooyowza"},
+		art = {"yahooyowza", "Tatteredlurker"},
 	},
 	config = {
 		extra = {
@@ -315,6 +402,7 @@ SMODS.Joker {
 	immutable = false,
 	atlas = "exotic",
 	ast_credits = {
+		art = {"Tatteredlurker"},
 	},
 	config = {
 		extra = {
@@ -515,7 +603,7 @@ SMODS.Joker {
 	},
 	pos = { x = 0, y = 4 },
 	soul_pos = { x = 1, y = 4, extra = { x = 2, y = 4 } },
-	cost = 100, --100 normal, 250 realm, 800 yggdrasil
+	cost = 250, --100 normal, 250 realm, 800 yggdrasil
 	rarity = 'ast_empyrean',
 	unlocked = true,
 	discovered = true,
@@ -615,7 +703,8 @@ SMODS.Joker {
 			else
 				local center = G.P_CENTERS[card.ability.extra.current]
 				local rarity = G.P_CENTERS[card.ability.extra.current].rarity
-				print(card.ability.extra.current)
+				-- print(card.ability.extra.current)
+				jlann((tostring(localize { type = 'name_text', set = 'Joker', key = card.ability.extra.current })), 3, 0.5, G.C.CHIPS)
 				G.P_CENTERS[card.ability.extra.current].rarity = 1
 				SMODS.remove_pool(G.P_JOKER_RARITY_POOLS[rarity], center.key)
 				SMODS.insert_pool(G.P_JOKER_RARITY_POOLS[1], center, true)
