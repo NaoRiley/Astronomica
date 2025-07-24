@@ -112,3 +112,52 @@ SMODS.Edition{
     extra_cost = 90,
     -- no_collection = true,
 }
+
+-- SMODS.Enhancement {
+--     key = 'obsidian',
+--     loc_txt = {
+--         name = 'Obsidian',
+--         text = {
+--             '{C:purple}+#1#{} Score',
+--             "no rank or suit",
+--         },
+--         label = 'Obsidian',
+--     },
+-- 	atlas = 'jokers',
+-- 	pos = { x = 4, y = 0 },
+--     config = {
+--         active = false,
+--     },
+--     replace_base_card = true,
+--     no_rank = true,
+--     no_suit = true,
+--     always_scores = true,
+-- 	loc_vars = function(self, info_queue, card)
+--         if card.area.config.collection then
+--             return {
+--                 vars = {
+--                     '((Ante*2)^10)'
+--                 }
+--             }
+--         else
+--             return {
+--                 vars = {
+--                     (G.GAME.round_resets.ante*2)^10
+--                 }
+--             }
+--         end 
+-- 	end,
+--     calculate = function(self, card, context)
+--         if context.main_scoring and context.cardarea == G.play then
+--             card.ability.active = true
+--         end
+-- 		if context.after and card.ability.active == true then
+-- 			return {
+--                 func = function ()
+-- 				    score_mod = (G.GAME.round_resets.ante*2)^10
+--                     card.ability.active = false
+--                 end
+-- 			}
+--         end        
+--     end
+-- }

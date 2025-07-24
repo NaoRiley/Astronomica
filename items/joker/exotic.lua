@@ -104,23 +104,9 @@ SMODS.Joker{
 			card = card
 			}
 		end
-		-- if context.after then
-		-- 	G.E_MANAGER:add_event(Event({
-		-- 		func = function() 
-		-- 			G.GAME.chips = (to_big(G.GAME.chips)):arrow(2, card.ability.extra.score)
-		-- 			G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-		-- 			play_sound('gong')
-		-- 			return true
-		-- 		end,
-		-- 	}))
-		-- end
 		if context.after then
 			return {
-				func = function ()
-					ast.mod_score({hyper = 2, card.ability.extra.score})
-				end,
-				message = ("^^")..card.ability.extra.score..(" Score"),
-				colour = G.C.PURPLE,
+				EEscore = card.ability.extra.score
 			}
 		end
 	end
@@ -588,7 +574,7 @@ SMODS.Joker{
 
 -- SMODS.Joker{
 -- 	key = "incrementum",
--- 	pos = { x = 0, y = 1 },
+-- 	pos = { x = 0, y = 0 },
 -- 	-- soul_pos = { x = 0, y = 0, extra = { x = 0, y = 0 } },
 -- 	-- config = {
 -- 	-- 	extra = {
@@ -601,21 +587,16 @@ SMODS.Joker{
 -- 	-- loc_vars = function(self, info_queue, center)
 -- 	-- end,
 -- 	calculate = function(self, card, context)
--- 		if context.cry_pre_scoring then
+-- 		if context.ast_pre_scoring then
 -- 			if (to_big(mult)) >= (to_big(150)) then
--- 				mult = collatz_factorial(mult)
+-- 				mult = UTIL_TABLE.factorial(mult)
 -- 				update_hand_text({delay = 0}, {chips = hand_chips, mult = mult})
 -- 			else
--- 				mult = exact_factorial(mult)
+-- 				mult = UTIL_TABLE.small_factorial(mult)
 -- 				update_hand_text({delay = 0}, {chips = hand_chips, mult = mult})	
 -- 			end
 -- 		end
 -- 	end,
--- 	cry_credits = {
--- 		idea = { "DiabolicalGod" },
--- 		-- art = { "" },
--- 		code = { "NaoRiley" },
--- 	},
 -- }
 
 -- SMODS.Joker{

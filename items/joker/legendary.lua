@@ -28,11 +28,7 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if context.after and not context.repetiiton or context.blueprint then
 			return {
-				func = function ()
-					ast.mod_score({add = card.ability.extra.score})
-				end,
-				message = ("+")..card.ability.extra.score..(" Score"),
-				colour = G.C.PURPLE,
+				score = card.ability.extra.score
 			}
 		end
 		if context.blind_defeated and not context.repetition or context.blueprint then

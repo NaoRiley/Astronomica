@@ -531,9 +531,9 @@ SMODS.Joker {
 -- 	ast_credits = {
 -- 		art = {"Tatteredlurker"},
 -- 	},
--- 	cry_scale_mod = function(self, card, joker, orig_scale_scale, true_base, orig_scale_base, new_scale_base)
--- 		return lenient_bignum(to_big(true_base))
--- 	end,
+	-- cry_scale_mod = function(self, card, joker, orig_scale_scale, true_base, orig_scale_base, new_scale_base)
+	-- 	return lenient_bignum(to_big(true_base))
+	-- end,
 -- }
 
 SMODS.Joker {

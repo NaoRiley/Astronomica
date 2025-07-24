@@ -62,29 +62,29 @@ ast.simple_event_add = function (func, delay, queue) --thanks aiko
     }, queue)
 end
 
-ast.mod_score = function(score_mod) --thanks again aiko
-    ast.simple_event_add(
-        function()
-            score_mod = score_mod or {}
-            local hyper = score_mod.arrow or 1
-            local pow = score_mod.pow or 1
-            local mult = score_mod.mult or 1
-            local add = score_mod.add or 0
-            local score_cal = score_mod.set or G.GAME.chips
-            score_cal = (to_big(score_cal)):arrow(arrow, hyper)
-            score_cal = score_cal ^ pow
-            score_cal = score_cal * mult
-            score_cal = score_cal + add
-            if Talisman then
-                score_cal = to_big(score_cal)
-            end
-            G.GAME.chips = score_cal
-            G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-            play_sound('gong')
-            return true
-        end, 0
-    )
-end
+-- ast.mod_score = function(score_mod) --thanks again aiko
+--     ast.simple_event_add(
+--         function()
+--             score_mod = score_mod or {}
+--             local hyper = score_mod.arrow or 1
+--             local pow = score_mod.pow or 1
+--             local mult = score_mod.mult or 1
+--             local add = score_mod.add or 0
+--             local score_cal = score_mod.set or G.GAME.chips
+--             score_cal = (to_big(score_cal)):arrow(arrow, hyper)
+--             score_cal = score_cal ^ pow
+--             score_cal = score_cal * mult
+--             score_cal = score_cal + add
+--             if Talisman then
+--                 score_cal = to_big(score_cal)
+--             end
+--             G.GAME.chips = score_cal
+--             G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+--             play_sound('gong')
+--             return true
+--         end, 0
+--     )
+-- end
 
 local null_mult = mod_mult
 mod_mult = function(mult)
@@ -726,3 +726,613 @@ function jlann(txt, duration, size, col, snd, sndpitch, sndvol) --i took this ba
 		return true
 	end)}))
 end
+
+-----------------------------------------------------scoremod stuff
+
+if SMODS and SMODS.calculate_individual_effect then
+	local scorescie = SMODS.calculate_individual_effect
+	function SMODS.calculate_individual_effect(effect, scored_card, key, amount, from_edition)
+		local ret = scorescie(effect, scored_card, key, amount, from_edition)
+		if ret then
+		  return ret
+		end
+		-- ! score operations should be done on context.after
+		if (key == 'score' or key == 'score_mod') then 
+			local e = card_eval_status_text
+			card_eval_status_text = function() end
+			G.E_MANAGER:add_event(Event({func = function() 
+				G.GAME.chips = to_big(G.GAME.chips):add(amount)
+				G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
+			return true end}))
+			card_eval_status_text = e
+			if not Talisman.config_file.disable_anims then
+				card_eval_status_text_addscore(scored_card or effect.card or effect.focus, 'ast_addscore', amount, percent)
+			end
+			return true
+		end
+		if (key == 'x_score' or key == 'Xscore_mod') then 
+			local e = card_eval_status_text
+			card_eval_status_text = function() end
+			G.E_MANAGER:add_event(Event({func = function() 
+				G.GAME.chips = to_big(G.GAME.chips):mul(amount)
+				G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.4, 0.4)
+			return true end}))
+			card_eval_status_text = e
+			if not Talisman.config_file.disable_anims then
+				card_eval_status_text_xscore(scored_card or effect.card or effect.focus, 'ast_xscore', amount, percent)
+			end
+			return true
+		end
+		if (key == 'e_score' or key == 'Escore_mod') then 
+			local e = card_eval_status_text
+			card_eval_status_text = function() end
+			G.E_MANAGER:add_event(Event({func = function() 
+				G.GAME.chips = to_big(G.GAME.chips):arrow(1, amount)
+				G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.5, 0.5)
+			return true end}))
+			card_eval_status_text = e
+			if not Talisman.config_file.disable_anims then
+				card_eval_status_text_escore(scored_card or effect.card or effect.focus, 'ast_escore', amount, percent)
+			end
+			return true
+		end
+		if (key == 'ee_score' or key == 'EEscore_mod') then 
+			local e = card_eval_status_text
+			card_eval_status_text = function() end
+			G.E_MANAGER:add_event(Event({func = function() 
+				G.GAME.chips = to_big(G.GAME.chips):arrow(2, amount)
+				G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.6, 0.6)
+			return true end}))
+			card_eval_status_text = e
+			if not Talisman.config_file.disable_anims then
+				card_eval_status_text_eescore(scored_card or effect.card or effect.focus, 'ast_eescore', amount, percent)
+			end
+			return true
+		end
+		if (key == 'eee_score' or key == 'EEEscore_mod') then 
+			local e = card_eval_status_text
+			card_eval_status_text = function() end
+			G.E_MANAGER:add_event(Event({func = function() 
+				G.GAME.chips = to_big(G.GAME.chips):arrow(3, amount)
+				G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.7, 0.7)
+			return true end}))
+			card_eval_status_text = e
+			if not Talisman.config_file.disable_anims then
+				card_eval_status_text_eeescore(scored_card or effect.card or effect.focus, 'ast_eeescore', amount, percent)
+			end
+			return true
+		end
+		if key == 'hyper_score' then 
+			local e = card_eval_status_text
+			-- dont know who or what this would save but hhhhhh
+			if type(amount) ~= 'table' then
+				local operand = amount
+				amount = {3, operand}
+			end
+			card_eval_status_text = function() end
+			G.E_MANAGER:add_event(Event({func = function() 
+				G.GAME.chips = to_big(G.GAME.chips):arrow(amount[1], amount[2])
+				G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.4 + (amount[1] * 0.1), 0.7)
+				G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.4 + (amount[1] * 0.1), 0.7)
+			return true end}))
+			card_eval_status_text = e
+			if not Talisman.config_file.disable_anims then
+				card_eval_status_text_hyper_score(scored_card or effect.card or effect.focus, 'ast_eeescore', amount, percent)
+			end
+			return true
+		end
+		if (key == 'eq_score' or key == 'EQscore_mod') then 
+			local e = card_eval_status_text
+			card_eval_status_text = function() end
+			 G.E_MANAGER:add_event(Event({func = function() 
+				G.GAME.chips = to_big(amount)
+				G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.2, 0.2)
+			return true end}))
+			card_eval_status_text = e
+			if not Talisman.config_file.disable_anims then
+				card_eval_status_text_eqscore(scored_card or effect.card or effect.focus, 'ast_eqscore', amount, percent)
+			end
+			return true
+		end
+    end
+    for _, v in ipairs({
+		'score', 'score_mod',
+		'x_score', 'Xscore_mod',
+		'e_score', 'Escore_mod',
+		'ee_score', 'EEscore_mod',
+		'eee_score', 'EEEscore_mod',
+		'hyper_score',
+		'eq_score', 'EQscore_mod',
+	}) do
+        table.insert(SMODS.calculation_keys, v)
+    end
+end
+
+function card_eval_status_text_addscore(card, eval_type, amt, percent, dir, extra)
+	percent = percent or (0.9 + 0.2*math.random())
+	if dir == 'down' then 
+		percent = 1-percent
+	end
+    if extra and extra.focus then card = extra.focus end
+	local text = ''
+	local sound = nil
+	local volume = 1
+	local card_aligned = 'bm'
+	local y_off = 0.15*G.CARD_H
+	if card.area == G.jokers or card.area == G.consumeables then
+		y_off = 0.05*card.T.h
+	elseif card.area == G.hand then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	elseif card.area == G.play then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	elseif card.jimbo  then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	end
+	local config = {}
+	local delay = 0.65
+	local colour = config.colour or (extra and extra.colour) or ( G.C.FILTER )
+	local extrafunc = nil
+	sound = 'ast_addscore'
+	amt = amt
+	text = '+'..amt..' Score'
+	colour = G.C.PURPLE
+	config.type = 'fade'
+	config.scale = 0.7
+	delay = delay*1.25
+	if not Talisman.config_file.disable_anims then
+		if to_big(amt) > to_big(0) or to_big(amt) < to_big(0) then
+			if extra and extra.instant then
+				if extrafunc then extrafunc() end
+				attention_text({
+					text = text,
+					scale = config.scale or 1, 
+					hold = delay - 0.2,
+					backdrop_colour = colour,
+					align = card_aligned,
+					major = card,
+					offset = {x = 0, y = y_off}
+				})
+				play_sound(sound, 0.8+percent*0.2, volume)
+				if not extra or not extra.no_juice then
+					card:juice_up(0.6, 0.1)
+					G.ROOM.jiggle = G.ROOM.jiggle + 0.7 
+				end
+			else
+				G.E_MANAGER:add_event(Event({ trigger = 'before',delay = delay,func = function()
+					if extrafunc then extrafunc() end
+						attention_text({
+							text = text,
+							scale = config.scale or 1, 
+							hold = delay - 0.2,
+							backdrop_colour = colour,
+							align = card_aligned,
+							major = card,
+							offset = {x = 0, y = y_off}
+						})
+						play_sound(sound, 0.8+percent*0.2, volume)
+						if not extra or not extra.no_juice then
+							card:juice_up(0.6, 0.1)
+							G.ROOM.jiggle = G.ROOM.jiggle + 0.7
+						end
+						return true
+						end
+				}))
+			end
+		end
+	end
+	if extra and extra.playing_cards_created then 
+		playing_card_joker_effects(extra.playing_cards_created)
+	end
+end
+
+function card_eval_status_text_xscore(card, eval_type, amt, percent, dir, extra)
+	percent = percent or (0.9 + 0.2*math.random())
+	if dir == 'down' then 
+		percent = 1-percent
+	end
+    if extra and extra.focus then card = extra.focus end
+	local text = ''
+	local sound = nil
+	local volume = 1
+	local card_aligned = 'bm'
+	local y_off = 0.15*G.CARD_H
+	if card.area == G.jokers or card.area == G.consumeables then
+		y_off = 0.05*card.T.h
+	elseif card.area == G.hand then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	elseif card.area == G.play then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	elseif card.jimbo  then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	end
+	local config = {}
+	local delay = 0.65
+	local colour = config.colour or (extra and extra.colour) or ( G.C.FILTER )
+	local extrafunc = nil
+	sound = 'ast_xscore'
+	amt = amt
+	text = 'X'..amt..' Score'
+	colour = G.C.PURPLE
+	config.type = 'fade'
+	config.scale = 0.7
+	delay = delay*1.25
+	if not Talisman.config_file.disable_anims then
+		if to_big(amt) > to_big(1) or to_big(amt) < to_big(1) then
+			if extra and extra.instant then
+				if extrafunc then extrafunc() end
+				attention_text({
+					text = text,
+					scale = config.scale or 1, 
+					hold = delay - 0.2,
+					backdrop_colour = colour,
+					align = card_aligned,
+					major = card,
+					offset = {x = 0, y = y_off}
+				})
+				play_sound(sound, 0.8+percent*0.2, volume)
+				if not extra or not extra.no_juice then
+					card:juice_up(0.6, 0.1)
+					G.ROOM.jiggle = G.ROOM.jiggle + 0.7 
+				end
+			else
+				G.E_MANAGER:add_event(Event({ trigger = 'before',delay = delay,func = function()
+					if extrafunc then extrafunc() end
+						attention_text({
+							text = text,
+							scale = config.scale or 1, 
+							hold = delay - 0.2,
+							backdrop_colour = colour,
+							align = card_aligned,
+							major = card,
+							offset = {x = 0, y = y_off}
+						})
+						play_sound(sound, 0.8+percent*0.2, volume)
+						if not extra or not extra.no_juice then
+							card:juice_up(0.6, 0.1)
+							G.ROOM.jiggle = G.ROOM.jiggle + 0.7
+						end
+						return true
+						end
+				}))
+			end
+		end
+	end
+	if extra and extra.playing_cards_created then 
+		playing_card_joker_effects(extra.playing_cards_created)
+	end
+end
+
+function card_eval_status_text_escore(card, eval_type, amt, percent, dir, extra)
+	percent = percent or (0.9 + 0.2*math.random())
+	if dir == 'down' then 
+		percent = 1-percent
+	end
+    if extra and extra.focus then card = extra.focus end
+	local text = ''
+	local sound = nil
+	local volume = 1
+	local card_aligned = 'bm'
+	local y_off = 0.15*G.CARD_H
+	if card.area == G.jokers or card.area == G.consumeables then
+		y_off = 0.05*card.T.h
+	elseif card.area == G.hand then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	elseif card.area == G.play then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	elseif card.jimbo  then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	end
+	local config = {}
+	local delay = 0.65
+	local colour = config.colour or (extra and extra.colour) or ( G.C.FILTER )
+	local extrafunc = nil
+	sound = 'ast_escore'
+	amt = amt
+	text = '^'..amt..' Score'
+	colour = G.C.PURPLE
+	config.type = 'fade'
+	config.scale = 0.7
+	delay = delay*1.25
+	if not Talisman.config_file.disable_anims then
+		if to_big(amt) > to_big(1) or to_big(amt) < to_big(1) then
+			if extra and extra.instant then
+				if extrafunc then extrafunc() end
+				attention_text({
+					text = text,
+					scale = config.scale or 1, 
+					hold = delay - 0.2,
+					backdrop_colour = colour,
+					align = card_aligned,
+					major = card,
+					offset = {x = 0, y = y_off}
+				})
+				play_sound(sound, 0.8+percent*0.2, volume)
+				if not extra or not extra.no_juice then
+					card:juice_up(0.6, 0.1)
+					G.ROOM.jiggle = G.ROOM.jiggle + 0.7 
+				end
+			else
+				G.E_MANAGER:add_event(Event({ trigger = 'before',delay = delay,func = function()
+					if extrafunc then extrafunc() end
+						attention_text({
+							text = text,
+							scale = config.scale or 1, 
+							hold = delay - 0.2,
+							backdrop_colour = colour,
+							align = card_aligned,
+							major = card,
+							offset = {x = 0, y = y_off}
+						})
+						play_sound(sound, 0.8+percent*0.2, volume)
+						if not extra or not extra.no_juice then
+							card:juice_up(0.6, 0.1)
+							G.ROOM.jiggle = G.ROOM.jiggle + 0.8
+						end
+						return true
+						end
+				}))
+			end
+		end
+	end
+	if extra and extra.playing_cards_created then 
+		playing_card_joker_effects(extra.playing_cards_created)
+	end
+end
+
+function card_eval_status_text_eescore(card, eval_type, amt, percent, dir, extra)
+	percent = percent or (0.9 + 0.2*math.random())
+	if dir == 'down' then 
+		percent = 1-percent
+	end
+    if extra and extra.focus then card = extra.focus end
+	local text = ''
+	local sound = nil
+	local volume = 1
+	local card_aligned = 'bm'
+	local y_off = 0.15*G.CARD_H
+	if card.area == G.jokers or card.area == G.consumeables then
+		y_off = 0.05*card.T.h
+	elseif card.area == G.hand then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	elseif card.area == G.play then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	elseif card.jimbo  then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	end
+	local config = {}
+	local delay = 0.65
+	local colour = config.colour or (extra and extra.colour) or ( G.C.FILTER )
+	local extrafunc = nil
+	sound = 'ast_eescore'
+	amt = amt
+	text = '^^'..amt..' Score'
+	colour = G.C.PURPLE
+	config.type = 'fade'
+	config.scale = 0.7
+	delay = delay*1.25
+	if not Talisman.config_file.disable_anims then
+		if to_big(amt) > to_big(1) or to_big(amt) < to_big(1) then
+			if extra and extra.instant then
+				if extrafunc then extrafunc() end
+				attention_text({
+					text = text,
+					scale = config.scale or 1, 
+					hold = delay - 0.2,
+					backdrop_colour = colour,
+					align = card_aligned,
+					major = card,
+					offset = {x = 0, y = y_off}
+				})
+				play_sound(sound, 0.8+percent*0.2, volume)
+				if not extra or not extra.no_juice then
+					card:juice_up(0.6, 0.1)
+					G.ROOM.jiggle = G.ROOM.jiggle + 0.7 
+				end
+			else
+				G.E_MANAGER:add_event(Event({ trigger = 'before',delay = delay,func = function()
+					if extrafunc then extrafunc() end
+						attention_text({
+							text = text,
+							scale = config.scale or 1, 
+							hold = delay - 0.2,
+							backdrop_colour = colour,
+							align = card_aligned,
+							major = card,
+							offset = {x = 0, y = y_off}
+						})
+						play_sound(sound, 0.8+percent*0.2, volume)
+						if not extra or not extra.no_juice then
+							card:juice_up(0.6, 0.1)
+							G.ROOM.jiggle = G.ROOM.jiggle + 0.9
+						end
+						return true
+						end
+				}))
+			end
+		end
+	end
+	if extra and extra.playing_cards_created then 
+		playing_card_joker_effects(extra.playing_cards_created)
+	end
+end
+
+function card_eval_status_text_eeescore(card, eval_type, amt, percent, dir, extra)
+	percent = percent or (0.9 + 0.2*math.random())
+	if dir == 'down' then 
+		percent = 1-percent
+	end
+    if extra and extra.focus then card = extra.focus end
+	local text = ''
+	local sound = nil
+	local volume = 1
+	local card_aligned = 'bm'
+	local y_off = 0.15*G.CARD_H
+	if card.area == G.jokers or card.area == G.consumeables then
+		y_off = 0.05*card.T.h
+	elseif card.area == G.hand then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	elseif card.area == G.play then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	elseif card.jimbo  then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	end
+	local config = {}
+	local delay = 0.65
+	local colour = config.colour or (extra and extra.colour) or ( G.C.FILTER )
+	local extrafunc = nil
+	sound = 'ast_eescore'
+	amt = amt
+	text = '^^^'..amt..' Score'
+	colour = G.C.PURPLE
+	config.type = 'fade'
+	config.scale = 0.7
+	delay = delay*1.25
+	if not Talisman.config_file.disable_anims then
+		if to_big(amt) > to_big(1) or to_big(amt) < to_big(1) then
+			if extra and extra.instant then
+				if extrafunc then extrafunc() end
+				attention_text({
+					text = text,
+					scale = config.scale or 1, 
+					hold = delay - 0.2,
+					backdrop_colour = colour,
+					align = card_aligned,
+					major = card,
+					offset = {x = 0, y = y_off}
+				})
+				play_sound(sound, 0.8+percent*0.2, volume)
+				if not extra or not extra.no_juice then
+					card:juice_up(0.6, 0.1)
+					G.ROOM.jiggle = G.ROOM.jiggle + 0.7 + math.min(30, math.log(amt, 500))
+				end
+			else
+				G.E_MANAGER:add_event(Event({ trigger = 'before',delay = delay,func = function()
+					if extrafunc then extrafunc() end
+						attention_text({
+							text = text,
+							scale = config.scale or 1, 
+							hold = delay - 0.2,
+							backdrop_colour = colour,
+							align = card_aligned,
+							major = card,
+							offset = {x = 0, y = y_off}
+						})
+						play_sound(sound, 0.8+percent*0.2, volume)
+						if not extra or not extra.no_juice then
+							card:juice_up(0.6, 0.1)
+							G.ROOM.jiggle = G.ROOM.jiggle + 0.7 
+						end
+						return true
+						end
+				}))
+			end
+		end
+	end
+	if extra and extra.playing_cards_created then 
+		playing_card_joker_effects(extra.playing_cards_created)
+	end
+end
+
+function card_eval_status_text_hyper_score(card, eval_type, amt, percent, dir, extra)
+	percent = percent or (0.9 + 0.2*math.random())
+	if dir == 'down' then 
+		percent = 1-percent
+	end
+    if extra and extra.focus then card = extra.focus end
+	local text = ''
+	local sound = nil
+	local volume = 1
+	local card_aligned = 'bm'
+	local y_off = 0.15*G.CARD_H
+	if card.area == G.jokers or card.area == G.consumeables then
+		y_off = 0.05*card.T.h
+	elseif card.area == G.hand then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	elseif card.area == G.play then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	elseif card.jimbo  then
+		y_off = -0.05*G.CARD_H
+		card_aligned = 'tm'
+	end
+	local config = {}
+	local delay = 0.65
+	local colour = config.colour or (extra and extra.colour) or ( G.C.FILTER )
+	local extrafunc = nil
+	sound = 'ast_eescore'
+	amt = amt
+	text = (amt[1] > 5 and ('{' .. tostring(amt[1]) .. '}') or string.rep('^', amt[1])) .. tostring(amt[2])..' Score'
+	colour = G.C.PURPLE
+	config.type = 'fade'
+	config.scale = 0.7
+	delay = delay*1.25
+	amt = amt[2]
+	if not Talisman.config_file.disable_anims then
+		if to_big(amt) > to_big(1) or to_big(amt) < to_big(1) then
+			if extra and extra.instant then
+				if extrafunc then extrafunc() end
+				attention_text({
+					text = text,
+					scale = config.scale or 1, 
+					hold = delay - 0.2,
+					backdrop_colour = colour,
+					align = card_aligned,
+					major = card,
+					offset = {x = 0, y = y_off}
+				})
+				play_sound(sound, 0.8+percent*0.2, volume)
+				if not extra or not extra.no_juice then
+					card:juice_up(0.6, 0.1)
+					G.ROOM.jiggle = G.ROOM.jiggle + 0.7 
+				end
+			else
+				G.E_MANAGER:add_event(Event({ trigger = 'before',delay = delay,func = function()
+					if extrafunc then extrafunc() end
+						attention_text({
+							text = text,
+							scale = config.scale or 1, 
+							hold = delay - 0.2,
+							backdrop_colour = colour,
+							align = card_aligned,
+							major = card,
+							offset = {x = 0, y = y_off}
+						})
+						play_sound(sound, 0.8+percent*0.2, volume)
+						if not extra or not extra.no_juice then
+							card:juice_up(0.6, 0.1)
+							G.ROOM.jiggle = G.ROOM.jiggle + 0.7 + math.min(40, math.log(amt, 500))
+						end
+						return true
+						end
+				}))
+			end
+		end
+	end
+	if extra and extra.playing_cards_created then 
+		playing_card_joker_effects(extra.playing_cards_created)
+	end
+end
+
+SMODS.Sound({key = 'eqscore', path = 'EqualsScore.ogg'})
+SMODS.Sound({key = 'addscore', path = 'AdditiveScore.ogg'})
+SMODS.Sound({key = 'xscore', path = 'MultiplicativeScore.ogg'})
+SMODS.Sound({key = 'escore', path = 'ExponentialScore.ogg'})
+SMODS.Sound({key = 'eescore', path = 'TetrationalScore.ogg'})
+
+----------------------------------------------------------------end of scoremod

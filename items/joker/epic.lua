@@ -35,11 +35,7 @@ SMODS.Joker{
 		end
 		if context.after then
 			return {
-				func = function ()
-					ast.mod_score({mult = card.ability.extra.score})
-				end,
-				message = ("X")..card.ability.extra.score..(" Score"),
-				colour = G.C.PURPLE,
+				Xscore_mod = card.ability.extra.score
 			}
 		end
 	end

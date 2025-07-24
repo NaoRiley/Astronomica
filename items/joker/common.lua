@@ -23,12 +23,9 @@ SMODS.Joker{
 	end,
 	calculate = function(self, card, context)
 		if context.after then
-			ast.mod_score({add = card.ability.extra.score})
-			SMODS.calculate_effect({
-				message = ("+")..card.ability.extra.score..(" Score"),
-				colour = G.C.PURPLE,
-				card = card
-			}, card)
+			return {
+				score_mod = card.ability.extra.score
+			}
 		end
 	end
 }

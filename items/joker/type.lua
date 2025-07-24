@@ -47,11 +47,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end
@@ -100,11 +98,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end
@@ -153,11 +149,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end
@@ -206,11 +200,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end
@@ -259,11 +251,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end
@@ -312,11 +302,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end
@@ -365,11 +353,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end
@@ -418,11 +404,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end
@@ -471,11 +455,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end
@@ -524,11 +506,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end
@@ -577,11 +557,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end
@@ -630,11 +608,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end
@@ -683,11 +659,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end
@@ -736,11 +710,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end
@@ -789,11 +761,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end
@@ -841,11 +811,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end
@@ -894,11 +862,9 @@ SMODS.Joker{
         if context.after and card.ability.extra.active == true then  
             return {
                 func = function ()
-                    ast.mod_score({add = card.ability.extra.score})
+                    score = card.ability.extra.score
                     card.ability.extra.active = false
-                end,
-                message = ("+")..card.ability.extra.score..(" Score"),
-                colour = G.C.PURPLE,
+                end
             }
         end
 	end,
