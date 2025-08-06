@@ -511,19 +511,19 @@ local astscie = SMODS.calculate_individual_effect
 function SMODS.calculate_individual_effect(effect, scored_card, key, amount, from_edition)
     if next(SMODS.find_card('j_ast_muspelheim')) then
         if key == "hypermult" or key == "hyperchips" or key == "hypermult_mod" or key == "hyperchip_mod" or key == "hyper_mult" or key == "hyper_chips" then
-            value[1] = value[1] + 1
+            amount[1] = amount[1] + 1
         elseif key == "eee_mult" or key == "eeemult" then
             key = "hypermult"
-            value = {4, value}
+            amount = {4, amount}
         elseif key == "eee_chips" or key == "eeechips" then
             key = "hyperchips"
-            value = {4, value}
+            amount = {4, amount}
         elseif key == "EEEmult_mod" then
             key = "hypermult_mod"
-            value = {4, value}
+            amount = {4, amount}
         elseif key == "EEEchip_mod" then
             key = "hyperchip_mod"
-            value = {4, value}
+            amount = {4, amount}
         else
             key = ({
                 ["mult"] = "xmult",
@@ -1334,5 +1334,6 @@ SMODS.Sound({key = 'addscore', path = 'AdditiveScore.ogg'})
 SMODS.Sound({key = 'xscore', path = 'MultiplicativeScore.ogg'})
 SMODS.Sound({key = 'escore', path = 'ExponentialScore.ogg'})
 SMODS.Sound({key = 'eescore', path = 'TetrationalScore.ogg'})
+
 
 ----------------------------------------------------------------end of scoremod
