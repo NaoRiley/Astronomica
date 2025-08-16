@@ -778,14 +778,14 @@ SMODS.Joker {
 			card.ability.extra.antes_defeated = card.ability.extra.antes_defeated - 1
 		end
 		if card.ability.extra.antes_defeated == 0 then
-			ease_operator(1)
+			G.GAME.hyper_operator = G.GAME.hyper_operator and G.GAME.hyper_operator + 1 or 2
+			SMODS.set_scoring_calculation("talisman_hyper")
 			card.ability.extra.antes_defeated = 4
 		end
 	end,
 	add_to_deck = function(self, card, from_debuff)
-		if G.GAME.vanaheim_init ~= true then
-			ease_operator(1)
-			G.GAME.vanaheim_init = true
+		if not from_debuff and not next(SMODS.find_card("j_ast_vanaheim"))then
+			SMODS.set_scoring_calculation("exponent")
 		end
 		-- G.GAME.vanaheim_ante_scaling = true
 	end

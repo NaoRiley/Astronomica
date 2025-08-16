@@ -16,6 +16,15 @@ SMODS.Back{
 	end
 }
 
+SMODS.Scoring_Calculation {
+	key = "plus",
+	func = function(self, chips, mult, flames)
+		return chips + mult
+	end,
+	text = "+",
+	colour = G.C.BLUE,
+}
+
 SMODS.Back{
 	key = "elementary",
 	config = {},
@@ -30,12 +39,7 @@ SMODS.Back{
     },
 	apply = function(self)
 		G.GAME.quadratic_ante_scaling = true
-		G.E_MANAGER:add_event(Event({
-			func = function()
-				set_operator(-1)
-				return true
-			end,
-		}))
+		SMODS.set_scoring_calculation("ast_plus")
 	end,
 }
 
