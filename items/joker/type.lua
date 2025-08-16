@@ -16,6 +16,7 @@ local jokers = {
     { name = "Lamentable",   hand = "cry_Bulwark",     pos = { x = 5, y = 2 } },
     { name = "Hypothetical", hand = "cry_None",        pos = { x = 6, y = 2 } },
 }
+
 local hands = Game.init_game_object().hands
 
 for i, data in ipairs(jokers) do
