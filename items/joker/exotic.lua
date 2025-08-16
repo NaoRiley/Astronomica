@@ -106,7 +106,7 @@ SMODS.Joker{
 		end
 		if context.after then
 			return {
-				EEscore = card.ability.extra.score
+				ee_score = card.ability.extra.score
 			}
 		end
 	end
@@ -649,7 +649,7 @@ SMODS.Joker{
 		end
 	end,
 	remove_from_deck = function(self, card, from_debuff)
-		G.GAME.coalescere = false
+		G.GAME.coalescere = next(SMODS.find_card("j_ast_coalescere")) and true or false
 	end
 }
 

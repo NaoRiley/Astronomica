@@ -35,7 +35,7 @@ SMODS.Joker{
 		end
 		if context.after then
 			return {
-				Xscore_mod = card.ability.extra.score
+				x_score = card.ability.extra.score
 			}
 		end
 	end

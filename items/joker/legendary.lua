@@ -28,17 +28,13 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if context.after and not context.repetiiton or context.blueprint then
 			return {
-				score = card.ability.extra.score
+				score = card.ability.extra.score,
+				message = "+" .. tostring(card.ability.extra.score),
+				colour = G.C.PURPLE
 			}
 		end
 		if context.blind_defeated and not context.repetition or context.blueprint then
 			card.ability.extra.score = (to_big(G.GAME.chips))-(to_big(G.GAME.blind.chips))
-		end
-		if context.after then
-			return {
-				message = "+" .. tostring(card.ability.extra.score),
-				colour = G.C.PURPLE
-			}
 		end
 	end
 }

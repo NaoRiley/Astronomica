@@ -3,7 +3,7 @@ SMODS.Joker{
     loc_txt = {
         name = 'Trickster',
         text = {
-            '{C:purple}+#1# {C:black}Score',
+            '{C:purple}+#1#{} Score',
         }
     },
 	blueprint_compat = true,
@@ -24,7 +24,7 @@ SMODS.Joker{
 	calculate = function(self, card, context)
 		if context.after then
 			return {
-				score_mod = card.ability.extra.score
+				score = card.ability.extra.score
 			}
 		end
 	end
