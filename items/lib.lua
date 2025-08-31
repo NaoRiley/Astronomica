@@ -547,7 +547,7 @@ SMODS.Gradient {
 
 SMODS.Consumable:take_ownership("cry_gateway", {
 	use = function(self, card, area, copier)
-		if not Entropy.DeckOrSleeve("doc") and (#SMODS.find_card("j_jen_saint") + #SMODS.find_card("j_jen_saint_attuned")) <= 0 and (G.GAME.safe_gateway ~= true) then
+		if not (Entropy and Entropy.DeckOrSleeve("doc")) and (#SMODS.find_card("j_jen_saint") + #SMODS.find_card("j_jen_saint_attuned")) <= 0 and not G.GAME.safe_gateway then
 			local deletable_jokers = {}
 			for k, v in pairs(G.jokers.cards) do
 				if not v.ability.eternal then
@@ -583,7 +583,7 @@ SMODS.Consumable:take_ownership("cry_gateway", {
 			end,
 		}))
 		delay(0.6)
-		if Entropy.DeckOrSleeve("doc") then
+		if Entropy and Entropy.DeckOrSleeve("doc") then
 			ease_entropy(-math.min(G.GAME.entropy, 5))
 		end
 	end
@@ -820,3 +820,4 @@ SMODS.Sound({ key = 'eescore', path = 'TetrationalScore.ogg' })
 
 
 ----------------------------------------------------------------end of scoremod
+
