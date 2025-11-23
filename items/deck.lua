@@ -34,7 +34,7 @@ SMODS.Back{
         name = "Elementary Deck",
         text ={
 			"Ante scaling is {C:attention}quadratic{}",
-			"{C:attention}Chips/Mult{} operator becomes {C:chips,s:1.5}+",
+			"{C:attention}Chip-Mult{} operator becomes {C:chips,s:1.5}+",
         },
     },
 	apply = function(self)
@@ -70,13 +70,6 @@ SMODS.Back{
 				end
 			end,
 		}))
-	end,
-	init = function(self)
-		SMODS.Edition:take_ownership("negative", {
-			get_weight = function(self)
-				return self.weight * (G.GAME.modifiers.cry_negative_rate or 1)
-			end,
-		}, true)
 	end,
 }
 
@@ -123,13 +116,6 @@ if CardSleeves then
 					end
 				end,
 			}))
-		end,
-		init = function(self)
-			SMODS.Edition:take_ownership("negative", {
-				get_weight = function(self)
-					return self.weight * (G.GAME.modifiers.cry_negative_rate or 1)
-				end,
-			}, true)
 		end,
 	}
 end

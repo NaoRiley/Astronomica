@@ -53,15 +53,9 @@ for i, data in ipairs(jokers) do
             return (G.GAME.hands[self.config.extra.type].played or 0) > 0
         end,
         calculate = function(self, card, context)
-            if (context.before and context.poker_hands and next(context.poker_hands[card.ability.extra.type])) or context.forcetrigger then
-                card.ability.extra.active = true
-            end
-            if context.after and card.ability.extra.active == true then
+            if context.after and next(context.poker_hands[card.ability.extra.type]) then
                 return {
-                    func = function()
-                        score = card.ability.extra.score
-                        card.ability.extra.active = false
-                    end
+                    score = card.ability.extra.score
                 }
             end
         end,

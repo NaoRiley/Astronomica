@@ -1,8 +1,9 @@
 --this is some BULLSHIT WHY IS IT SO COMPLICATED TO ADD A NEW COLOR
 
 --edit from me like a month or two later: you are STUPID
+-- lily: lmao
 
-multi_gradient = SMODS.Gradient{
+local multi_gradient = SMODS.Gradient{
 	key = 'multicolor',
 	colours = {
 		-- HEX('FF0000'), --red
@@ -20,4 +21,5 @@ SMODS.Rarity{
 	key = 'empyrean',
 	loc_txt = {name = 'Empyrean'},
 	badge_colour = multi_gradient, --calls the variable
+	--what does it mean to call a variable girl 😭😭
 }

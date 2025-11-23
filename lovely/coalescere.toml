@@ -8,15 +8,17 @@ priority = -1
 [patches.pattern]
 target = 'functions/state_events.lua'
 match_indent = true
-pattern = '''    G.E_MANAGER:add_event(Event({
+pattern = '''
+G.E_MANAGER:add_event(Event({
       trigger = 'ease',
       blocking = false,
       ref_table = G.GAME,
       ref_value = 'chips',
-      ease_to = G.GAME.chips + math.floor(hand_chips*mult),
+      ease_to = G.GAME.chips + math.floor( SMODS.calculate_round_score() ),
       delay =  0.5,
       func = (function(t) return math.floor(t) end)
-    }))'''
+    }))
+'''
 position = 'at'
 payload = '''    if G.GAME.coalescere == true and G.GAME.ast_operator ~= -1 and G.GAME.chips ~= (to_big(0)) then
         G.E_MANAGER:add_event(Event({
@@ -24,7 +26,7 @@ payload = '''    if G.GAME.coalescere == true and G.GAME.ast_operator ~= -1 and 
             blocking = false,
             ref_table = G.GAME,
             ref_value = 'chips',
-            ease_to = G.GAME.chips:arrow(G.GAME.ast_operator, math.floor(hand_chips*mult)),
+            ease_to = to_big(G.GAME.chips):arrow(G.GAME.ast_operator, math.floor( SMODS.calculate_round_score() )),
             delay =  0.5,
         }))
     else

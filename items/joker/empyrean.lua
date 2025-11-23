@@ -163,7 +163,7 @@ SMODS.Joker {
 -- 			"{s:0.8}(Radalingr)"
 -- 		},
 -- 		text = {
--- 			"When triggered, Joker's {X:mult,C:white}XMult{C:black} becomes {X:dark_edition,C:white}XMult!",
+-- 			"When triggered, Joker's {X:mult,C:white}XMult{} becomes {X:dark_edition,C:white}XMult!",
 -- 			"{C:inactive}(Currently {X:mult,C:white}X#1#{}{C:inactive} Mult)",
 -- 			"{C:inactive,s:0.8}Example: {X:dark_edition,C:white,s:0.8}3!{} ={C:inactive,s:0.8} {C:attention,s:0.8}3x2x1{C:inactive,s:0.8} (6)"
 -- 		}
@@ -628,7 +628,9 @@ SMODS.Joker {
 	end,
 }
 
-SMODS.Joker {
+-- SMODS.Joker {
+local disabled = { --lily here, disabling this due to it using 'jlann' function which would be nice to remove alongside general instability
+--sorry!
 	key = "jotunheim", 
 	loc_txt = {
 		name = {

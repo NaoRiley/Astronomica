@@ -15,7 +15,7 @@
 -- 	loc_txt = {
 -- 		name = 'Operator Test',
 -- 		text = {
--- 			'{X:dark_edition,C:white,s:2}^^^2{C:black} Chips & Mult',
+-- 			'{X:dark_edition,C:white,s:2}^^^2{} Chips & Mult',
 -- 		}
 -- 	},
 -- 	pos = { x = 0, y = 0 },
@@ -47,7 +47,7 @@
 --     loc_txt = {
 --         name = 'Trickster',
 --         text = {
---             '{C:purple}+#1# {C:black}Score',
+--             '{C:purple}+#1# {}Score',
 --         }
 --     },
 -- 	blueprint_compat = true,
@@ -81,7 +81,7 @@
 -- 	loc_txt = {
 -- 		name = 'Centurio',
 -- 		text = {
--- 			'Go up to {X:dark_edition,C:white,s:2}-$Infinity {C:black} in debt',
+-- 			'Go up to {X:dark_edition,C:white,s:2}-$Infinity {} in debt',
 -- 		}
 -- 	},
 -- 	pos = { x = 3, y = 0 },
@@ -108,10 +108,10 @@
 --     loc_txt = {
 --         name = 'Mona Lisa',
 --         text = {
--- 			'Retrigger {C:attention}face {C:black}cards 6 times',
--- 			'Retrigger {C:attention}non face {C:black}cards 3 times',
--- 			'{X:mult,C:white}X#1# {C:black} mult per {C:attention}face {C:black}card played',
--- 			'{X:mult,C:white}X#2# {C:black} mult per {C:attention}non face {C:black}card',
+-- 			'Retrigger {C:attention}face {}cards 6 times',
+-- 			'Retrigger {C:attention}non face {}cards 3 times',
+-- 			'{X:mult,C:white}X#1# {} mult per {C:attention}face {}card played',
+-- 			'{X:mult,C:white}X#2# {} mult per {C:attention}non face {}card',
 -- 			'{C:inactive,s:0.8}looks inside, photochad'
 --         }
 --     },
@@ -152,7 +152,7 @@
 --         name = 'Req Test',
 --         text = {
 --             'Reduces Blind Requirement by {X:attention,C:white}25%',
--- 			'{C:black}per {C:attention}hand {C:black}played'
+-- 			'{}per {C:attention}hand {}played'
 --         }
 --     },
 --     atlas = 'j_placeholder',

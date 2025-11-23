@@ -14,39 +14,39 @@ SMODS.Joker {
 	eternal_compat = true,
 	atlas = 'jokers',
 	loc_vars = function(self, info_queue, card)
-        if card.area and card.area == G.jokers then
-            local other_joker
-            for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i] == card then other_joker = G.jokers.cards[i - 1] end
-            end
-            local compatible = other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat
-            main_end = {
-                {
-                    n = G.UIT.C,
-                    config = { align = "bm", minh = 0.4 },
-                    nodes = {
-                        {
-                            n = G.UIT.C,
-                            config = { ref_table = card, align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06 },
-                            nodes = {
-                                { n = G.UIT.T, config = { text = ' ' .. localize('k_' .. (compatible and 'compatible' or 'incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
-                            }
-                        }
-                    }
-                }
-            }
-            return { main_end = main_end }
-        end
-    end,
-    calculate = function(self, card, context)
-        local other_joker = nil
-        for i = 1, #G.jokers.cards do
-            if G.jokers.cards[i] == card then other_joker = G.jokers.cards[i - 1] end
-        end
-        return SMODS.blueprint_effect(card, other_joker, context)
-    end,
+		if card.area and card.area == G.jokers then
+			local other_joker
+			for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i] == card then other_joker = G.jokers.cards[i - 1] end
+			end
+			local compatible = other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat
+			local main_end = {
+				{
+					n = G.UIT.C,
+					config = { align = "bm", minh = 0.4 },
+					nodes = {
+						{
+							n = G.UIT.C,
+							config = { ref_table = card, align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06 },
+							nodes = {
+								{ n = G.UIT.T, config = { text = ' ' .. localize('k_' .. (compatible and 'compatible' or 'incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+							}
+						}
+					}
+				}
+			}
+			return { main_end = main_end }
+		end
+	end,
+	calculate = function(self, card, context)
+		local other_joker = nil
+		for i = 1, #G.jokers.cards do
+			if G.jokers.cards[i] == card then other_joker = G.jokers.cards[i - 1] end
+		end
+		return SMODS.blueprint_effect(card, other_joker, context)
+	end,
 	ast_credits = {
-		art = {'MarioFan597'},
+		art = { 'MarioFan597' },
 	},
 }
 
@@ -55,8 +55,8 @@ SMODS.Joker {
 --     loc_txt = {
 --         name = 'Stopwatch',
 --         text = {
---             'Gives {C:chips}+#2# {C:black}chip for each ',
--- 			'{C:attention}second {C:black}game has been open',
+--             'Gives {C:chips}+#2# {}chip for each ',
+-- 			'{C:attention}second {}game has been open',
 -- 			'{C:inactive}(Currently {C:chips}#1# {C:inactive}chips)',
 --         }
 --     },
@@ -95,7 +95,7 @@ SMODS.Joker {
 -- 		end
 -- 		if card.ability.extra.chips < 0 then
 -- 			card.ability.extra.chips = 0
-			
+
 -- 		end
 -- 	end,
 -- 	calculate = function(self, card, context)
@@ -112,18 +112,18 @@ SMODS.Joker {
 -- 	end
 -- }
 
-SMODS.Joker{
-    key = 'stopwatch',
-    loc_txt = {
-        name = 'Stopwatch',
-        text = {
-            'Gives {C:chips}+#2# {C:black}chip for each ',
-			'{C:attention}second {C:black}game has been open',
+SMODS.Joker {
+	key = 'stopwatch',
+	loc_txt = {
+		name = 'Stopwatch',
+		text = {
+			'Gives {C:chips}+#2# {}chip for each ',
+			'{C:attention}second {}game has been open',
 			'{C:inactive}(Currently {C:chips}#1# {C:inactive}chips)',
-        }
-    },
-    atlas = 'jokers',
-    pos = {x = 1, y = 0},
+		}
+	},
+	atlas = 'jokers',
+	pos = { x = 1, y = 0 },
 	rarity = 3,
 	blueprint_compat = true,
 	config = {
@@ -133,37 +133,33 @@ SMODS.Joker{
 		}
 	},
 	loc_vars = function(self, info_queue, card)
+		card.ability.extra.chips = (math.floor(love.timer.getTime() - ast.start) * card.ability.extra.chip_mod) --/1 means per second, /60 would mean per minute
 		return {
-			vars = {card.ability.extra.chips, card.ability.extra.chip_mod}
+			vars = { card.ability.extra.chips, card.ability.extra.chip_mod }
 		}
 	end,
-	update = function(self, card, dt)
-		local time_elapsed = love.timer.getTime() - ast.start
-		card.ability.extra.chips = (math.floor(time_elapsed/1) * card.ability.extra.chip_mod) --/1 means per second, /60 would mean per minute
-	end,
 	calculate = function(self, card, context)
+		card.ability.extra.chips = (math.floor(love.timer.getTime() - ast.start) * card.ability.extra.chip_mod)
 		if context.joker_main and card.ability.extra.chips > 0 then
 			return {
-				message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } },
-				chip_mod = card.ability.extra.chips,
-				colour = G.C.CHIPS
+				chips = card.ability.extra.chips
 			}
 		end
 	end
 }
 
-SMODS.Joker{
-    key = 'weex2',
-    loc_txt = {
-        name = 'Wee{X:chips,C:white}X2',
-        text = {
+SMODS.Joker {
+	key = 'weex2',
+	loc_txt = {
+		name = 'Wee{X:chips,C:white}X2',
+		text = {
 			"Gains {X:chips,C:white}X#2#{} Chips per scored card if",
 			"played hand is exactly {C:attention}Two 2s{}",
 			"{C:inactive}(Currently {X:chips,C:white}X#1#{C:inactive} Chips)"
-        }
-    },
-    -- atlas = 'j_placeholder',
-    pos = {x = 0, y = 0},
+		}
+	},
+	-- atlas = 'j_placeholder',
+	pos = { x = 0, y = 0 },
 	display_size = { w = 71 * 0.5, h = 95 * 0.5 },
 	rarity = 3,
 	blueprint_compat = true,
@@ -176,26 +172,21 @@ SMODS.Joker{
 	},
 	loc_vars = function(self, info_queue, card)
 		return {
-			vars = {card.ability.extra.xchips, card.ability.extra.xchip_mod}
+			vars = { card.ability.extra.xchips, card.ability.extra.xchip_mod }
 		}
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main or context.forcetrigger then
-			SMODS.calculate_effect ({
+			SMODS.calculate_effect({
 				xchips = (to_big(card.ability.extra.xchips)),
 			}, card)
 		end
 		if context.before or context.forcetrigger then
 			if #G.play.cards == 2 or context.forcetrigger then
-				for _, playing_card in ipairs(G.play.cards) do
-					if (playing_card:get_id() ~= 2 or SMODS.has_no_rank(playing_card)) and not context.forcetrigger then
-						return
-					else
-						card.ability.extra.xchips = (to_big(card.ability.extra.xchips)) + (to_big(card.ability.extra.xchip_mod))
-						SMODS.calculate_effect ({
-							message = 'Upgrade!',
-						colour = G.C.CHIPS,
-						}, card)
+				for _, playing_card in ipairs(context.scoring_hand) do
+					if (playing_card:get_id() == 2 and not SMODS.has_no_rank(playing_card)) then
+						SMODS.scale_card(card, {ref_table = card.ability.extra, ref_value = "xchips", scalar_value = "xchip_mod"})
+						SMODS.calculate_effect({message = localize("k_upgrade_ex"), colour = G.C.CHIPS, }, card)
 					end
 				end
 			end

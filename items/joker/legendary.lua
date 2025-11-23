@@ -3,7 +3,7 @@ SMODS.Joker{
     loc_txt = {
         name = 'Foole',
         text = {
-            'Bring extra {C:attention}Score {C:black}you win to the next blind',
+            'Bring extra {C:attention}Score {}you win to the next blind',
 			'{C:inactive}(Currently {C:purple}+#1# {C:inactive}Score)',
         }
     },
@@ -26,11 +26,9 @@ SMODS.Joker{
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.after and not context.repetiiton or context.blueprint then
+		if context.after and not (context.repetition or context.blueprint) then
 			return {
 				score = card.ability.extra.score,
-				message = "+" .. tostring(card.ability.extra.score),
-				colour = G.C.PURPLE
 			}
 		end
 		if context.blind_defeated and not context.repetition or context.blueprint then

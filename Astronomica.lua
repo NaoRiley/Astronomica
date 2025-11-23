@@ -21,6 +21,7 @@
 
 --5/22/2025: hi chat, doing a lot today and its quite difficult, just letting yall know that you are awesome and i am so incredibly thankful for all the support, love yall <3
 
+-- 11/23/2025: I'm Lily!
 local files = {
 "items/lib",
 "Cryptid",
@@ -62,6 +63,8 @@ Cryptid.pointerblistifytype("rarity", "ast_empyrean", nil)
 local smcmb = SMODS.create_mod_badges
 function SMODS.create_mod_badges(obj, badges)
 	smcmb(obj, badges)
+	-- if i had a blunt for every time i saw this same credits badge mod code used
+	-- i would forget what i was going to say
 	if not SMODS.config.no_mod_badges and obj and obj.ast_credits then
 		local function calc_scale_fac(text)
 			local size = 0.9

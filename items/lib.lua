@@ -216,11 +216,6 @@ function Game:start_run(args)
 			end
 		end
 	end
-end
-
-local fakestart2 = Game.start_run
-function Game:start_run(args)
-	fakestart2(self, args)
 
 	if args.savetext and G.GAME.modified_rarities then --run is being continued, make every joker in table common
 		local table = G.GAME.modified_rarities
@@ -373,18 +368,6 @@ get_blind_amount = function(ante)
 		return ante * ante * 100
 	end
 	return quadratic_ante_scaling(ante)
-end
-
-function ante_scaling(formula) --ineffectual
-	G.GAME.ante_formula = formula
-end
-
-local arbitrary_ante_scaling = get_blind_amount --ineffectual
-get_blind_amount = function(ante)
-	if G.GAME.ante_formula then
-		return G.GAME.ante_formula
-	end
-	return arbitrary_ante_scaling(ante)
 end
 
 -------------OPERATOR STUFF
@@ -547,7 +530,7 @@ SMODS.Gradient {
 
 SMODS.Consumable:take_ownership("cry_gateway", {
 	use = function(self, card, area, copier)
-		if not (Entropy and Entropy.DeckOrSleeve("doc")) and (#SMODS.find_card("j_jen_saint") + #SMODS.find_card("j_jen_saint_attuned")) <= 0 and not G.GAME.safe_gateway then
+		if not (Entropy and Entropy.DeckOrSleeve("doc")) and not G.GAME.safe_gateway then
 			local deletable_jokers = {}
 			for k, v in pairs(G.jokers.cards) do
 				if not v.ability.eternal then
@@ -626,27 +609,6 @@ SMODS.Consumable:take_ownership("cry_gateway", {
 --     end
 -- end
 
-function jlann(txt, duration, size, col, snd, sndpitch, sndvol) --i took this basically verbatim from jenlib, jen, if this needs to be removed tell me and ill remove it
-	if type(duration) == 'string' then
-		duration = (tonumber(duration) or 0) * G.SETTINGS.GAMESPEED
-	end
-	G.E_MANAGER:add_event(Event({
-		func = (function()
-			if snd then play_sound(snd, sndpitch, sndvol) end
-			attention_text({
-				scale = size or 1.4,
-				text = txt,
-				hold = duration or 2,
-				colour = col or G.C.WHITE,
-				align = 'cm',
-				offset = { x = 0, y = -2.7 },
-				major =
-					G.play
-			})
-			return true
-		end)
-	}))
-end
 
 -----------------------------------------------------scoremod stuff
 

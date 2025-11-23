@@ -19,7 +19,7 @@ SMODS.Blind{
 		if context.after and not G.GAME.blind.disabled then
 			G.E_MANAGER:add_event(Event({
 				func = function() 
-					G.GAME.chips = (to_big(G.GAME.chips))/(to_big(1.5))
+					G.GAME.chips = G.GAME.chips/1.5
 					G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
 					play_sound('slice1')
 					return true
